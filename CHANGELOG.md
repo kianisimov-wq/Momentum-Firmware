@@ -1,5 +1,6 @@
 ## Main changes
 - Current API: 87.1
+* NFC: Handle PPS request in ISO14443-4 layer (by @WillyJL)
 * Apps: **Check out more Apps updates and fixes by following** [this link](https://github.com/xMasterX/all-the-plugins/commits/dev)
 ## Other changes
 * Nothing yet.
