@@ -304,11 +304,13 @@ static bool subghz_protocol_keeloq_gen_data(
                 (strcmp(instance->manufacture_name, "Rosh") == 0) ||
                 (strcmp(instance->manufacture_name, "Rossi") == 0) ||
                 (strcmp(instance->manufacture_name, "Pecinin") == 0) ||
-                (strcmp(instance->manufacture_name, "Steelmate") == 0)) {
+                (strcmp(instance->manufacture_name, "Steelmate") == 0) ||
+                (strcmp(instance->manufacture_name, "Cardin_S449") == 0)) {
                 // DTM Neo, Came_Space uses 12bit serial -> simple learning
                 // FAAC_RC,XT , Mutanco_Mutancode, Genius_Bravo, GSN 12bit serial -> normal learning
                 // Rosh, Rossi, Pecinin -> 12bit serial - simple learning
                 // Steelmate -> 12bit serial - normal learning
+                // Cardin_S449 -> 12bit serial - normal learning
                 decrypt = btn << 28 | (instance->generic.serial & 0xFFF) << 16 |
                           instance->generic.cnt;
             } else if(
@@ -510,12 +512,16 @@ static bool
         (strcmp(instance->manufacture_name, "Monarch") == 0) ||
         (strcmp(instance->manufacture_name, "NICE_Smilo") == 0)) {
         klq_last_custom_btn = 0xB;
-    } else if((strcmp(instance->manufacture_name, "Novoferm") == 0)) {
+    } else if(
+        (strcmp(instance->manufacture_name, "Novoferm") == 0) ||
+        (strcmp(instance->manufacture_name, "Stilmatic") == 0)) {
         klq_last_custom_btn = 0x9;
     } else if((strcmp(instance->manufacture_name, "EcoStar") == 0)) {
         klq_last_custom_btn = 0x6;
     } else if((strcmp(instance->manufacture_name, "AN-Motors") == 0)) {
         klq_last_custom_btn = 0xC;
+    } else if((strcmp(instance->manufacture_name, "Cardin_S449") == 0)) {
+        klq_last_custom_btn = 0xD;
     }
 
     btn = subghz_protocol_keeloq_get_btn_code(klq_last_custom_btn);

@@ -169,7 +169,7 @@ void subghz_scene_signal_settings_on_enter(void* context) {
     furi_assert(byte_ptr);
     furi_assert(byte_count > 0);
 
-    //Create and Enable/Disable variable_item_list depent from current values
+    //Create and Enable/Disable variable_item_list depending on current values
     VariableItemList* variable_item_list = subghz->variable_item_list;
     int32_t value_index;
     VariableItem* item;
@@ -267,7 +267,7 @@ void subghz_scene_signal_settings_on_exit(void* context) {
         flipper_format_free(fff_data_file);
         furi_record_close(RECORD_STORAGE);
 
-        // we need reload file after editing when we exit from Signal Settings menu.
+        // we need to reload file after editing when we exit from Signal Settings menu.
         if(subghz_key_load(subghz, file_path, false)) {
             FURI_LOG_D(TAG, "Subghz file was successfully reloaded");
         } else {
