@@ -643,6 +643,16 @@ void subghz_scene_set_type_fill_generation_infos(GenInfo* infos_dest, SetType ty
             .keeloq.cnt = 0x03,
             .keeloq.manuf = "EcoStar"};
         break;
+    case SetTypeCardinS449_433FM:
+        gen_info = (GenInfo){
+            .type = GenKeeloq,
+            .mod = "FM12K",
+            .freq = 433920000,
+            .keeloq.serial = (key & 0x000FFFFF),
+            .keeloq.btn = 0x02,
+            .keeloq.cnt = 0x03,
+            .keeloq.manuf = "Cardin_S449"};
+        break;
     case SetTypeFAACRCXT_433_92:
         gen_info = (GenInfo){
             .type = GenKeeloq,

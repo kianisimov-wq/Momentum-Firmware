@@ -50,6 +50,7 @@ static const char* submenu_names[SetTypeMAX] = {
     [SetTypeJCM_433_92] = "KL: JCM Tech 433MHz",
     [SetTypeNovoferm_433_92] = "KL: Novoferm 433MHz",
     [SetTypeHormannEcoStar_433_92] = "KL: Hor. EcoStar 433MHz",
+    [SetTypeCardinS449_433FM] = "KL: Cardin S449 433MHz",
     [SetTypeFAACRCXT_433_92] = "KL: FAAC RC,XT 433MHz",
     [SetTypeFAACRCXT_868] = "KL: FAAC RC,XT 868MHz",
     [SetTypeGeniusBravo433] = "KL: Genius Bravo 433MHz",
