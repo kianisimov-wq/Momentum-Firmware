@@ -67,7 +67,7 @@ void subghz_scene_signal_settings_variable_item_list_enter_callback(void* contex
 
     // when we click OK on "Edit counter" item
     if(index == 1) {
-        furi_string_cat_printf(byte_input_text, "%i", subghz_block_generic_global.cnt_lenght_bit);
+        furi_string_cat_printf(byte_input_text, "%i", subghz_block_generic_global.cnt_length_bit);
         furi_string_cat_str(byte_input_text, "-bits counter in HEX");
 
         // Setup byte_input view
@@ -151,7 +151,7 @@ void subghz_scene_signal_settings_on_enter(void* context) {
 
         // Check is there byte_count more than 2 hex bytes long or not
         // To show hex value we must correct revert bytes for ByteInput view with __bswapХХ
-        if(subghz_block_generic_global.cnt_lenght_bit > 16) {
+        if(subghz_block_generic_global.cnt_length_bit > 16) {
             counter32 = subghz_block_generic_global.current_cnt;
             furi_string_printf(tmp_text, "%lX", counter32);
             counter32 = __bswap32(counter32);

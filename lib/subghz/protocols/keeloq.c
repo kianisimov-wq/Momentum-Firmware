@@ -1436,7 +1436,7 @@ void subghz_protocol_decoder_keeloq_get_string(void* context, FuriString* output
 
     if(strcmp(instance->manufacture_name, "BFT") == 0) {
         subghz_block_generic_global.cnt_is_available = true;
-        subghz_block_generic_global.cnt_lenght_bit = 16;
+        subghz_block_generic_global.cnt_length_bit = 16;
         subghz_block_generic_global.current_cnt = instance->generic.cnt;
         furi_string_cat_printf(
             output,
@@ -1474,7 +1474,7 @@ void subghz_protocol_decoder_keeloq_get_string(void* context, FuriString* output
             instance->manufacture_name);
     } else {
         subghz_block_generic_global.cnt_is_available = true;
-        subghz_block_generic_global.cnt_lenght_bit = 16;
+        subghz_block_generic_global.cnt_length_bit = 16;
         subghz_block_generic_global.current_cnt = instance->generic.cnt;
         furi_string_cat_printf(
             output,

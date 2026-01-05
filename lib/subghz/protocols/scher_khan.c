@@ -299,7 +299,7 @@ void subghz_protocol_decoder_scher_khan_get_string(void* context, FuriString* ou
 
     // use 'Cntr:' instead of 'Cnt:' to exclude this protocol counter from Counter edit
     // push protocol data to global variable
-    subghz_block_generic_global.cnt_lenght_bit = 16;
+    subghz_block_generic_global.cnt_length_bit = 16;
     subghz_block_generic_global.current_cnt = instance->generic.cnt;
 
     furi_string_cat_printf(

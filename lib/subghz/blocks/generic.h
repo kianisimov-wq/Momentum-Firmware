@@ -33,7 +33,7 @@ struct SubGhzBlockGenericGlobal {
     uint32_t current_cnt; // global counter value;
     uint32_t new_cnt; // global counter value;
     bool cnt_need_override; // flag for protocols to override signals counter inside of protocols
-    uint8_t cnt_lenght_bit; // counter lenght in bytes (used in counter editor giu)
+    uint8_t cnt_length_bit; // counter length in bytes (used in counter editor giu)
     bool cnt_is_available; // is there counter available for protocol (used in counter editor giu)
 };
 

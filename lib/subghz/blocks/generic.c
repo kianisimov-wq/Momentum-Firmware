@@ -17,10 +17,10 @@ void subghz_block_generic_global_counter_override_set(uint32_t counter) {
 
 bool subghz_block_generic_global_counter_override_get(uint32_t* counter) {
     // if override flag was enabled then return succes TRUE and return overrided counter, else return success = FALSE
-    // we cut counter bit lenght to available protocol bits lenght by the logical AND function
+    // we cut counter bit length to available protocol bits length by the logical AND function
     if(subghz_block_generic_global.cnt_need_override) {
         *counter = subghz_block_generic_global.new_cnt &
-                   ((0xFFFFFFFF >> (32 - subghz_block_generic_global.cnt_lenght_bit)));
+                   ((0xFFFFFFFF >> (32 - subghz_block_generic_global.cnt_length_bit)));
         subghz_block_generic_global.cnt_need_override = false;
         return true;
     } else {
