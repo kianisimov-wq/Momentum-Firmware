@@ -197,14 +197,13 @@ void subghz_scene_signal_settings_on_enter(void* context) {
     }
 
     // In protocols output we allways have HEX format for "Cnt:" output (text formating like ...Cnt:%05lX\r\n")
-    // we take 8 simbols starting from  "Cnt:........"
-    // at first we search "Cnt:????" that mean for this protocol counter cannot be decoded
+    // we take 8 symbols starting from  "Cnt:........"
+    // at first we search "Cnt:????" that means for this protocol counter cannot be decoded
 
     int8_t place = furi_string_search_str(tmp_text, "Cnt:??", 0);
     if(place > 0) {
         counter_mode = 0xff;
-        FURI_LOG_D(
-            TAG, "Founded Cnt:???? - Counter mode and edit not available for this protocol");
+        FURI_LOG_D(TAG, "Found Cnt:???? - Counter mode and edit not available for this protocol");
     } else {
         place = furi_string_search_str(tmp_text, "Cnt:", 0);
         if(place > 0) {
@@ -219,7 +218,7 @@ void subghz_scene_signal_settings_on_enter(void* context) {
             furi_string_trim(textCnt);
             FURI_LOG_D(
                 TAG,
-                "Taked 8 bytes hex value starting after 'Cnt:' - %s",
+                "Took 8 bytes hex value starting after 'Cnt:' - %s",
                 furi_string_get_cstr(textCnt));
 
             // trim and convert 8 simbols string to uint32 by base 16 (hex);
@@ -230,13 +229,13 @@ void subghz_scene_signal_settings_on_enter(void* context) {
                StrintParseNoError) {
                 counter_not_available = false;
 
-                // calculate and roundup number of hex bytes do display counter in byte_input (every 2 hex simbols = 1 byte for view)
+                // calculate and roundup number of hex bytes to display counter in byte_input (every 2 hex symbols = 1 byte for view)
                 // later must be used in byte_input to restrict number of available byte to edit
                 // cnt_byte_count = (hex_char_lenght + 1) / 2;
 
                 FURI_LOG_D(
                     TAG,
-                    "Result of conversion from String to uint_32 DEC %li, HEX %lX, HEX lenght %i symbols",
+                    "Result of conversion from String to uint_32 DEC %li, HEX %lX, HEX length %i symbols",
                     loaded_counter32,
                     loaded_counter32,
                     hex_char_lenght);
@@ -268,7 +267,7 @@ void subghz_scene_signal_settings_on_enter(void* context) {
     furi_assert(byte_ptr);
     furi_assert(byte_count > 0);
 
-    //Create and Enable/Disable variable_item_list depent from current values
+    //Create and Enable/Disable variable_item_list depending on current values
     VariableItemList* variable_item_list = subghz->variable_item_list;
     int32_t value_index;
     VariableItem* item;
@@ -315,7 +314,7 @@ bool subghz_scene_signal_settings_on_event(void* context, SceneManagerEvent even
                 // when signal has Cnt:00 we can step only to 0000+FFFF = FFFF, but we need 0000 for next step
                 // for this case we must use +1 additional step to increace Cnt from FFFF to 0000.
 
-                // save current user definded counter increase value (mult)
+                // save current user defined counter increase value (mult)
                 tmp_counter = furi_hal_subghz_get_rolling_counter_mult();
 
                 // increase signal counter to max value - at result it must be 0000 in most cases
@@ -411,7 +410,7 @@ void subghz_scene_signal_settings_on_exit(void* context) {
         flipper_format_free(fff_data_file);
         furi_record_close(RECORD_STORAGE);
 
-        // we need reload file after editing when we exit from Signal Settings menu.
+        // we need to reload file after editing when we exit from Signal Settings menu.
         if(subghz_key_load(subghz, file_path, false)) {
             FURI_LOG_D(TAG, "Subghz file was successfully reloaded");
         } else {
