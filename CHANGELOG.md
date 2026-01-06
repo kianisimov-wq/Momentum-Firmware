@@ -6,6 +6,7 @@
 * SubGHz: **Stilmatic - button 9 support** (two buttons hold simulation)
 * SubGHz: **Counter editor refactoring** (PR #939 | by @Dmitry422)
 * NFC: Handle PPS request in ISO14443-4 layer (by @WillyJL)
+* Archive: Allow folders to be pinned (by @WillyJL)
 * Apps: **Check out more Apps updates and fixes by following** [this link](https://github.com/xMasterX/all-the-plugins/commits/dev)
 ## Other changes
 * NFC: Fix some typos in Type4Tag protocol (by @WillyJL)
