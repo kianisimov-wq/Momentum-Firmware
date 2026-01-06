@@ -122,6 +122,12 @@ static void render_item_menu(Canvas* canvas, ArchiveBrowserViewModel* model) {
                     menu_array_push_raw(model->context_menu),
                     item_pin,
                     ArchiveBrowserEventFileMenuPin);
+                if(model->tab_idx == ArchiveTabFavorites) {
+                    archive_menu_add_item(
+                        menu_array_push_raw(model->context_menu),
+                        "Move",
+                        ArchiveBrowserEventEnterFavMove);
+                }
             }
         } else if(!archive_is_known_app(selected->type)) {
             // UnKnown app type
