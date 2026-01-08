@@ -105,14 +105,18 @@ static void desktop_clock_draw_callback(Canvas* canvas, void* context) {
     }
 
     char buffer[20];
-    snprintf(buffer, sizeof(buffer), "%02u:%02u", hour, desktop->clock.minute);
+    if(furi_hal_rtc_is_flag_set(FuriHalRtcFlagDebug)) {
+        snprintf(buffer, sizeof(buffer), "D %02u:%02u", hour, desktop->clock.minute);
+    } else {
+        snprintf(buffer, sizeof(buffer), "%02u:%02u", hour, desktop->clock.minute);
+    }
 
-    view_port_set_width(
-        desktop->clock_viewport,
-        canvas_string_width(canvas, buffer) - 1 + (desktop->clock.minute % 10 == 1));
+        view_port_set_width(
+            desktop->clock_viewport,
+            canvas_string_width(canvas, buffer) - 1 + (desktop->clock.minute % 10 == 1));
 
-    canvas_draw_str_aligned(canvas, 0, 8, AlignLeft, AlignBottom, buffer);
-}
+        canvas_draw_str_aligned(canvas, 0, 8, AlignLeft, AlignBottom, buffer);
+    }
 
 static void desktop_stealth_mode_icon_draw_callback(Canvas* canvas, void* context) {
     UNUSED(context);
