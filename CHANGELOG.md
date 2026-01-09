@@ -8,6 +8,7 @@
 * SubGHz: **Alutech AT-4N & Nice Flor S turbo speedup** (PR #942 | by @Dmitry422)
 * SubGHz: **Sommer fm2 in Add manually now uses FM12K modulation** (Sommer without fm2 tag uses FM476) (try this if regular option doesn't work for you)
 * SubGHz: **Sommer - last button code 0x6 support** (mapped on arrow keys)
+* SubGHz: Add 390MHz, 430.5MHz to default hopper list (6 elements like in OFW) (works well with Hopper RSSI level set for your enviroment)
 * NFC: Handle PPS request in ISO14443-4 layer (by @WillyJL)
 * Archive: Allow folders to be pinned (by @WillyJL)
 * Apps: Build tag (**9jan2026p2**) - **Check out more Apps updates and fixes by following** [this link](https://github.com/xMasterX/all-the-plugins/commits/dev)
