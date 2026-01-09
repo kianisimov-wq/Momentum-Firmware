@@ -273,6 +273,7 @@ Enhance your Flipper Zero with apps and plugins created by the community:
 
 ### ![SubGhz Icon Badge] Sub-GHz
 
+- [Full list of supported protocols and their frequencies/modulations (to use in Read mode)](/documentation/SubGHzSupportedSystems.md)  
 - [How to use Flipper as rolling code remote (Doorhan, Nice FlorS, BFT Mitto, Somfy Telis, Aprimatic, AN-Motors, etc..)](/documentation/SubGHzRemoteProg.md)  
 - [Experimental rolling code counter modes (avoid desync)](/documentation/SubGHzCounterMode.md)  
 - External Radio: [How to connect CC1101 module](https://github.com/quen0n/flipperzero-ext-cc1101)  
