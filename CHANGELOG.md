@@ -3,10 +3,11 @@
 * SubGHz: **Cardin S449 full support** (with Add manually, and all button codes) (**use FSK12K modulation to read the remote**) (closes issues #735 #908) (by @xMasterX and @zero-mega (thanks!))
 * SubGHz: Added **new modulation FSK with 12KHz deviation**
 * SubGHz: **KingGates Stylo 4k - Add manually and button switch support** + refactoring of encoder
-* SubGHz: **Stilmatic - button 9 support** (two buttons hold simulation)
+* SubGHz: **Stilmatic - button 9 support** (two buttons hold simulation) (mapped on arrow keys)
 * SubGHz: **Counter editor refactoring** (PR #939 | by @Dmitry422)
 * SubGHz: **Alutech AT-4N & Nice Flor S turbo speedup** (PR #942 | by @Dmitry422)
 * SubGHz: **Sommer fm2 in Add manually now uses FM12K modulation** (Sommer without fm2 tag uses FM476) (try this if regular option doesn't work for you)
+* SubGHz: **Sommer - last button code 0x6 support** (mapped on arrow keys)
 * NFC: Handle PPS request in ISO14443-4 layer (by @WillyJL)
 * Archive: Allow folders to be pinned (by @WillyJL)
 * Apps: Build tag (**9jan2026p2**) - **Check out more Apps updates and fixes by following** [this link](https://github.com/xMasterX/all-the-plugins/commits/dev)
