@@ -24,7 +24,7 @@
 
 [-> How to install firmware](https://github.com/DarkFlippers/unleashed-firmware/blob/dev/documentation/HowToInstall.md)
 
-[-> Download qFlipper (official link)](https://flipperzero.one/update)
+[-> Unleashed FW Web Installer](https://web.unleashedflip.com)
 
 ## Please support development of the project
 
