@@ -141,7 +141,7 @@ LevelDuration subghz_protocol_encoder_alutech_at_4n_yield(void* context) {
 }
 
 /**
- * Read bytes from rainbow table
+ * Read bytes from buffer array with rainbow table 
  * @param buffer Pointer to decrypted magic data buffer
  * @param number_alutech_at_4n_magic_data number in the array
  * @return alutech_at_4n_magic_data
@@ -190,7 +190,8 @@ static uint8_t subghz_protocol_alutech_at_4n_decrypt_data_crc(uint8_t data) {
 }
 
 static uint64_t subghz_protocol_alutech_at_4n_decrypt(uint64_t data, const char* file_name) {
-    if(!strcmp(file_name, "")) return SUBGHZ_NO_ALUTECH_AT_4N_RAINBOW_TABLE;
+    // load and decrypt rainbow table from file to buffer array in RAM
+    if(!file_name) return SUBGHZ_NO_ALUTECH_AT_4N_RAINBOW_TABLE;
 
     uint8_t buffer[SUBGHZ_ALUTECH_AT_4N_RAINBOW_TABLE_SIZE_BYTES] = {0};
     uint8_t* buffer_ptr = (uint8_t*)&buffer;
@@ -236,7 +237,8 @@ static uint64_t subghz_protocol_alutech_at_4n_decrypt(uint64_t data, const char*
 }
 
 static uint64_t subghz_protocol_alutech_at_4n_encrypt(uint64_t data, const char* file_name) {
-    if(!strcmp(file_name, "")) return SUBGHZ_NO_ALUTECH_AT_4N_RAINBOW_TABLE;
+    // load and decrypt rainbow table from file to buffer array in RAM
+    if(!file_name) return SUBGHZ_NO_ALUTECH_AT_4N_RAINBOW_TABLE;
 
     uint8_t buffer[SUBGHZ_ALUTECH_AT_4N_RAINBOW_TABLE_SIZE_BYTES] = {0};
     uint8_t* buffer_ptr = (uint8_t*)&buffer;
