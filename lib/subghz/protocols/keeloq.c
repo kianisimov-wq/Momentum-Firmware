@@ -518,7 +518,7 @@ static bool
         klq_last_custom_btn = 0x9;
     } else if(
         (strcmp(instance->manufacture_name, "EcoStar") == 0) ||
-        (strcmp(instance->manufacture_name, "Sommer(fsk476)") == 0)) {
+        (strcmp(instance->manufacture_name, "Sommer") == 0)) {
         klq_last_custom_btn = 0x6;
     } else if((strcmp(instance->manufacture_name, "AN-Motors") == 0)) {
         klq_last_custom_btn = 0xC;

@@ -13,6 +13,7 @@
 * Archive: Allow folders to be pinned (by @WillyJL)
 * Apps: Build tag (**9jan2026p2**) - **Check out more Apps updates and fixes by following** [this link](https://github.com/xMasterX/all-the-plugins/commits/dev)
 ## Other changes
+* SubGHz: Rename Sommer(fsk476) to Sommer (Sommer keeloq works better with FM12K)
 * Docs: Add full list of supported SubGHz protocols and their frequencies/modulations that can be used for reading remotes - [Docs Link](https://github.com/DarkFlippers/unleashed-firmware/blob/dev/documentation/SubGHzSupportedSystems.md)
 * Desktop: Show debug status (D) if clock is enabled and debug flag is on (PR #942 | by @Dmitry422)
 * NFC: Fix some typos in Type4Tag protocol (by @WillyJL)
