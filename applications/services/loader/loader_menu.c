@@ -134,19 +134,19 @@ static void loader_menu_build_menu(LoaderMenuApp* app, LoaderMenu* menu) {
 }
 
 static void loader_menu_build_submenu(LoaderMenuApp* app, LoaderMenu* loader_menu) {
-    for(size_t i = 0; i < FLIPPER_SETTINGS_APPS_COUNT; i++) {
-        submenu_add_item_ex(
-            app->settings_menu,
-            FLIPPER_SETTINGS_APPS[i].name,
-            (uint32_t)FLIPPER_SETTINGS_APPS[i].name,
-            loader_menu_settings_menu_callback,
-            loader_menu);
-    }
     for(size_t i = 0; i < FLIPPER_EXTSETTINGS_APPS_COUNT; i++) {
         submenu_add_item_ex(
             app->settings_menu,
             FLIPPER_EXTSETTINGS_APPS[i].name,
             (uint32_t)FLIPPER_EXTSETTINGS_APPS[i].name,
+            loader_menu_settings_menu_callback,
+            loader_menu);
+    }
+    for(size_t i = 0; i < FLIPPER_SETTINGS_APPS_COUNT; i++) {
+        submenu_add_item_ex(
+            app->settings_menu,
+            FLIPPER_SETTINGS_APPS[i].name,
+            (uint32_t)FLIPPER_SETTINGS_APPS[i].name,
             loader_menu_settings_menu_callback,
             loader_menu);
     }
