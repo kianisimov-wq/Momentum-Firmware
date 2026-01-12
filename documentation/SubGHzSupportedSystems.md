@@ -69,9 +69,6 @@ That list is only for default SubGHz app, apps like *Weather Station* have their
 
 ### Alarms
 - Hollarm `433.92MHz` `AM650` (42 bits, Static) - Bike alarms
-- Scher Khan `433.92MHz` `AM650` (35-82 bits, Dynamic) - Russian external car alarm system (Decode and display only), 200x year
-- Kia `433/434MHz` `FSK476` (61 bits, Dynamic) - Car alarm system (Decode and display only)
-- Star Line `433.92MHz` `AM650` (KeeLoq based, 64 bits) - Russian external car alarm system, 200x year
 - GangQi `433.92MHz` `AM650` (34 bits, Static) - Bike alarms
 
 
