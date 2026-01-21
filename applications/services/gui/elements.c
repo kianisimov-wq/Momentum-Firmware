@@ -339,7 +339,7 @@ void elements_multiline_text_aligned(
     furi_check(text);
 
     size_t lines_count = 0;
-    size_t font_height = canvas_current_font_height(canvas) - 1;
+    size_t font_height = canvas_current_font_height(canvas);
     FuriString* line;
 
     /* go through text line by line and count lines */
@@ -384,7 +384,7 @@ void elements_multiline_text(Canvas* canvas, int32_t x, int32_t y, const char* t
     furi_check(canvas);
     furi_check(text);
 
-    size_t font_height = canvas_current_font_height(canvas) - 1;
+    size_t font_height = canvas_current_font_height(canvas);
     FuriString* str;
     str = furi_string_alloc();
     const char* start = text;
@@ -407,7 +407,7 @@ void elements_multiline_text_framed(Canvas* canvas, int32_t x, int32_t y, const 
     furi_check(canvas);
     furi_check(text);
 
-    size_t font_height = canvas_current_font_height(canvas) - 1;
+    size_t font_height = canvas_current_font_height(canvas);
     size_t str_width = canvas_string_width(canvas, text);
 
     // count \n's
@@ -778,7 +778,7 @@ void elements_text_box(
     // Fill line parameters
     size_t line_leading_min = font_params->leading_min;
     size_t line_leading_default = font_params->leading_default;
-    size_t line_height = font_params->height - 1;
+    size_t line_height = font_params->height;
     size_t line_descender = font_params->descender;
     size_t line_num = 0;
     size_t line_width = 0;
