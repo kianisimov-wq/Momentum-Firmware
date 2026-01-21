@@ -20,6 +20,7 @@ That list is only for default SubGHz app, apps like *Weather Station* have their
 - AN-Motors (Alutech) AT4 `433.92MHz` `AM650` (64 bits, Pseudo-Dynamic, KeeLoq based)
 - Ansonic `433MHz` `FM` (12 bits, Static)
 - BETT `433.92MHz` `AM650` (18 bits, Static)
+- Beninca ARC (TOGO2VA) `433.92MHz` `AM650` (128 bits, Dynamic AES)
 - BFT Mitto `433.92MHz` `AM650` (64 bits, Dynamic, KeeLoq based with Seed)
 - CAME Atomo `433.92MHz, 868MHz` `AM650` (62 bits, Dynamic)
 - CAME TWEE `433.92MHz` `AM650` (54 bits, Static)
