@@ -26,4 +26,6 @@
 - UL: NFC: Fix LED not blinking at SLIX unlock (by @xMasterX)
 
 ### Removed:
-- SUb-GHz: Removed Starline, ScherKhan and Kia protocols from main Sub-GHz app, they can be decoded with `Apps > Sub-GHz > ProtoPirate` external app
+- Sub-GHz:
+  - Removed Starline, ScherKhan and Kia protocols from main Sub-GHz app, they can be decoded with `Apps > Sub-GHz > ProtoPirate` external app
+  - Disabled X10 and Hormann Bisecur protocols due to flash space constraints and very limited usefulness, Momentum now has same protocol list as Unleashed
