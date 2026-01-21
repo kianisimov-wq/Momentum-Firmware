@@ -153,7 +153,7 @@ static bool subghz_protocol_faac_slh_gen_data(SubGhzProtocolEncoderFaacSLH* inst
                     }
                 }
             } else {
-                // to do OFEX mode
+                // TODO: OFEX mode
                 instance->generic.cnt += 1;
             }
 
