@@ -17,6 +17,8 @@
 * Apps: Build tag (**21jan2026**) - **Check out more Apps updates and fixes by following** [this link](https://github.com/xMasterX/all-the-plugins/commits/dev)
 ## Other changes
 * NFC: Fix LED not blinking at SLIX unlock (closes issue #945)
+* SubGHz: Replaced Cars ignore option with Revers RB2 protocol ignore option
+* SubGHz: Moved Starline, ScherKhan, Kia decoders into external app
 * SubGHz: Possible Sommer timings fix
 * SubGHz: Various fixes
 * SubGHz: Nice Flor S remove extra uint64 variable
