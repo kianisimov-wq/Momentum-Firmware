@@ -13,6 +13,19 @@
 - UL: Docs: Add [full list of supported SubGHz protocols](https://github.com/Next-Flip/Momentum-Firmware/blob/dev/documentation/SubGHzSupportedSystems.md) and their frequencies/modulations that can be used for reading remotes (by @xMasterX)
 
 ### Updated:
+- Apps:
+  - CAN Tools: Parity with DBC format, support importing DBC files (by @MatthewKuKanich)
+  - ESP Flasher: Bump Marauder 1.9.1 (by @justcallmekoko), Marauder 1.9.0 support (by @H4W9)
+  - FlipSocial: Autocomplete, keyboard improvements, bugfixes (by @jblanked)
+  - Geometry Dash: Major refactor, bugfixes and performance improvements, rename from Geometry Flip (by @gooseprjkt)
+  - HC-SR04 Distance Sensor: Option to change measure units (by @Tyl3rA)
+  - IconEdit: Save/Send animations, settings tab with canvas scale and cursor guides, bugfixes (by @rdefeo)
+  - NFC Login: Code refactor, bugfixes, renamed from NFC PC Login (by @Play2BReal)
+  - Seader: SAM ATR3 support, better IFSC/IFSD handling, various improvements (by @bettse)
+  - Seos Compatible: Seos write support, various improvements (by @aaronjamt)
+  - Sub-GHz Scheduler: Added new interval times, bugfixes and improvements (by @shalebridge)
+  - Unitemp: Numerous improvements from @MLAB-project fork (by @MLAB-project)
+  - UL: Update Sub-GHz apps for FM12K modulation (by @xMasterX)
 - Sub-GHz:
   - UL: Counter editor refactoring (by @Dmitry422)
   - UL: Alutech AT-4N & Nice Flor S turbo speedup (by @Dmitry422)
