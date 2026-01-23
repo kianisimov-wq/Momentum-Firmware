@@ -3,7 +3,7 @@
 #include <dolphin/dolphin.h>
 
 #include <lib/subghz/blocks/custom_btn.h>
-
+#include <lib/subghz/devices/devices.c>
 #define TAG "SubGhzSceneTransmitter"
 
 void subghz_scene_transmitter_callback(SubGhzCustomEvent event, void* context) {
@@ -72,25 +72,56 @@ bool subghz_scene_transmitter_on_event(void* context, SceneManagerEvent event) {
                 subghz->state_notifications = SubGhzNotificationStateTx;
                 subghz_scene_transmitter_update_data_show(subghz);
                 dolphin_deed(DolphinDeedSubGhzSend);
+
+                // #subghz_one_press_send# - keyword to search changes
+                // #start insert#
+
+                // TODO change while condition to subghz_devices_is_async_complete_tx(subghz->txrx->radio_device);
+                // while(
+                //     !(furi_hal_subghz_is_async_tx_complete() &&
+                //       subghz_device_cc1101_ext_is_async_tx_complete())) {
+                //     notification_message(subghz->notifications, &sequence_blink_magenta_10);
+                // }
+
+                while(!furi_hal_subghz_is_async_tx_complete()) {
+                    notification_message(subghz->notifications, &sequence_blink_magenta_10);
+                }
+                subghz->state_notifications = SubGhzNotificationStateIDLE;
+                subghz_txrx_stop(subghz->txrx);
+                if(subghz_custom_btn_get() != SUBGHZ_CUSTOM_BTN_OK) {
+                    subghz_custom_btn_set(SUBGHZ_CUSTOM_BTN_OK);
+                    int32_t tmp_counter = furi_hal_subghz_get_rolling_counter_mult();
+                    furi_hal_subghz_set_rolling_counter_mult(0);
+                    // Calling restore!
+                    subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx));
+                    subghz_txrx_stop(subghz->txrx);
+                    // Calling restore 2nd time special for FAAC SLH!
+                    // TODO: Find better way to restore after custom button is used!!!
+                    subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx));
+                    subghz_txrx_stop(subghz->txrx);
+                    furi_hal_subghz_set_rolling_counter_mult(tmp_counter);
+                }
+                // #end insert#
             }
             return true;
-        } else if(event.event == SubGhzCustomEventViewTransmitterSendStop) {
-            subghz->state_notifications = SubGhzNotificationStateIDLE;
-            subghz_txrx_stop(subghz->txrx);
-            if(subghz_custom_btn_get() != SUBGHZ_CUSTOM_BTN_OK) {
-                subghz_custom_btn_set(SUBGHZ_CUSTOM_BTN_OK);
-                int32_t tmp_counter = furi_hal_subghz_get_rolling_counter_mult();
-                furi_hal_subghz_set_rolling_counter_mult(0);
-                // Calling restore!
-                subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx));
-                subghz_txrx_stop(subghz->txrx);
-                // Calling restore 2nd time special for FAAC SLH!
-                // TODO: Find better way to restore after custom button is used!!!
-                subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx));
-                subghz_txrx_stop(subghz->txrx);
-                furi_hal_subghz_set_rolling_counter_mult(tmp_counter);
-            }
-            return true;
+            // #subghz_one_press_send# - keyword to search changes
+            // } else if(event.event == SubGhzCustomEventViewTransmitterSendStop) {
+            //     subghz->state_notifications = SubGhzNotificationStateIDLE;
+            //     subghz_txrx_stop(subghz->txrx);
+            //     if(subghz_custom_btn_get() != SUBGHZ_CUSTOM_BTN_OK) {
+            //         subghz_custom_btn_set(SUBGHZ_CUSTOM_BTN_OK);
+            //         int32_t tmp_counter = furi_hal_subghz_get_rolling_counter_mult();
+            //         furi_hal_subghz_set_rolling_counter_mult(0);
+            //         // Calling restore!
+            //         subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx));
+            //         subghz_txrx_stop(subghz->txrx);
+            //         // Calling restore 2nd time special for FAAC SLH!
+            //         // TODO: Find better way to restore after custom button is used!!!
+            //         subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx));
+            //         subghz_txrx_stop(subghz->txrx);
+            //         furi_hal_subghz_set_rolling_counter_mult(tmp_counter);
+            //     }
+            //     return true;
         } else if(event.event == SubGhzCustomEventViewTransmitterBack) {
             subghz->state_notifications = SubGhzNotificationStateIDLE;
             scene_manager_search_and_switch_to_previous_scene(

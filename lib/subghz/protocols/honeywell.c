@@ -98,7 +98,7 @@ void* subghz_protocol_encoder_honeywell_alloc(SubGhzEnvironment* environment) {
     instance->base.protocol = &subghz_protocol_honeywell;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 4;
+    instance->encoder.repeat = 5;
     instance->encoder.size_upload = 64 * 2 + 10;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
@@ -211,10 +211,7 @@ SubGhzProtocolStatus
             break;
         }
 
-        // Optional value
-        flipper_format_read_uint32(
-            flipper_format, "Repeat", (uint32_t*)&instance->encoder.repeat, 1);
-
+ 
         subghz_protocol_encoder_honeywell_get_upload(instance);
 
         if(!flipper_format_rewind(flipper_format)) {

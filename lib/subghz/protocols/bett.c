@@ -169,10 +169,7 @@ SubGhzProtocolStatus
             FURI_LOG_E(TAG, "Deserialize error");
             break;
         }
-        // Optional value
-        flipper_format_read_uint32(
-            flipper_format, "Repeat", (uint32_t*)&instance->encoder.repeat, 1);
-
+ 
         if(!subghz_protocol_encoder_bett_get_upload(instance)) {
             ret = SubGhzProtocolStatusErrorEncoderGetUpload;
             break;
