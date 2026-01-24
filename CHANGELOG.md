@@ -17,6 +17,7 @@
 * Apps: Build tag (**22jan2026**) - **Check out more Apps updates and fixes by following** [this link](https://github.com/xMasterX/all-the-plugins/commits/dev)
 ## Other changes
 * UI: Various small changes
+* OFW PR 4333: NFC: Fix sending 32+ byte ISO 15693-3 commands (by @WillyJL)
 * NFC: Fix LED not blinking at SLIX unlock (closes issue #945)
 * SubGHz: Replaced Cars ignore option with Revers RB2 protocol ignore option
 * SubGHz: Moved Starline, ScherKhan, Kia decoders into external app
