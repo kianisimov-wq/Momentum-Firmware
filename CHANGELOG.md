@@ -1,5 +1,6 @@
 ### Added:
 - Apps:
+  - NFC: ISO 15693-3 NFC Writer (by @ch4istO)
   - Sub-GHz: ProtoPirate (by @RocketGod-git & @xMasterX & @zero-mega et al.)
 - Sub-GHz:
   - UL: Cardin S449 protocol full support (64bit keeloq) (with Add manually, and all button codes) (use FSK12K modulation to read the remote) (by @xMasterX & @zero-mega)
