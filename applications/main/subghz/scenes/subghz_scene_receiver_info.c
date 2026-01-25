@@ -2,6 +2,8 @@
 
 #include <lib/subghz/blocks/custom_btn.h>
 
+#include "applications/main/subghz/helpers/subghz_txrx_i.h"
+
 #define TAG "SubGhzSceneReceiverInfo"
 
 void subghz_scene_receiver_info_callback(GuiButtonType result, InputType type, void* context) {
@@ -138,6 +140,12 @@ bool subghz_scene_receiver_info_on_event(void* context, SceneManagerEvent event)
             return true;
         } else if(event.event == SubGhzCustomEventSceneReceiverInfoTxStop) {
             //CC1101 Stop Tx -> Start RX
+            // #subghz_one_press_send# - keyword to search changes
+            // when user release OK button we wait until full data packed will send and later stop TX
+            while(!subghz_devices_is_async_complete_tx(subghz->txrx->radio_device)) {
+                notification_message(subghz->notifications, &sequence_blink_magenta_10);
+            }
+            //#
             subghz->state_notifications = SubGhzNotificationStateIDLE;
 
             widget_reset(subghz->widget);

@@ -98,8 +98,6 @@ typedef struct {
 
 static SubGhzDeviceCC1101Ext* subghz_device_cc1101_ext = NULL;
 
-bool subghz_device_cc1101_ext_is_async_tx_complete(void);
-
 static bool subghz_device_cc1101_ext_check_init(void) {
     furi_assert(subghz_device_cc1101_ext->state == SubGhzDeviceCC1101ExtStateInit);
     subghz_device_cc1101_ext->state = SubGhzDeviceCC1101ExtStateIdle;

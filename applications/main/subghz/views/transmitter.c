@@ -6,9 +6,6 @@
 
 #include <lib/subghz/blocks/custom_btn.h>
 
-#include <applications/drivers/subghz/cc1101_ext/cc1101_ext.h>
-#include <targets/f7/furi_hal/furi_hal_subghz.h>
-
 struct SubGhzViewTransmitter {
     View* view;
     SubGhzViewTransmitterCallback callback;
@@ -158,10 +155,7 @@ bool subghz_view_transmitter_input(InputEvent* event, void* context) {
         true);
 
     if(can_be_sent) {
-        // #subghz_one_press_send# - keyword to search changes
-        bool allow_events = furi_hal_subghz_is_async_tx_complete() && subghz_device_cc1101_ext_is_async_tx_complete ();
-        // #
-        if(event->key == InputKeyOk && event->type == InputTypePress && allow_events) {
+        if(event->key == InputKeyOk && event->type == InputTypePress) {
             subghz_custom_btn_set(SUBGHZ_CUSTOM_BTN_OK);
             with_view_model(
                 subghz_transmitter->view,
@@ -174,11 +168,10 @@ bool subghz_view_transmitter_input(InputEvent* event, void* context) {
             subghz_transmitter->callback(
                 SubGhzCustomEventViewTransmitterSendStart, subghz_transmitter->context);
             return true;
-        // #subghz_one_press_send# - keyword to search changes
-        // } else if(event->key == InputKeyOk && event->type == InputTypeRelease) {
-        //     subghz_transmitter->callback(
-        //         SubGhzCustomEventViewTransmitterSendStop, subghz_transmitter->context);
-        //     return true;
+        } else if(event->key == InputKeyOk && event->type == InputTypeRelease) {
+            subghz_transmitter->callback(
+                SubGhzCustomEventViewTransmitterSendStop, subghz_transmitter->context);
+            return true;
         } // Finish "OK" key processing
 
         if(subghz_custom_btn_is_allowed()) {
@@ -196,7 +189,7 @@ bool subghz_view_transmitter_input(InputEvent* event, void* context) {
                 return true;
             }
 
-            if(event->type == InputTypePress && allow_events) {
+            if(event->type == InputTypePress) {
                 with_view_model(
                     subghz_transmitter->view,
                     SubGhzViewTransmitterModel * model,
@@ -216,11 +209,10 @@ bool subghz_view_transmitter_input(InputEvent* event, void* context) {
                 subghz_transmitter->callback(
                     SubGhzCustomEventViewTransmitterSendStart, subghz_transmitter->context);
                 return true;
-            // #subghz_one_press_send# - keyword to search changes
-            // } else if(event->type == InputTypeRelease) {
-            //     subghz_transmitter->callback(
-            //         SubGhzCustomEventViewTransmitterSendStop, subghz_transmitter->context);
-            //     return true;
+            } else if(event->type == InputTypeRelease) {
+                subghz_transmitter->callback(
+                    SubGhzCustomEventViewTransmitterSendStop, subghz_transmitter->context);
+                return true;
             }
         }
     }
