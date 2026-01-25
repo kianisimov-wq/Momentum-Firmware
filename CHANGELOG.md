@@ -41,6 +41,7 @@
 - NFC:
   - Fix sending 32+ byte ISO 15693-3 commands (by @WillyJL)
   - UL: Fix LED not blinking at SLIX unlock (by @xMasterX)
+- UL: UI: Some small changes (by @xMasterX)
 
 ### Removed:
 - Sub-GHz:
