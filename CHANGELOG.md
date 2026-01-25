@@ -1,7 +1,7 @@
 ## Main changes
 - Current API: 87.4
 * SubGHz: **Cardin S449 protocol full support** (64bit keeloq) (with Add manually, and all button codes) (**use FSK12K modulation to read the remote**) (closes issues #735 #908) (by @xMasterX and @zero-mega (thanks!))
-* SubGHz: **Beninca ARC AES128 protocol full support** (128bit dynamic) (with Add manually, and 2 button codes) (resolves issue #596) (by @xMasterX and @zero-mega)
+* SubGHz: **Beninca ARC AES128 protocol full support** (128bit dynamic) (with Add manually, and 3 button codes) (resolves issue #596) (by @xMasterX and @zero-mega)
 * SubGHz: **Treadmill37 protocol support** (37bit static) (by @xMasterX)
 * SubGHz: **New modulation FSK with 12KHz deviation**
 * SubGHz: **KingGates Stylo 4k - Add manually and button switch support** + refactoring of encoder
