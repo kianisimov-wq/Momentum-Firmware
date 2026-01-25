@@ -38,7 +38,9 @@
   - UL: Possible Sommer timings fix (by @xMasterX)
   - UL: Various fixes (by @xMasterX)
   - UL: Nice Flor S remove extra uint64 variable (by @xMasterX)
-- UL: NFC: Fix LED not blinking at SLIX unlock (by @xMasterX)
+- NFC:
+  - Fix sending 32+ byte ISO 15693-3 commands (by @WillyJL)
+  - UL: Fix LED not blinking at SLIX unlock (by @xMasterX)
 
 ### Removed:
 - Sub-GHz:
