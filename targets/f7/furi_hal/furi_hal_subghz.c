@@ -867,11 +867,6 @@ bool furi_hal_subghz_start_async_tx(FuriHalSubGhzAsyncTxCallback callback, void*
 
 bool furi_hal_subghz_is_async_tx_complete(void) {
     return (furi_hal_subghz.state == SubGhzStateAsyncTx) && (LL_TIM_GetAutoReload(TIM2) == 0);
-    FURI_LOG_I(
-        TAG,
-        "SubGhzStateAsyncTx %d , TIM2-ARR %ld",
-        furi_hal_subghz.state,
-        LL_TIM_GetAutoReload(TIM2));
 }
 
 void furi_hal_subghz_stop_async_tx(void) {
