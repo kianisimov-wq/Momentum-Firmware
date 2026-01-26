@@ -160,7 +160,11 @@ SubGhzProtocolStatus
         if(ret != SubGhzProtocolStatusOk) {
             break;
         }
- 
+
+        // Optional value
+        flipper_format_read_uint32(
+            flipper_format, "Repeat", (uint32_t*)&instance->encoder.repeat, 1);
+
         subghz_protocol_feron_check_remote_controller(&instance->generic);
         subghz_protocol_encoder_feron_get_upload(instance);
         instance->encoder.is_running = true;

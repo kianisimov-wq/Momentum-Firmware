@@ -279,7 +279,11 @@ SubGhzProtocolStatus
             break;
         }
 
-         // flipper_format_read_uint32(
+        // Optional value
+        flipper_format_read_uint32(
+            flipper_format, "Repeat", (uint32_t*)&instance->encoder.repeat, 1);
+
+        // flipper_format_read_uint32(
         // flipper_format, "Data", (uint32_t*)&instance->generic.data_2, 1);
         if(!flipper_format_rewind(flipper_format)) {
             FURI_LOG_E(TAG, "Rewind error");

@@ -667,7 +667,10 @@ SubGhzProtocolStatus
         subghz_protocol_keeloq_check_remote_controller(
             &instance->generic, instance->keystore, &instance->manufacture_name);
 
- 
+        // Optional value
+        flipper_format_read_uint32(
+            flipper_format, "Repeat", (uint32_t*)&instance->encoder.repeat, 1);
+
         if(!subghz_protocol_encoder_keeloq_get_upload(instance, instance->generic.btn)) {
             ret = SubGhzProtocolStatusErrorEncoderGetUpload;
             break;

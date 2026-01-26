@@ -341,7 +341,10 @@ SubGhzProtocolStatus
             break;
         }
 
- 
+        // Optional value
+        flipper_format_read_uint32(
+            flipper_format, "Repeat", (uint32_t*)&instance->encoder.repeat, 1);
+
         subghz_protocol_encoder_somfy_telis_get_upload(instance, instance->generic.btn);
 
         if(!flipper_format_rewind(flipper_format)) {

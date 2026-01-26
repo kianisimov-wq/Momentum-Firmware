@@ -267,7 +267,11 @@ SubGhzProtocolStatus
         if(ret != SubGhzProtocolStatusOk) {
             break;
         }
- 
+
+        // Optional value
+        flipper_format_read_uint32(
+            flipper_format, "Repeat", (uint32_t*)&instance->encoder.repeat, 1);
+
         subghz_protocol_hay21_remote_controller(&instance->generic);
         subghz_protocol_encoder_hay21_get_upload(instance);
 

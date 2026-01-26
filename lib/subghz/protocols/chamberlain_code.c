@@ -223,7 +223,11 @@ SubGhzProtocolStatus
             ret = SubGhzProtocolStatusErrorValueBitCount;
             break;
         }
- 
+
+        // Optional value
+        flipper_format_read_uint32(
+            flipper_format, "Repeat", (uint32_t*)&instance->encoder.repeat, 1);
+
         if(!subghz_protocol_encoder_chamb_code_get_upload(instance)) {
             ret = SubGhzProtocolStatusErrorEncoderGetUpload;
             break;
