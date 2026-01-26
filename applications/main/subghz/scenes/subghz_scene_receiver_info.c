@@ -6,6 +6,8 @@
 
 #define TAG "SubGhzSceneReceiverInfo"
 
+static bool tx_stop_called = false;
+
 void subghz_scene_receiver_info_callback(GuiButtonType result, InputType type, void* context) {
     furi_assert(context);
     SubGhz* subghz = context;
@@ -140,14 +142,17 @@ bool subghz_scene_receiver_info_on_event(void* context, SceneManagerEvent event)
             return true;
         } else if(event.event == SubGhzCustomEventSceneReceiverInfoTxStop) {
             //CC1101 Stop Tx -> Start RX
-            // #subghz_one_press_send# - keyword to search changes
-            // when user release OK button we wait until full data packed will send and later stop TX
-            while(!subghz_devices_is_async_complete_tx(subghz->txrx->radio_device)) {
-                notification_message(subghz->notifications, &sequence_blink_magenta_10);
+
+            // if we recieve event to stop tranmission (user release OK button) but
+            // hardware TX still working now then set flag to stop it after hardware TX will be realy ended
+            // else stop TX correctly and start RX
+            if(!subghz_devices_is_async_complete_tx(subghz->txrx->radio_device)) {
+                tx_stop_called = true;
+                return true;
             }
-            //#
             subghz->state_notifications = SubGhzNotificationStateIDLE;
 
+            //update screen data
             widget_reset(subghz->widget);
             subghz_scene_receiver_info_draw_widget(subghz);
 
@@ -187,7 +192,57 @@ bool subghz_scene_receiver_info_on_event(void* context, SceneManagerEvent event)
         }
         switch(subghz->state_notifications) {
         case SubGhzNotificationStateTx:
-            notification_message(subghz->notifications, &sequence_blink_magenta_10);
+            // if hardware TX still working at this time so we just blink led and do nothing
+            if(!subghz_devices_is_async_complete_tx(subghz->txrx->radio_device)) {
+                notification_message(subghz->notifications, &sequence_blink_magenta_10);
+                return true;
+            }
+            // if hardware TX not working now and tx_stop_called = true
+            // (mean user release OK button early than hardware TX was ended) then we stop TX
+            if(tx_stop_called) {
+                tx_stop_called = false;
+                subghz->state_notifications = SubGhzNotificationStateIDLE;
+
+                //update screen data
+                widget_reset(subghz->widget);
+                subghz_scene_receiver_info_draw_widget(subghz);
+
+                subghz_txrx_stop(subghz->txrx);
+
+                // Start RX
+                if(!scene_manager_has_previous_scene(subghz->scene_manager, SubGhzSceneDecodeRAW)) {
+                    subghz_txrx_rx_start(subghz->txrx);
+
+                    subghz_txrx_hopper_unpause(subghz->txrx);
+                    if(!subghz_history_get_text_space_left(subghz->history, NULL)) {
+                        subghz->state_notifications = SubGhzNotificationStateRx;
+                    }
+                }
+                return true;
+            } else {
+                // if current state == SubGhzNotificationStateTx but hardware TX was ended
+                // and user still not release OK button then we repeat TX
+
+                subghz->state_notifications = SubGhzNotificationStateIDLE;
+
+                //update screen data
+                widget_reset(subghz->widget);
+                subghz_scene_receiver_info_draw_widget(subghz);
+
+                //CC1101 Stop RX -> Start TX
+                subghz_txrx_hopper_pause(subghz->txrx);
+                if(!subghz_tx_start(
+                       subghz,
+                       subghz_history_get_raw_data(subghz->history, subghz->idx_menu_chosen))) {
+                    subghz_txrx_rx_start(subghz->txrx);
+                    subghz_txrx_hopper_unpause(subghz->txrx);
+                    subghz->state_notifications = SubGhzNotificationStateRx;
+                } else {
+                    subghz->state_notifications = SubGhzNotificationStateTx;
+                }
+
+                return true;
+            }
             break;
         case SubGhzNotificationStateRx:
             notification_message(subghz->notifications, &sequence_blink_cyan_10);

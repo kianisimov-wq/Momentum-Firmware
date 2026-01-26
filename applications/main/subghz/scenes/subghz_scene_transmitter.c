@@ -81,7 +81,7 @@ bool subghz_scene_transmitter_on_event(void* context, SceneManagerEvent event) {
             }
             return true;
         } else if(event.event == SubGhzCustomEventViewTransmitterSendStop) {
-            // we recieve event to stop tranmission (user release OK button) but
+            // if we recieve event to stop tranmission (user release OK button) but
             // hardware TX still working now then set flag to stop it after hardware TX will be realy ended
             if(!subghz_devices_is_async_complete_tx(subghz->txrx->radio_device)) {
                 tx_stop_called = true;
@@ -145,8 +145,8 @@ bool subghz_scene_transmitter_on_event(void* context, SceneManagerEvent event) {
                 }
                 return true;
             } else {
-                // if state_notifications == SubGhzNotificationStateTx but hardware TX was ended
-                // and user still dont release OK button then we repeat transmission
+                // if current state == SubGhzNotificationStateTx but hardware TX was ended
+                // and user still not release OK button then we repeat transmission
                 subghz->state_notifications = SubGhzNotificationStateIDLE;
                 if(subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx))) {
                     subghz->state_notifications = SubGhzNotificationStateTx;
