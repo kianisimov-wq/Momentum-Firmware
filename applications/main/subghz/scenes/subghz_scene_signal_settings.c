@@ -14,7 +14,6 @@ static uint16_t counter16 = 0x0;
 static uint8_t byte_count = 0;
 static uint8_t* byte_ptr = NULL;
 static FuriString* byte_input_text;
-static uint8_t button = 0x0;
 
 #define COUNTER_MODE_COUNT 7
 static const char* const counter_mode_text[COUNTER_MODE_COUNT] = {
@@ -84,23 +83,6 @@ void subghz_scene_signal_settings_variable_item_list_enter_callback(void* contex
             byte_count);
         view_dispatcher_switch_to_view(subghz->view_dispatcher, SubGhzViewIdByteInput);
     }
-    // when we click OK on "Edit button" item
-    if(index == 2) {
-        furi_string_cat_str(byte_input_text, " button number in HEX");
-
-        // Setup byte_input view
-        ByteInput* byte_input = subghz->byte_input;
-        byte_input_set_header_text(byte_input, furi_string_get_cstr(byte_input_text));
-
-        byte_input_set_result_callback(
-            byte_input,
-            subghz_scene_signal_settings_byte_input_callback,
-            NULL,
-            subghz,
-            byte_ptr,
-            byte_count);
-        view_dispatcher_switch_to_view(subghz->view_dispatcher, SubGhzViewIdByteInput);
-    }
 }
 
 void subghz_scene_signal_settings_on_enter(void* context) {
@@ -148,10 +130,9 @@ void subghz_scene_signal_settings_on_enter(void* context) {
     flipper_format_free(fff_data_file);
     furi_record_close(RECORD_STORAGE);
 
+    // ### Counter edit section ###
     byte_input_text = furi_string_alloc_set_str("Enter ");
     bool counter_not_available = true;
-    bool button_not_available = true;
-
     SubGhzProtocolDecoderBase* decoder = subghz_txrx_get_decoder(subghz->txrx);
 
     // deserialaze and decode loaded sugbhz file and push data to subghz_block_generic_global variable
@@ -161,8 +142,6 @@ void subghz_scene_signal_settings_on_enter(void* context) {
     } else {
         FURI_LOG_E(TAG, "Cant deserialize this subghz file");
     }
-
-    // ### Counter edit section ###
 
     if(!subghz_block_generic_global.cnt_is_available) {
         counter_mode = 0xff;
@@ -185,18 +164,6 @@ void subghz_scene_signal_settings_on_enter(void* context) {
             byte_ptr = (uint8_t*)&counter16;
             byte_count = 2;
         }
-    }
-
-    // ### Button edit section ###
-
-    if(!subghz_block_generic_global.btn_is_available) {
-        FURI_LOG_D(TAG, "Button edit not available for this protocol");
-    } else {
-        button_not_available = false;
-        button = subghz_block_generic_global.current_btn;
-        furi_string_printf(tmp_text, "%X", button);
-        byte_ptr = (uint8_t*)&button;
-        byte_count = 1;
     }
 
     furi_assert(byte_ptr);
@@ -228,11 +195,6 @@ void subghz_scene_signal_settings_on_enter(void* context) {
     variable_item_set_current_value_index(item, 0);
     variable_item_set_current_value_text(item, furi_string_get_cstr(tmp_text));
     variable_item_set_locked(item, (counter_not_available), "Not available\nfor this\nprotocol !");
-
-    item = variable_item_list_add(variable_item_list, "Edit Button", 1, NULL, subghz);
-    variable_item_set_current_value_index(item, 0);
-    variable_item_set_current_value_text(item, furi_string_get_cstr(tmp_text));
-    variable_item_set_locked(item, (button_not_available), "Not available\nfor this\nprotocol !");
 
     furi_string_free(tmp_text);
 
