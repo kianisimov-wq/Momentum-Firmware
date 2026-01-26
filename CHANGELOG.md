@@ -13,6 +13,7 @@
 * SubGHz: Add 390MHz, 430.5MHz to default hopper list (6 elements like in OFW) (works well with Hopper RSSI level set for your enviroment)
 * SubGHz: Fixed button mapping for **FAAC RC/XT**
 * NFC: Handle PPS request in ISO14443-4 layer (by @WillyJL)
+* NFC: Fixes to `READ_MULTI` and `GET_BLOCK_SECURITY` commands in ISO 15693-3 emulation (by @WillyJL & @aaronjamt)
 * Archive: Allow folders to be pinned (by @WillyJL)
 * Apps: Build tag (**22jan2026**) - **Check out more Apps updates and fixes by following** [this link](https://github.com/xMasterX/all-the-plugins/commits/dev)
 ## Other changes
