@@ -15,7 +15,7 @@
 * NFC: Handle PPS request in ISO14443-4 layer (by @WillyJL)
 * NFC: Fixes to `READ_MULTI` and `GET_BLOCK_SECURITY` commands in ISO 15693-3 emulation (by @WillyJL & @aaronjamt)
 * Archive: Allow folders to be pinned (by @WillyJL)
-* Apps: Build tag (**22jan2026**) - **Check out more Apps updates and fixes by following** [this link](https://github.com/xMasterX/all-the-plugins/commits/dev)
+* Apps: Build tag (**26jan2026**) - **Check out more Apps updates and fixes by following** [this link](https://github.com/xMasterX/all-the-plugins/commits/dev)
 ## Other changes
 * UI: Various small changes
 * OFW PR 4333: NFC: Fix sending 32+ byte ISO 15693-3 commands (by @WillyJL)
