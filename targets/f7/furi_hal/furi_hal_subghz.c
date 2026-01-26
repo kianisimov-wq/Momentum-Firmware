@@ -684,7 +684,7 @@ static void furi_hal_subghz_async_tx_refill(uint32_t* buffer, size_t samples) {
     while(samples > 0) {
         volatile uint32_t duration = furi_hal_subghz_async_tx_middleware_get_duration(
             &furi_hal_subghz_async_tx.middleware, furi_hal_subghz_async_tx.callback);
-        // if duration == 0 then we stop DMA interrupt(that used to refill buffer) and write to buffer 0 as last element. 
+        // if duration == 0 then we stop DMA interrupt(that used to refill buffer) and write to buffer 0 as last element.
         // later DMA write this 0 to ARR and timer TIM2 will be stopped.
         if(duration == 0) {
             *buffer = 0;
@@ -771,7 +771,7 @@ bool furi_hal_subghz_start_async_tx(FuriHalSubGhzAsyncTxCallback callback, void*
 
     // Configure DMA to update TIM2->ARR
     LL_DMA_InitTypeDef dma_config = {0}; // DMA settings structure
-    dma_config.PeriphOrM2MSrcAddress = (uint32_t)&(TIM2->ARR); // DMA destination TIM2->ARR
+    dma_config.PeriphOrM2MSrcAddress = (uint32_t) & (TIM2->ARR); // DMA destination TIM2->ARR
     dma_config.MemoryOrM2MDstAddress =
         (uint32_t)furi_hal_subghz_async_tx.buffer; // DMA buffer with signals durations
     dma_config.Direction =
@@ -838,7 +838,7 @@ bool furi_hal_subghz_start_async_tx(FuriHalSubGhzAsyncTxCallback callback, void*
         furi_hal_subghz_debug_gpio_buff[1] = (uint32_t)gpio->pin << GPIO_NUMBER;
 
         dma_config.MemoryOrM2MDstAddress = (uint32_t)furi_hal_subghz_debug_gpio_buff;
-        dma_config.PeriphOrM2MSrcAddress = (uint32_t)&(gpio->port->BSRR);
+        dma_config.PeriphOrM2MSrcAddress = (uint32_t) & (gpio->port->BSRR);
         dma_config.Direction = LL_DMA_DIRECTION_MEMORY_TO_PERIPH;
         dma_config.Mode = LL_DMA_MODE_CIRCULAR;
         dma_config.PeriphOrM2MSrcIncMode = LL_DMA_PERIPH_NOINCREMENT;
@@ -867,7 +867,11 @@ bool furi_hal_subghz_start_async_tx(FuriHalSubGhzAsyncTxCallback callback, void*
 
 bool furi_hal_subghz_is_async_tx_complete(void) {
     return (furi_hal_subghz.state == SubGhzStateAsyncTx) && (LL_TIM_GetAutoReload(TIM2) == 0);
-    FURI_LOG_I(TAG, "SubGhzStateAsyncTx %d , TIM2-ARR %ld",furi_hal_subghz.state,LL_TIM_GetAutoReload(TIM2));
+    FURI_LOG_I(
+        TAG,
+        "SubGhzStateAsyncTx %d , TIM2-ARR %ld",
+        furi_hal_subghz.state,
+        LL_TIM_GetAutoReload(TIM2));
 }
 
 void furi_hal_subghz_stop_async_tx(void) {
