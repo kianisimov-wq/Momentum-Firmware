@@ -4,6 +4,7 @@
 * SubGHz: **Beninca ARC AES128 protocol full support** (128bit dynamic) (with Add manually, and 3 button codes) (resolves issue #596) (by @xMasterX and @zero-mega)
 * SubGHz: **Treadmill37 protocol support** (37bit static) (by @xMasterX)
 * SubGHz: **Jarolift protocol full support** (72bit dynamic) (with Add manually, and all button codes) (by @xMasterX & d82k & Steffen (bastelbudenbuben de))
+* SubGHz: **Change key SEND action** (This changes solve problem when user press and release OK button too fast and signal was not fully sent) (PR #949 | by @Dmitry422)
 * SubGHz: **New modulation FSK with 12KHz deviation**
 * SubGHz: **KingGates Stylo 4k - Add manually and button switch support** + refactoring of encoder
 * SubGHz: **Stilmatic - button 9 support** (two buttons hold simulation) (mapped on arrow keys)
