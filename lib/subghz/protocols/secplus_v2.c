@@ -92,7 +92,7 @@ void* subghz_protocol_encoder_secplus_v2_alloc(SubGhzEnvironment* environment) {
     instance->base.protocol = &subghz_protocol_secplus_v2;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 3;
+    instance->encoder.repeat = 10;
     instance->encoder.size_upload = 256;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
@@ -574,11 +574,9 @@ SubGhzProtocolStatus
         subghz_protocol_secplus_v2_remote_controller(
             &instance->generic, instance->secplus_packet_1);
         subghz_protocol_secplus_v2_encode(instance);
-
         // Optional value
         flipper_format_read_uint32(
             flipper_format, "Repeat", (uint32_t*)&instance->encoder.repeat, 1);
-
         subghz_protocol_encoder_secplus_v2_get_upload(instance);
 
         //update data

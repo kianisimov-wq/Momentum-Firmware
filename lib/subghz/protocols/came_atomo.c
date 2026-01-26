@@ -89,7 +89,7 @@ void* subghz_protocol_encoder_came_atomo_alloc(SubGhzEnvironment* environment) {
     instance->base.protocol = &subghz_protocol_came_atomo;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 1;
+    instance->encoder.repeat = 10;
     instance->encoder.size_upload = 900; //actual size 766+
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
