@@ -104,7 +104,7 @@ void* subghz_protocol_encoder_nice_flor_s_alloc(SubGhzEnvironment* environment) 
         FURI_LOG_D(
             TAG, "Loading rainbow table from %s", instance->nice_flor_s_rainbow_table_file_name);
     }
-    instance->encoder.repeat = 10;
+    instance->encoder.repeat = 1;
     instance->encoder.size_upload = 2400; //wrong!! upload 186*16 = 2976 - actual size about 1728
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
@@ -282,6 +282,7 @@ SubGhzProtocolStatus
         // Optional value
         flipper_format_read_uint32(
             flipper_format, "Repeat", (uint32_t*)&instance->encoder.repeat, 1);
+
         // flipper_format_read_uint32(
         // flipper_format, "Data", (uint32_t*)&instance->generic.data_2, 1);
         if(!flipper_format_rewind(flipper_format)) {

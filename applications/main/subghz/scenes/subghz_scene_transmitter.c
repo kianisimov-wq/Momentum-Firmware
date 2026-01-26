@@ -3,8 +3,13 @@
 #include <dolphin/dolphin.h>
 
 #include <lib/subghz/blocks/custom_btn.h>
+#include <lib/subghz/devices/devices.c>
+
+#include "applications/main/subghz/helpers/subghz_txrx_i.h"
 
 #define TAG "SubGhzSceneTransmitter"
+
+static bool tx_stop_called = false;
 
 void subghz_scene_transmitter_callback(SubGhzCustomEvent event, void* context) {
     furi_assert(context);
@@ -66,6 +71,7 @@ bool subghz_scene_transmitter_on_event(void* context, SceneManagerEvent event) {
     SubGhz* subghz = context;
     if(event.type == SceneManagerEventTypeCustom) {
         if(event.event == SubGhzCustomEventViewTransmitterSendStart) {
+            // if we recieve event to start transmission (user press OK button) then start/restart TX
             subghz->state_notifications = SubGhzNotificationStateIDLE;
 
             if(subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx))) {
@@ -75,6 +81,13 @@ bool subghz_scene_transmitter_on_event(void* context, SceneManagerEvent event) {
             }
             return true;
         } else if(event.event == SubGhzCustomEventViewTransmitterSendStop) {
+            // if we recieve event to stop tranmission (user release OK button) but
+            // hardware TX still working now then set flag to stop it after hardware TX will be realy ended
+            if(!subghz_devices_is_async_complete_tx(subghz->txrx->radio_device)) {
+                tx_stop_called = true;
+                return true;
+            }
+            // if hardware TX not working now so just stop TX correctly
             subghz->state_notifications = SubGhzNotificationStateIDLE;
             subghz_txrx_stop(subghz->txrx);
             if(subghz_custom_btn_get() != SUBGHZ_CUSTOM_BTN_OK) {
@@ -92,6 +105,10 @@ bool subghz_scene_transmitter_on_event(void* context, SceneManagerEvent event) {
             }
             return true;
         } else if(event.event == SubGhzCustomEventViewTransmitterBack) {
+            // if user press back button then force stop TX if they was active
+            if(subghz->state_notifications == SubGhzNotificationStateTx) {
+                subghz_txrx_stop(subghz->txrx);
+            }
             subghz->state_notifications = SubGhzNotificationStateIDLE;
             scene_manager_search_and_switch_to_previous_scene(
                 subghz->scene_manager, SubGhzSceneStart);
@@ -102,7 +119,42 @@ bool subghz_scene_transmitter_on_event(void* context, SceneManagerEvent event) {
         }
     } else if(event.type == SceneManagerEventTypeTick) {
         if(subghz->state_notifications == SubGhzNotificationStateTx) {
-            notification_message(subghz->notifications, &sequence_blink_magenta_10);
+            // if hardware TX still working at this time so we just blink led and do nothing
+            if(!subghz_devices_is_async_complete_tx(subghz->txrx->radio_device)) {
+                notification_message(subghz->notifications, &sequence_blink_magenta_10);
+                return true;
+            }
+            // if hardware TX not working now and tx_stop_called = true
+            // (mean user release OK button early than hardware TX was ended) then we stop TX
+            if(tx_stop_called) {
+                tx_stop_called = false;
+                subghz->state_notifications = SubGhzNotificationStateIDLE;
+                subghz_txrx_stop(subghz->txrx);
+                if(subghz_custom_btn_get() != SUBGHZ_CUSTOM_BTN_OK) {
+                    subghz_custom_btn_set(SUBGHZ_CUSTOM_BTN_OK);
+                    int32_t tmp_counter = furi_hal_subghz_get_rolling_counter_mult();
+                    furi_hal_subghz_set_rolling_counter_mult(0);
+                    // Calling restore!
+                    subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx));
+                    subghz_txrx_stop(subghz->txrx);
+                    // Calling restore 2nd time special for FAAC SLH!
+                    // TODO: Find better way to restore after custom button is used!!!
+                    subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx));
+                    subghz_txrx_stop(subghz->txrx);
+                    furi_hal_subghz_set_rolling_counter_mult(tmp_counter);
+                }
+                return true;
+            } else {
+                // if current state == SubGhzNotificationStateTx but hardware TX was ended
+                // and user still not release OK button then we repeat transmission
+                subghz->state_notifications = SubGhzNotificationStateIDLE;
+                if(subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx))) {
+                    subghz->state_notifications = SubGhzNotificationStateTx;
+                    subghz_scene_transmitter_update_data_show(subghz);
+                    dolphin_deed(DolphinDeedSubGhzSend);
+                }
+                return true;
+            }
         }
         return true;
     }

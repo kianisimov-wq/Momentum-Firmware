@@ -142,7 +142,7 @@ void* subghz_protocol_encoder_bin_raw_alloc(SubGhzEnvironment* environment) {
     instance->base.protocol = &subghz_protocol_bin_raw;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 10;
+    instance->encoder.repeat = 3;
     instance->encoder.size_upload = BIN_RAW_BUF_DATA_SIZE * 5;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->data = malloc(instance->encoder.size_upload * sizeof(uint8_t));
@@ -309,6 +309,7 @@ SubGhzProtocolStatus
             res = SubGhzProtocolStatusErrorParserOthers;
             break;
         }
+
         // Optional value
         flipper_format_read_uint32(
             flipper_format, "Repeat", (uint32_t*)&instance->encoder.repeat, 1);
