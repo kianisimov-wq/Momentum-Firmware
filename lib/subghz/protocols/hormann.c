@@ -80,7 +80,7 @@ void* subghz_protocol_encoder_hormann_alloc(SubGhzEnvironment* environment) {
     instance->base.protocol = &subghz_protocol_hormann;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 2;
+    instance->encoder.repeat = 3;
     instance->encoder.size_upload = 2048;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
