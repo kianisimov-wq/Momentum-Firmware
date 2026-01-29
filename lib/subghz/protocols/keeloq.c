@@ -1515,23 +1515,44 @@ void subghz_protocol_decoder_keeloq_get_string(void* context, FuriString* output
         subghz_block_generic_global.cnt_is_available = true;
         subghz_block_generic_global.cnt_length_bit = 16;
         subghz_block_generic_global.current_cnt = instance->generic.cnt;
-        furi_string_cat_printf(
-            output,
-            "%s %dbit\r\n"
-            "Key:%08lX%08lX\r\n"
-            "Fix:0x%08lX    Cnt:%04lX\r\n"
-            "Hop:0x%08lX    Btn:%01X\r\n"
-            "MF:%s Sd:%08lX",
-            instance->generic.protocol_name,
-            instance->generic.data_count_bit,
-            code_found_hi,
-            code_found_lo,
-            code_found_reverse_hi,
-            instance->generic.cnt,
-            hopdecrypt,
-            instance->generic.btn,
-            instance->manufacture_name,
-            instance->generic.seed);
+        ProgMode prog_mode = subghz_custom_btn_get_prog_mode();
+        if(prog_mode == PROG_MODE_KEELOQ_BFT) {
+            furi_string_cat_printf(
+                output,
+                "%s %dbit\r\n"
+                "Key:%08lX%08lX\r\n"
+                "Fix:0x%08lX    Cnt:%04lX\r\n"
+                "Hop:0x%08lX    Btn:%01X\r\n"
+                "MF:%s PRG Sd:%08lX",
+                instance->generic.protocol_name,
+                instance->generic.data_count_bit,
+                code_found_hi,
+                code_found_lo,
+                code_found_reverse_hi,
+                instance->generic.cnt,
+                code_found_reverse_lo,
+                instance->generic.btn,
+                instance->manufacture_name,
+                instance->generic.seed);
+        } else {
+            furi_string_cat_printf(
+                output,
+                "%s %dbit\r\n"
+                "Key:%08lX%08lX\r\n"
+                "Fix:0x%08lX    Cnt:%04lX\r\n"
+                "Hop:0x%08lX    Btn:%01X\r\n"
+                "MF:%s Sd:%08lX",
+                instance->generic.protocol_name,
+                instance->generic.data_count_bit,
+                code_found_hi,
+                code_found_lo,
+                code_found_reverse_hi,
+                instance->generic.cnt,
+                hopdecrypt,
+                instance->generic.btn,
+                instance->manufacture_name,
+                instance->generic.seed);
+        }
     } else if(strcmp(instance->manufacture_name, "Unknown") == 0) {
         instance->generic.cnt = 0x0;
         furi_string_cat_printf(

@@ -15,6 +15,7 @@
 * SubGHz: Fixed button mapping for **FAAC RC/XT**
 * SubGHz: KeeLoq **display decrypted hop** in `Hop` instead of showing encrypted as is (encrypted non byte reversed hop is still displayed in `Key` field)
 * SubGHz: **BFT KeeLoq** try decoding with **zero seed** too
+* SubGHz: KeeLoq **display BFT programming mode TX** (when arrow button is held)
 * NFC: Handle PPS request in ISO14443-4 layer (by @WillyJL)
 * NFC: Fixes to `READ_MULTI` and `GET_BLOCK_SECURITY` commands in ISO 15693-3 emulation (by @WillyJL & @aaronjamt)
 * Archive: Allow folders to be pinned (by @WillyJL)
