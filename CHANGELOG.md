@@ -6,13 +6,14 @@
 * SubGHz: **Jarolift protocol full support** (72bit dynamic) (with Add manually, and all button codes) (by @xMasterX & d82k & Steffen (bastelbudenbuben de))
 * SubGHz: **New modulation FSK with 12KHz deviation**
 * SubGHz: **KingGates Stylo 4k - Add manually and button switch support** + refactoring of encoder
-* SubGHz: **Stilmatic - button 9 support** (two buttons hold simulation) (mapped on arrow keys)
+* SubGHz: **Stilmatic (R-Tech) - 12bit discr. fix & button 9 support** (two buttons hold simulation) (mapped on arrow keys)
 * SubGHz: **Counter editor refactoring** (PR #939 | by @Dmitry422)
 * SubGHz: **Alutech AT-4N & Nice Flor S turbo speedup** (PR #942 | by @Dmitry422)
 * SubGHz: **Sommer fm2 in Add manually now uses FM12K modulation** (Sommer without fm2 tag uses FM476) (try this if regular option doesn't work for you)
 * SubGHz: **Sommer - last button code 0x6 support** (mapped on arrow keys)
 * SubGHz: Add 390MHz, 430.5MHz to default hopper list (6 elements like in OFW) (works well with Hopper RSSI level set for your enviroment)
 * SubGHz: Fixed button mapping for **FAAC RC/XT**
+* SubGHz: KeeLoq display decrypted hop in `Hop` instead of showing encrypted as is (encrypted non byte reversed hop is still displayed in `Key` field)
 * NFC: Handle PPS request in ISO14443-4 layer (by @WillyJL)
 * NFC: Fixes to `READ_MULTI` and `GET_BLOCK_SECURITY` commands in ISO 15693-3 emulation (by @WillyJL & @aaronjamt)
 * Archive: Allow folders to be pinned (by @WillyJL)
