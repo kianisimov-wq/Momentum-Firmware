@@ -981,6 +981,16 @@ static uint32_t subghz_protocol_keeloq_check_remote_controller_selector(
                         return decrypt;
                     } else {
                         if(reset_seed_back) instance->seed = 0;
+                        // Try with zero seed (some strange remotes have been reported to use 0 seed)
+                        man = subghz_protocol_keeloq_common_secure_learning(
+                            fix, instance->seed, manufacture_code->key);
+                        decrypt = subghz_protocol_keeloq_common_decrypt(hop, man);
+                        if(subghz_protocol_keeloq_check_decrypt(
+                               instance, decrypt, btn, end_serial)) {
+                            *manufacture_name = furi_string_get_cstr(manufacture_code->name);
+                            keystore->mfname = *manufacture_name;
+                            return decrypt;
+                        }
                     }
                     break;
                 case KEELOQ_LEARNING_MAGIC_XOR_TYPE_1:
