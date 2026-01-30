@@ -82,7 +82,7 @@ void* subghz_protocol_encoder_ansonic_alloc(SubGhzEnvironment* environment) {
     instance->base.protocol = &subghz_protocol_ansonic;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 10;
+    instance->encoder.repeat = 30;
     instance->encoder.size_upload = 52;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
@@ -183,7 +183,7 @@ LevelDuration subghz_protocol_encoder_ansonic_yield(void* context) {
         instance->encoder.repeat--;
         instance->encoder.front = 0;
     }
-
+FURI_LOG_D("ANNNN", "REPEAT -  %i ",instance->encoder.repeat);
     return ret;
 }
 

@@ -35,6 +35,13 @@ struct SubGhzBlockGenericGlobal {
     bool cnt_need_override; // flag for protocols to override signals counter inside of protocols
     uint8_t cnt_length_bit; // counter length in bytes (used in counter editor giu)
     bool cnt_is_available; // is there counter available for protocol (used in counter editor giu)
+
+    uint8_t current_btn; // global counter value;
+    uint8_t new_btn; // global counter value;
+    bool btn_need_override; // flag for protocols to override signals counter inside of protocols
+    bool btn_is_available; // is there counter available for protocol (used in counter editor giu)
+
+    bool endless_tx; // used for endless/breakless transmission in subghz protols (when user not release OK button)
 };
 
 extern SubGhzBlockGenericGlobal subghz_block_generic_global; //global structure for subghz

@@ -135,7 +135,7 @@ LevelDuration subghz_protocol_encoder_alutech_at_4n_yield(void* context) {
         instance->encoder.repeat--;
         instance->encoder.front = 0;
     }
-
+    FURI_LOG_D("ALLLLLLL", "REPEAT -  %i ", instance->encoder.repeat);
     return ret;
 }
 
