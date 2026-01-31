@@ -98,7 +98,7 @@ The following manufacturers have KeeLoq support in Unleashed firmware:
 - Aprimatic - `433.92MHz` `AM650` (KeeLoq, 64 bits) (12bit serial number art in Hop + 2bit "parity" in front of it replacing first 2 bits of serial)
 - Beninca - `433.92MHz, 868MHz` `AM650` (KeeLoq, 64 bits) (no serial part in Hop - magic XOR)
 - CAME Space - `433.92MHz` `AM650` (KeeLoq, 64 bits) (12bit serial part in Hop - simple learning)
-- Cardin S449 - `433.92MHz` `FSK12K` (KeeLoq, 64 bits) (12bit (original remotes) or 10bit (chinese remotes) serial part in Hop - normal learning)
+- Cardin S449 - `433.92MHz` `FSK12K` (KeeLoq, 64 bits) (12bit (original remotes) or 10bit (chinese remotes) serial part in Hop - normal learning) (receiver checks for 10bit only (unverified))
 - Centurion - `433.92MHz` `AM650` (KeeLoq, 64 bits) (no serial in Hop, uses fixed value 0x1CE - normal learning)
 - Comunello - `433.92MHz, 868MHz` `AM650` (KeeLoq, 64 bits) (normal learning)
 - DEA Mio - `433.92MHz` `AM650` (KeeLoq, 64 bits) (modified serial in Hop, uses last 3 digits modifying first one (example - 419 -> C19) - simple learning)
@@ -124,7 +124,7 @@ The following manufacturers have KeeLoq support in Unleashed firmware:
 - Novoferm - `433.92MHz` `AM650` (KeeLoq, 64 bits)
 - Sommer `434.42MHz, 868.80MHz` `FSK12K (or FSK476)` (KeeLoq, 64 bits) (normal learning) (TX03-868-4, Pearl, and maybe other models are supported (SOMloq))
 - Steelmate - `433.92MHz` `AM650` (KeeLoq, 64 bits) (12bit serial part in Hop - normal learning)
-- Stilmatic (R-Tech) - `433.92MHz` `AM650` (KeeLoq, 64 bits) (12bit serial part in Hop - normal learning)
+- Stilmatic (R-Tech) - `433.92MHz` `AM650` (KeeLoq, 64 bits) (12bit serial part in Hop - normal learning) (receiver checks for 10bit only (unverified))
 
 ### Alarms, unknown origin, etc.
 - APS-1100/APS-2550 (KeeLoq, 64 bits)
