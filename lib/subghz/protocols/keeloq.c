@@ -135,6 +135,10 @@ static bool subghz_protocol_keeloq_gen_data(
     SubGhzProtocolEncoderKeeloq* instance,
     uint8_t btn,
     bool counter_up) {
+    // override button if we change it with signal settings button editor
+    if(subghz_block_generic_global_button_override_get(&btn))
+        FURI_LOG_D(TAG, "Button sucessfully changed to 0x%X", btn);
+
     uint32_t fix = (uint32_t)btn << 28 | instance->generic.serial;
     uint32_t hop = 0;
     uint64_t man = 0;
@@ -1512,9 +1516,16 @@ void subghz_protocol_decoder_keeloq_get_string(void* context, FuriString* output
     uint32_t code_found_reverse_lo = code_found_reverse & 0x00000000ffffffff;
 
     if(strcmp(instance->manufacture_name, "BFT") == 0) {
+        // push protocol data to global variable
         subghz_block_generic_global.cnt_is_available = true;
         subghz_block_generic_global.cnt_length_bit = 16;
         subghz_block_generic_global.current_cnt = instance->generic.cnt;
+
+        subghz_block_generic_global.btn_is_available = true;
+        subghz_block_generic_global.current_btn = instance->generic.btn;
+        subghz_block_generic_global.btn_length_bit = 4;
+        //
+
         ProgMode prog_mode = subghz_custom_btn_get_prog_mode();
         if(prog_mode == PROG_MODE_KEELOQ_BFT) {
             furi_string_cat_printf(
@@ -1554,6 +1565,9 @@ void subghz_protocol_decoder_keeloq_get_string(void* context, FuriString* output
                 instance->generic.seed);
         }
     } else if(strcmp(instance->manufacture_name, "Unknown") == 0) {
+        subghz_block_generic_global.btn_is_available = true;
+        subghz_block_generic_global.current_btn = instance->generic.btn;
+        subghz_block_generic_global.btn_length_bit = 4;
         instance->generic.cnt = 0x0;
         furi_string_cat_printf(
             output,
@@ -1574,6 +1588,9 @@ void subghz_protocol_decoder_keeloq_get_string(void* context, FuriString* output
         subghz_block_generic_global.cnt_is_available = true;
         subghz_block_generic_global.cnt_length_bit = 16;
         subghz_block_generic_global.current_cnt = instance->generic.cnt;
+        subghz_block_generic_global.btn_is_available = true;
+        subghz_block_generic_global.current_btn = instance->generic.btn;
+        subghz_block_generic_global.btn_length_bit = 4;
         furi_string_cat_printf(
             output,
             "%s %dbit\r\n"

@@ -677,10 +677,12 @@ static inline uint32_t furi_hal_subghz_async_tx_middleware_get_duration(
         }
     }
 }
-
+// here we fill DMA buffer by signal durations until we recieve duration=0 (that mean protocol give as full data = signal_size*repeats)
+// or until we reach the end of required samples count 
 static void furi_hal_subghz_async_tx_refill(uint32_t* buffer, size_t samples) {
     furi_check(furi_hal_subghz.state == SubGhzStateAsyncTx);
-
+    // furi_hal_subghz_async_tx.callback - linked to protocols "_yield" function
+    // and return one current LevelDuration from protocol upload buffer.
     while(samples > 0) {
         volatile uint32_t duration = furi_hal_subghz_async_tx_middleware_get_duration(
             &furi_hal_subghz_async_tx.middleware, furi_hal_subghz_async_tx.callback);
@@ -771,7 +773,7 @@ bool furi_hal_subghz_start_async_tx(FuriHalSubGhzAsyncTxCallback callback, void*
 
     // Configure DMA to update TIM2->ARR
     LL_DMA_InitTypeDef dma_config = {0}; // DMA settings structure
-    dma_config.PeriphOrM2MSrcAddress = (uint32_t) & (TIM2->ARR); // DMA destination TIM2->ARR
+    dma_config.PeriphOrM2MSrcAddress = (uint32_t)&(TIM2->ARR); // DMA destination TIM2->ARR
     dma_config.MemoryOrM2MDstAddress =
         (uint32_t)furi_hal_subghz_async_tx.buffer; // DMA buffer with signals durations
     dma_config.Direction =
@@ -838,7 +840,7 @@ bool furi_hal_subghz_start_async_tx(FuriHalSubGhzAsyncTxCallback callback, void*
         furi_hal_subghz_debug_gpio_buff[1] = (uint32_t)gpio->pin << GPIO_NUMBER;
 
         dma_config.MemoryOrM2MDstAddress = (uint32_t)furi_hal_subghz_debug_gpio_buff;
-        dma_config.PeriphOrM2MSrcAddress = (uint32_t) & (gpio->port->BSRR);
+        dma_config.PeriphOrM2MSrcAddress = (uint32_t)&(gpio->port->BSRR);
         dma_config.Direction = LL_DMA_DIRECTION_MEMORY_TO_PERIPH;
         dma_config.Mode = LL_DMA_MODE_CIRCULAR;
         dma_config.PeriphOrM2MSrcIncMode = LL_DMA_PERIPH_NOINCREMENT;

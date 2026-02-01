@@ -20,6 +20,8 @@ static uint8_t button = 0x0;
 static uint8_t btn_byte_count = 1;
 static uint8_t* btn_byte_ptr = NULL;
 
+static uint8_t submenu_called = 0;
+
 #define COUNTER_MODE_COUNT 7
 static const char* const counter_mode_text[COUNTER_MODE_COUNT] = {
     "System",
@@ -72,6 +74,7 @@ void subghz_scene_signal_settings_variable_item_list_enter_callback(void* contex
 
     // when we click OK on "Edit counter" item
     if(index == 1) {
+        submenu_called = 1;
         furi_string_cat_printf(byte_input_text, "%i", subghz_block_generic_global.cnt_length_bit);
         furi_string_cat_str(byte_input_text, "-bits counter in HEX");
 
@@ -90,7 +93,9 @@ void subghz_scene_signal_settings_variable_item_list_enter_callback(void* contex
     }
     // when we click OK on "Edit button" item
     if(index == 2) {
-        furi_string_cat_str(byte_input_text, " button number in HEX");
+        submenu_called = 2;
+        furi_string_cat_printf(byte_input_text, "%i", subghz_block_generic_global.btn_length_bit);
+        furi_string_cat_str(byte_input_text, "-bits button in HEX");
 
         // Setup byte_input view
         ByteInput* byte_input = subghz->byte_input;
@@ -156,6 +161,28 @@ void subghz_scene_signal_settings_on_enter(void* context) {
     bool counter_not_available = true;
     bool button_not_available = true;
 
+    //Create and Enable/Disable variable_item_list depending on current values
+    VariableItemList* variable_item_list = subghz->variable_item_list;
+    int32_t value_index;
+    VariableItem* item;
+
+    variable_item_list_set_enter_callback(
+        variable_item_list,
+        subghz_scene_signal_settings_variable_item_list_enter_callback,
+        subghz);
+
+    item = variable_item_list_add(
+        variable_item_list,
+        "Counter Mode",
+        mode_count,
+        subghz_scene_signal_settings_counter_mode_changed,
+        subghz);
+    value_index = value_index_int32(counter_mode, counter_mode_value, mode_count);
+    variable_item_set_current_value_index(item, value_index);
+    variable_item_set_current_value_text(item, counter_mode_text[value_index]);
+    variable_item_set_locked(item, (counter_mode == 0xff), "Not available\nfor this\nprotocol !");
+    //
+
     SubGhzProtocolDecoderBase* decoder = subghz_txrx_get_decoder(subghz->txrx);
 
     // deserialaze and decode loaded sugbhz file and push data to subghz_block_generic_global variable
@@ -191,6 +218,12 @@ void subghz_scene_signal_settings_on_enter(void* context) {
         }
     }
 
+    item = variable_item_list_add(variable_item_list, "Edit Counter", 1, NULL, subghz);
+    variable_item_set_current_value_index(item, 0);
+    variable_item_set_current_value_text(item, furi_string_get_cstr(tmp_text));
+    variable_item_set_locked(item, (counter_not_available), "Not available\nfor this\nprotocol !");
+    //
+
     // ### Button edit section ###
 
     if(!subghz_block_generic_global.btn_is_available) {
@@ -202,41 +235,15 @@ void subghz_scene_signal_settings_on_enter(void* context) {
         btn_byte_ptr = (uint8_t*)&button;
     }
 
-    furi_assert(cnt_byte_ptr);
-    furi_assert(cnt_byte_count > 0);
-    furi_assert(btn_byte_ptr);
-
-    //Create and Enable/Disable variable_item_list depending on current values
-    VariableItemList* variable_item_list = subghz->variable_item_list;
-    int32_t value_index;
-    VariableItem* item;
-
-    variable_item_list_set_enter_callback(
-        variable_item_list,
-        subghz_scene_signal_settings_variable_item_list_enter_callback,
-        subghz);
-
-    item = variable_item_list_add(
-        variable_item_list,
-        "Counter Mode",
-        mode_count,
-        subghz_scene_signal_settings_counter_mode_changed,
-        subghz);
-    value_index = value_index_int32(counter_mode, counter_mode_value, mode_count);
-
-    variable_item_set_current_value_index(item, value_index);
-    variable_item_set_current_value_text(item, counter_mode_text[value_index]);
-    variable_item_set_locked(item, (counter_mode == 0xff), "Not available\nfor this\nprotocol !");
-
-    item = variable_item_list_add(variable_item_list, "Edit Counter", 1, NULL, subghz);
-    variable_item_set_current_value_index(item, 0);
-    variable_item_set_current_value_text(item, furi_string_get_cstr(tmp_text));
-    variable_item_set_locked(item, (counter_not_available), "Not available\nfor this\nprotocol !");
-
     item = variable_item_list_add(variable_item_list, "Edit Button", 1, NULL, subghz);
     variable_item_set_current_value_index(item, 0);
     variable_item_set_current_value_text(item, furi_string_get_cstr(tmp_text));
     variable_item_set_locked(item, (button_not_available), "Not available\nfor this\nprotocol !");
+    //
+
+    furi_assert(cnt_byte_ptr);
+    furi_assert(cnt_byte_count > 0);
+    furi_assert(btn_byte_ptr);
 
     furi_string_free(tmp_text);
 
@@ -248,21 +255,40 @@ bool subghz_scene_signal_settings_on_event(void* context, SceneManagerEvent even
 
     if(event.type == SceneManagerEventTypeCustom) {
         if(event.event == SubGhzCustomEventByteInputDone) {
-            switch(cnt_byte_count) {
+            switch(submenu_called) {
+            // edit counter
+            case 1:
+                switch(cnt_byte_count) {
+                case 2:
+                    // set new cnt value and override_flag to global variable and call transmit to generate and save subghz signal
+                    counter16 = __bswap16(counter16);
+                    subghz_block_generic_global_counter_override_set(counter16);
+                    subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx));
+                    subghz_txrx_stop(subghz->txrx);
+                    break;
+                case 4:
+                    // the same for 32 bit Counter
+                    counter32 = __bswap32(counter32);
+                    subghz_block_generic_global_counter_override_set(counter32);
+                    subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx));
+                    subghz_txrx_stop(subghz->txrx);
+                    break;
+                default:
+                    break;
+                }
+                break;
+            // edit button
             case 2:
-                // set new cnt value and override_flag to global variable and call transmit to generate and save subghz signal
-                counter16 = __bswap16(counter16);
-                subghz_block_generic_global_counter_override_set(counter16);
+                subghz_block_generic_global_button_override_set(button);
+                // save counter mult to rewrite subghz singnal without changing counter
+                int32_t tmp_counter = furi_hal_subghz_get_rolling_counter_mult();
+                furi_hal_subghz_set_rolling_counter_mult(0);
                 subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx));
                 subghz_txrx_stop(subghz->txrx);
+                // restore counter mult
+                furi_hal_subghz_set_rolling_counter_mult(tmp_counter);
                 break;
-            case 4:
-                // the same for 32 bit Counter
-                counter32 = __bswap32(counter32);
-                subghz_block_generic_global_counter_override_set(counter32);
-                subghz_tx_start(subghz, subghz_txrx_get_fff_data(subghz->txrx));
-                subghz_txrx_stop(subghz->txrx);
-                break;
+
             default:
                 break;
             }
