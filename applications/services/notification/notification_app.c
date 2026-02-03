@@ -36,7 +36,7 @@ static uint32_t notification_settings_display_off_delay_ticks(NotificationApp* a
 // status of lcd backlight
 // used to ignore backlight_on event if backlight active now
 // prevent from extra ticking when key pressed with rgb_mod_installed
-static bool lcd_backligth_is_on = false;
+static bool lcd_backlight_is_on = false;
 
 // --- RGB BACKLIGHT ---
 // local variable for local use
@@ -337,7 +337,7 @@ static void notification_apply_notification_led_layer(
 
     // if layer.light = LightBacklight and backlight active now then just exit.
     // prevent from extra ticking when key pressed with rgb_mod_installed
-    if((layer->light == LightBacklight) & lcd_backligth_is_on) return;
+    if((layer->light == LightBacklight) & lcd_backlight_is_on) return;
 
     // apply
     furi_hal_light_set(layer->light, layer->value[LayerNotification]);
@@ -477,7 +477,7 @@ static void notification_process_notification_message(
                         app->current_night_shift * 1.0f);
 
                 reset_mask |= reset_display_mask;
-                lcd_backligth_is_on = true;
+                lcd_backlight_is_on = true;
 
                 //start rgb_mod_rainbow_timer when display backlight is ON and all corresponding settings is ON too
                 rainbow_timer_starter(app);
@@ -486,7 +486,7 @@ static void notification_process_notification_message(
                 // Backlight OFF
                 reset_mask &= ~reset_display_mask;
                 notification_reset_notification_led_layer(&app->display);
-                lcd_backligth_is_on = false;
+                lcd_backlight_is_on = false;
 
                 if(furi_timer_is_running(app->display_timer)) {
                     furi_timer_stop(app->display_timer);
@@ -505,7 +505,7 @@ static void notification_process_notification_message(
                     &app->display,
                     notification_message->data.led.value * display_brightness_setting *
                         app->current_night_shift * 1.0f);
-                lcd_backligth_is_on = true;
+                lcd_backlight_is_on = true;
             }
             break;
         case NotificationMessageTypeLedDisplayBacklightEnforceAuto:
