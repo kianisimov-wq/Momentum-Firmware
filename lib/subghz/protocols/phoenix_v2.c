@@ -77,7 +77,7 @@ void* subghz_protocol_encoder_phoenix_v2_alloc(SubGhzEnvironment* environment) {
     instance->base.protocol = &subghz_protocol_phoenix_v2;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 10;
+    instance->encoder.repeat = 3;
     instance->encoder.size_upload = 128;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
@@ -118,9 +118,11 @@ bool subghz_protocol_phoenix_v2_create_data(
         local_data_rev, instance->generic.cnt);
 
     instance->generic.data = subghz_protocol_blocks_reverse_key(
-        (uint64_t)(((uint64_t)encrypted_counter << 40) | ((uint64_t)instance->generic.btn << 32) |
-                   (uint64_t)instance->generic.serial),
-        instance->generic.data_count_bit + 4);
+                                 (uint64_t)(((uint64_t)encrypted_counter << 40) |
+                                            ((uint64_t)instance->generic.btn << 32) |
+                                            (uint64_t)instance->generic.serial),
+                                 instance->generic.data_count_bit + 4) &
+                             0xFFFFFFFFFFFFF;
 
     return SubGhzProtocolStatusOk ==
            subghz_block_generic_serialize(&instance->generic, flipper_format, preset);
@@ -252,6 +254,10 @@ static bool
     // Get custom button code
     // This will override the btn variable if a custom button is set
     btn = subghz_protocol_phoenix_v2_get_btn_code();
+
+    // override button if we change it with signal settings button editor
+    if(subghz_block_generic_global_button_override_get(&btn))
+        FURI_LOG_D(TAG, "Button sucessfully changed to 0x%X", btn);
 
     // Reconstruction of the data
     if(v2_phoenix_counter_mode == 0) {
@@ -403,7 +409,7 @@ LevelDuration subghz_protocol_encoder_phoenix_v2_yield(void* context) {
     LevelDuration ret = instance->encoder.upload[instance->encoder.front];
 
     if(++instance->encoder.front == instance->encoder.size_upload) {
-        instance->encoder.repeat--;
+        if(!subghz_block_generic_global.endless_tx) instance->encoder.repeat--;
         instance->encoder.front = 0;
     }
 
@@ -651,6 +657,11 @@ void subghz_protocol_decoder_phoenix_v2_get_string(void* context, FuriString* ou
     subghz_block_generic_global.cnt_is_available = true;
     subghz_block_generic_global.cnt_length_bit = 16;
     subghz_block_generic_global.current_cnt = instance->generic.cnt;
+
+    subghz_block_generic_global.btn_is_available = true;
+    subghz_block_generic_global.current_btn = instance->generic.btn;
+    subghz_block_generic_global.btn_length_bit = 4;
+    //
 
     furi_string_cat_printf(
         output,
