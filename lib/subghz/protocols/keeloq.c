@@ -202,10 +202,6 @@ static bool subghz_protocol_keeloq_gen_data(
     uint64_t man = 0;
     uint64_t code_found_reverse;
     int res = 0;
-    // No mf name set? -> set to ""
-    if(instance->manufacture_name == 0x0) {
-        instance->manufacture_name = "";
-    }
 
     // programming mode on / off conditions
     if(strcmp(instance->manufacture_name, "BFT") == 0) {
@@ -543,10 +539,8 @@ static size_t subghz_protocol_encoder_keeloq_encode_to_timings(
     size_t index) {
     furi_assert(instance);
     // Generate new key
-    if(subghz_protocol_keeloq_gen_data(instance, btn, counter_up, false)) {
-        // OK
-    } else {
-        return false;
+    if(!subghz_protocol_keeloq_gen_data(instance, btn, counter_up, false)) {
+        return 0;
     }
 
     uint32_t gap_duration = subghz_protocol_keeloq_const.te_short * 40;
@@ -1411,8 +1405,7 @@ static uint8_t subghz_protocol_keeloq_get_btn_code(uint8_t last_btn_code) {
 
     // Set custom button
     // Basic set | 0x1 | 0x2 | 0x4 | 0x8 | 0xA or Special Learning Code |
-    if((custom_btn_id == SUBGHZ_CUSTOM_BTN_OK) && (original_btn_code != 0) &&
-       (keeloq_counter_mode != 7)) {
+    if((custom_btn_id == SUBGHZ_CUSTOM_BTN_OK) && (original_btn_code != 0)) {
         // Restore original button code
         btn = original_btn_code;
     } else if(custom_btn_id == SUBGHZ_CUSTOM_BTN_UP) {

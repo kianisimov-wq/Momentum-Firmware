@@ -17,6 +17,7 @@
 * SubGHz: KeeLoq **display decrypted hop** in `Hop` instead of showing encrypted as is (encrypted non byte reversed hop is still displayed in `Key` field)
 * SubGHz: **BFT KeeLoq** try decoding with **zero seed** too
 * SubGHz: KeeLoq **display BFT programming mode TX** (when arrow button is held)
+* SubGHz: KeeLoq **add counter mode 7 (sends 7 signals increasing counter with 0x3333 steps)** - may bypass counter on some receivers!
 * SubGHz: Add signals button editor and real **remote simulation** (full signal transmit with just one click) (PR #956 | by @Dmitry422)
 * JS: feat: add IR capabilities to the JS engine (PR #957 | by @LuisMayo)
 * NFC: Handle PPS request in ISO14443-4 layer (by @WillyJL)
@@ -28,6 +29,7 @@
 * Desktop: Disable winter holidays anims 
 * OFW PR 4333: NFC: Fix sending 32+ byte ISO 15693-3 commands (by @WillyJL)
 * NFC: Fix LED not blinking at SLIX unlock (closes issue #945)
+* SubGHz: Added some RAM
 * SubGHz: Fix documentation link for HT12A protocol (by @carlogrisetti)
 * SubGHz: Improve docs on low level code (PR #949 | by @Dmitry422)
 * SubGHz: Fix Alutech AT4N false positives
