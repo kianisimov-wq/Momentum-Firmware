@@ -80,8 +80,8 @@ void* subghz_protocol_encoder_hormann_alloc(SubGhzEnvironment* environment) {
     instance->base.protocol = &subghz_protocol_hormann;
     instance->generic.protocol_name = instance->base.protocol->name;
 
-    instance->encoder.repeat = 3;
-    instance->encoder.size_upload = 2048;
+    instance->encoder.repeat = 1;
+    instance->encoder.size_upload = 1850; // 1801
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
     return instance;
@@ -110,7 +110,6 @@ static bool subghz_protocol_encoder_hormann_get_upload(SubGhzProtocolEncoderHorm
     } else {
         instance->encoder.size_upload = size_upload;
     }
-    instance->encoder.repeat = 3; //original remote does 10 repeats
 
     for(size_t repeat = 0; repeat < 20; repeat++) {
         //Send start bit
@@ -137,6 +136,7 @@ static bool subghz_protocol_encoder_hormann_get_upload(SubGhzProtocolEncoderHorm
     }
     instance->encoder.upload[index++] =
         level_duration_make(true, (uint32_t)subghz_protocol_hormann_const.te_short * 24);
+
     return true;
 }
 

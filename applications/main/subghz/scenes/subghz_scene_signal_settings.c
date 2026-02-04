@@ -22,7 +22,7 @@ static uint8_t* btn_byte_ptr = NULL;
 
 static uint8_t submenu_called = 0;
 
-#define COUNTER_MODE_COUNT 7
+#define COUNTER_MODE_COUNT 8
 static const char* const counter_mode_text[COUNTER_MODE_COUNT] = {
     "System",
     "Mode 1",
@@ -31,6 +31,7 @@ static const char* const counter_mode_text[COUNTER_MODE_COUNT] = {
     "Mode 4",
     "Mode 5",
     "Mode 6",
+    "Mode 7",
 };
 
 static const int32_t counter_mode_value[COUNTER_MODE_COUNT] = {
@@ -41,6 +42,7 @@ static const int32_t counter_mode_value[COUNTER_MODE_COUNT] = {
     4,
     5,
     6,
+    7,
 };
 
 typedef struct {
@@ -53,7 +55,7 @@ static Protocols protocols[] = {
     {"Nice FloR-S", 3},
     {"CAME Atomo", 4},
     {"Alutech AT-4N", 3},
-    {"KeeLoq", 7},
+    {"KeeLoq", 8},
     {"Phoenix_V2", 3},
 };
 

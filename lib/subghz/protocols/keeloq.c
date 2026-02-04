@@ -100,6 +100,14 @@ static uint32_t subghz_protocol_keeloq_check_remote_controller(
     SubGhzKeystore* keystore,
     const char** manufacture_name);
 
+/**
+ * Defines the button value for the current btn_id
+ * Basic set | 0x1 | 0x2 | 0x4 | 0x8 | 0xA or Special Learning Code |
+ * @param last_btn_code Candidate for the last button
+ * @return Button code
+ */
+static uint8_t subghz_protocol_keeloq_get_btn_code(uint8_t last_btn_code);
+
 void* subghz_protocol_encoder_keeloq_alloc(SubGhzEnvironment* environment) {
     SubGhzProtocolEncoderKeeloq* instance = malloc(sizeof(SubGhzProtocolEncoderKeeloq));
 
@@ -107,8 +115,8 @@ void* subghz_protocol_encoder_keeloq_alloc(SubGhzEnvironment* environment) {
     instance->generic.protocol_name = instance->base.protocol->name;
     instance->keystore = subghz_environment_get_keystore(environment);
 
-    instance->encoder.repeat = 100;
-    instance->encoder.size_upload = 256;
+    instance->encoder.repeat = 3;
+    instance->encoder.size_upload = 1100;
     instance->encoder.upload = malloc(instance->encoder.size_upload * sizeof(LevelDuration));
     instance->encoder.is_running = false;
 
@@ -134,7 +142,57 @@ void subghz_protocol_encoder_keeloq_free(void* context) {
 static bool subghz_protocol_keeloq_gen_data(
     SubGhzProtocolEncoderKeeloq* instance,
     uint8_t btn,
-    bool counter_up) {
+    bool counter_up,
+    bool skip_btn_check) {
+    // No mf name set? -> set to ""
+    if(instance->manufacture_name == 0x0) {
+        instance->manufacture_name = "";
+    }
+    // add gendata part
+    ProgMode prog_mode = subghz_custom_btn_get_prog_mode();
+    if(!skip_btn_check && (keeloq_counter_mode != 7)) {
+        // Save original button
+        if(subghz_custom_btn_get_original() == 0) {
+            subghz_custom_btn_set_original(btn);
+        }
+
+        // Prog mode checks and extra fixage of MF Names
+        if(prog_mode == PROG_MODE_KEELOQ_BFT) {
+            instance->manufacture_name = "BFT";
+        } else if(prog_mode == PROG_MODE_KEELOQ_APRIMATIC) {
+            instance->manufacture_name = "Aprimatic";
+        } else if(prog_mode == PROG_MODE_KEELOQ_DEA_MIO) {
+            instance->manufacture_name = "Dea_Mio";
+        }
+        // Custom button (programming mode button) for BFT, Aprimatic, Dea_Mio
+        uint8_t klq_last_custom_btn = 0xA;
+        if((strcmp(instance->manufacture_name, "BFT") == 0) ||
+           (strcmp(instance->manufacture_name, "Aprimatic") == 0) ||
+           (strcmp(instance->manufacture_name, "Dea_Mio") == 0) ||
+           (strcmp(instance->manufacture_name, "NICE_MHOUSE") == 0)) {
+            klq_last_custom_btn = 0xF;
+        } else if(
+            (strcmp(instance->manufacture_name, "FAAC_RC,XT") == 0) ||
+            (strcmp(instance->manufacture_name, "Monarch") == 0) ||
+            (strcmp(instance->manufacture_name, "NICE_Smilo") == 0)) {
+            klq_last_custom_btn = 0xB;
+        } else if(
+            (strcmp(instance->manufacture_name, "Novoferm") == 0) ||
+            (strcmp(instance->manufacture_name, "Stilmatic") == 0)) {
+            klq_last_custom_btn = 0x9;
+        } else if(
+            (strcmp(instance->manufacture_name, "EcoStar") == 0) ||
+            (strcmp(instance->manufacture_name, "Sommer") == 0)) {
+            klq_last_custom_btn = 0x6;
+        } else if((strcmp(instance->manufacture_name, "AN-Motors") == 0)) {
+            klq_last_custom_btn = 0xC;
+        } else if((strcmp(instance->manufacture_name, "Cardin_S449") == 0)) {
+            klq_last_custom_btn = 0xD;
+        }
+
+        btn = subghz_protocol_keeloq_get_btn_code(klq_last_custom_btn);
+    }
+    // end gendata part
     // override button if we change it with signal settings button editor
     if(subghz_block_generic_global_button_override_get(&btn))
         FURI_LOG_D(TAG, "Button sucessfully changed to 0x%X", btn);
@@ -150,7 +208,6 @@ static bool subghz_protocol_keeloq_gen_data(
     }
 
     // programming mode on / off conditions
-    ProgMode prog_mode = subghz_custom_btn_get_prog_mode();
     if(strcmp(instance->manufacture_name, "BFT") == 0) {
         // BFT programming mode on / off conditions
         if(btn == 0xF) {
@@ -259,8 +316,16 @@ static bool subghz_protocol_keeloq_gen_data(
             } else {
                 instance->generic.cnt = 0xFFFF;
             }
-        } else {
+        } else if(keeloq_counter_mode == 6) {
             // Mode 6 - Freeze counter
+        } else {
+            // Mode 7 - Make 12 signals in row with mode 2
+            // + 0x3333 each time
+            if((instance->generic.cnt + 0x3333) > 0xFFFF) {
+                instance->generic.cnt = 0;
+            } else {
+                instance->generic.cnt += 0x3333;
+            }
         }
     }
     if(prog_mode == PROG_MODE_OFF) {
@@ -437,7 +502,7 @@ bool subghz_protocol_keeloq_create_data(
     instance->generic.cnt = cnt;
     instance->manufacture_name = manufacture_name;
     instance->generic.data_count_bit = 64;
-    if(subghz_protocol_keeloq_gen_data(instance, btn, false)) {
+    if(subghz_protocol_keeloq_gen_data(instance, btn, false, true)) {
         return (
             subghz_block_generic_serialize(&instance->generic, flipper_format, preset) ==
             SubGhzProtocolStatusOk);
@@ -463,7 +528,7 @@ bool subghz_protocol_keeloq_bft_create_data(
     instance->manufacture_name = manufacture_name;
     instance->generic.data_count_bit = 64;
     // hehehehe
-    if(subghz_protocol_keeloq_gen_data(instance, btn, false)) {
+    if(subghz_protocol_keeloq_gen_data(instance, btn, false, true)) {
         return (
             subghz_block_generic_serialize(&instance->generic, flipper_format, preset) ==
             SubGhzProtocolStatusOk);
@@ -471,88 +536,22 @@ bool subghz_protocol_keeloq_bft_create_data(
     return false;
 }
 
-/**
- * Defines the button value for the current btn_id
- * Basic set | 0x1 | 0x2 | 0x4 | 0x8 | 0xA or Special Learning Code |
- * @param last_btn_code Candidate for the last button
- * @return Button code
- */
-static uint8_t subghz_protocol_keeloq_get_btn_code(uint8_t last_btn_code);
-
-/**
- * Generating an upload from data.
- * @param instance Pointer to a SubGhzProtocolEncoderKeeloq instance
- * @return true On success
- */
-static bool
-    subghz_protocol_encoder_keeloq_get_upload(SubGhzProtocolEncoderKeeloq* instance, uint8_t btn) {
+static size_t subghz_protocol_encoder_keeloq_encode_to_timings(
+    SubGhzProtocolEncoderKeeloq* instance,
+    uint8_t btn,
+    bool counter_up,
+    size_t index) {
     furi_assert(instance);
-
-    // Save original button
-    if(subghz_custom_btn_get_original() == 0) {
-        subghz_custom_btn_set_original(btn);
-    }
-
-    // No mf name set? -> set to ""
-    if(instance->manufacture_name == 0x0) {
-        instance->manufacture_name = "";
-    }
-    // Prog mode checks and extra fixage of MF Names
-    ProgMode prog_mode = subghz_custom_btn_get_prog_mode();
-    if(prog_mode == PROG_MODE_KEELOQ_BFT) {
-        instance->manufacture_name = "BFT";
-    } else if(prog_mode == PROG_MODE_KEELOQ_APRIMATIC) {
-        instance->manufacture_name = "Aprimatic";
-    } else if(prog_mode == PROG_MODE_KEELOQ_DEA_MIO) {
-        instance->manufacture_name = "Dea_Mio";
-    }
-    // Custom button (programming mode button) for BFT, Aprimatic, Dea_Mio
-    uint8_t klq_last_custom_btn = 0xA;
-    if((strcmp(instance->manufacture_name, "BFT") == 0) ||
-       (strcmp(instance->manufacture_name, "Aprimatic") == 0) ||
-       (strcmp(instance->manufacture_name, "Dea_Mio") == 0) ||
-       (strcmp(instance->manufacture_name, "NICE_MHOUSE") == 0)) {
-        klq_last_custom_btn = 0xF;
-    } else if(
-        (strcmp(instance->manufacture_name, "FAAC_RC,XT") == 0) ||
-        (strcmp(instance->manufacture_name, "Monarch") == 0) ||
-        (strcmp(instance->manufacture_name, "NICE_Smilo") == 0)) {
-        klq_last_custom_btn = 0xB;
-    } else if(
-        (strcmp(instance->manufacture_name, "Novoferm") == 0) ||
-        (strcmp(instance->manufacture_name, "Stilmatic") == 0)) {
-        klq_last_custom_btn = 0x9;
-    } else if(
-        (strcmp(instance->manufacture_name, "EcoStar") == 0) ||
-        (strcmp(instance->manufacture_name, "Sommer") == 0)) {
-        klq_last_custom_btn = 0x6;
-    } else if((strcmp(instance->manufacture_name, "AN-Motors") == 0)) {
-        klq_last_custom_btn = 0xC;
-    } else if((strcmp(instance->manufacture_name, "Cardin_S449") == 0)) {
-        klq_last_custom_btn = 0xD;
-    }
-
-    uint32_t gap_duration = subghz_protocol_keeloq_const.te_short * 40;
-    if((strcmp(instance->manufacture_name, "Sommer") == 0)) {
-        gap_duration = subghz_protocol_keeloq_const.te_short * 29;
-    }
-
-    btn = subghz_protocol_keeloq_get_btn_code(klq_last_custom_btn);
-
     // Generate new key
-    if(subghz_protocol_keeloq_gen_data(instance, btn, true)) {
+    if(subghz_protocol_keeloq_gen_data(instance, btn, counter_up, false)) {
         // OK
     } else {
         return false;
     }
 
-    size_t index = 0;
-    size_t size_upload = 11 * 2 + 2 + (instance->generic.data_count_bit * 2) + 4;
-    if(size_upload > instance->encoder.size_upload) {
-        FURI_LOG_E(TAG, "Size upload exceeds allocated encoder buffer.");
-        return false;
-    } else {
-        instance->encoder.size_upload = size_upload;
+    uint32_t gap_duration = subghz_protocol_keeloq_const.te_short * 40;
+    if((strcmp(instance->manufacture_name, "Sommer") == 0)) {
+        gap_duration = subghz_protocol_keeloq_const.te_short * 29;
     }
 
     //Send header
@@ -592,6 +591,52 @@ static bool
     instance->encoder.upload[index++] =
         level_duration_make(true, (uint32_t)subghz_protocol_keeloq_const.te_short);
     instance->encoder.upload[index++] = level_duration_make(false, gap_duration);
+
+    return index;
+}
+
+/**
+ * Generating an upload from data.
+ * @param instance Pointer to a SubGhzProtocolEncoderKeeloq instance
+ * @return true On success
+ */
+static bool
+    subghz_protocol_encoder_keeloq_get_upload(SubGhzProtocolEncoderKeeloq* instance, uint8_t btn) {
+    furi_assert(instance);
+
+    instance->encoder.size_upload = 0;
+    size_t upindex = 0;
+
+    if(keeloq_counter_mode == 7) {
+        uint16_t temp_cnt = instance->generic.cnt;
+        instance->encoder.repeat = 1;
+        for(uint8_t i = 7; i > 0; i--) {
+            if(i == 3) {
+                instance->generic.cnt = 0x0000;
+                upindex = subghz_protocol_encoder_keeloq_encode_to_timings(
+                    instance, (uint8_t)0x00, false, upindex);
+                continue;
+            } else if(i == 2) {
+                instance->generic.cnt = temp_cnt;
+                upindex = subghz_protocol_encoder_keeloq_encode_to_timings(
+                    instance, btn, false, upindex);
+                continue;
+            } else if(i == 1) {
+                instance->generic.cnt = temp_cnt + 1;
+                upindex = subghz_protocol_encoder_keeloq_encode_to_timings(
+                    instance, btn, false, upindex);
+                continue;
+            }
+            upindex = subghz_protocol_encoder_keeloq_encode_to_timings(
+                instance, (uint8_t)0x00, true, upindex);
+        }
+        instance->encoder.size_upload = upindex;
+        return true;
+    } else {
+        instance->encoder.repeat = 3;
+        instance->encoder.size_upload =
+            subghz_protocol_encoder_keeloq_encode_to_timings(instance, btn, true, upindex);
+    }
 
     return true;
 }
@@ -719,7 +764,7 @@ LevelDuration subghz_protocol_encoder_keeloq_yield(void* context) {
     LevelDuration ret = instance->encoder.upload[instance->encoder.front];
 
     if(++instance->encoder.front == instance->encoder.size_upload) {
-        instance->encoder.repeat--;
+        if(!subghz_block_generic_global.endless_tx) instance->encoder.repeat--;
         instance->encoder.front = 0;
     }
 
@@ -1366,7 +1411,8 @@ static uint8_t subghz_protocol_keeloq_get_btn_code(uint8_t last_btn_code) {
 
     // Set custom button
     // Basic set | 0x1 | 0x2 | 0x4 | 0x8 | 0xA or Special Learning Code |
-    if((custom_btn_id == SUBGHZ_CUSTOM_BTN_OK) && (original_btn_code != 0)) {
+    if((custom_btn_id == SUBGHZ_CUSTOM_BTN_OK) && (original_btn_code != 0) &&
+       (keeloq_counter_mode != 7)) {
         // Restore original button code
         btn = original_btn_code;
     } else if(custom_btn_id == SUBGHZ_CUSTOM_BTN_UP) {
