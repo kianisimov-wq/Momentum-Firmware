@@ -18,7 +18,7 @@
 * SubGHz: **BFT KeeLoq** try decoding with **zero seed** too
 * SubGHz: KeeLoq **display BFT programming mode TX** (when arrow button is held)
 * SubGHz: KeeLoq **add counter mode 7 (sends 7 signals increasing counter with 0x3333 steps)** - may bypass counter on some receivers!
-* SubGHz: Add signals button editor and real **remote simulation** (full signal transmit with just one click) (PR #956 | by @Dmitry422)
+* SubGHz: Add signals button editor and real **remote simulation** (full signal transmit with just one click) (PR #956 #958 | by @Dmitry422)
 * JS: feat: add IR capabilities to the JS engine (PR #957 | by @LuisMayo)
 * NFC: Handle PPS request in ISO14443-4 layer (by @WillyJL)
 * NFC: Fixes to `READ_MULTI` and `GET_BLOCK_SECURITY` commands in ISO 15693-3 emulation (by @WillyJL & @aaronjamt)
