@@ -308,8 +308,7 @@ static void subghz_scene_receiver_config_set_tx_power(VariableItem* item) {
     variable_item_set_current_value_text(item, tx_power_text[index]);
 
     //Set TX power and remember setting
-    subghz->tx_power = index;
-    subghz->last_settings->tx_power = subghz->tx_power;
+    subghz->last_settings->tx_power = subghz->tx_power = index;
 
     //Get current preset and frequency so I can update preset wit TX power.
     SubGhzSetting* setting = subghz_txrx_get_setting(subghz->txrx);
