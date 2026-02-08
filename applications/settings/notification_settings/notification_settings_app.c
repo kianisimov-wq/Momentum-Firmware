@@ -87,7 +87,7 @@ const float volume_value[VOLUME_COUNT] = {
 #define DELAY_COUNT 12
 const char* const delay_text[DELAY_COUNT] = {
     "Always ON",
-    "1s",
+    "2s",
     "5s",
     "10s",
     "15s",
@@ -100,7 +100,7 @@ const char* const delay_text[DELAY_COUNT] = {
     "30min",
 };
 const uint32_t delay_value[DELAY_COUNT] =
-    {0, 1000, 5000, 10000, 15000, 30000, 60000, 90000, 120000, 300000, 600000, 1800000};
+    {0, 2000, 5000, 10000, 15000, 30000, 60000, 90000, 120000, 300000, 600000, 1800000};
 
 #define VIBRO_COUNT 2
 const char* const vibro_text[VIBRO_COUNT] = {
