@@ -498,6 +498,19 @@ static void notification_process_notification_message(
                 }
             }
             break;
+        case NotificationMessageTypeLedDisplayBacklightForceOn:
+            // Force Backlight ON even if its ON now
+            lcd_backlight_is_on = false;
+            notification_apply_notification_led_layer(
+                &app->display,
+                notification_message->data.led.value * display_brightness_setting *
+                    app->current_night_shift * 1.0f);
+            reset_mask |= reset_display_mask;
+            lcd_backlight_is_on = true;
+
+            //start rgb_mod_rainbow_timer when display backlight is ON and all corresponding settings is ON too
+            rainbow_timer_starter(app);
+            break;
         case NotificationMessageTypeLedDisplayBacklightEnforceOn:
             if(!app->display_led_lock) {
                 app->display_led_lock = true;

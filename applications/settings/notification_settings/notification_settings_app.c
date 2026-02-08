@@ -295,7 +295,7 @@ static void backlight_changed(VariableItem* item) {
     variable_item_set_current_value_text(item, backlight_text[index]);
     app->notification->settings.display_brightness = backlight_value[index];
 
-    notification_message(app->notification, &sequence_display_backlight_on);
+    notification_message(app->notification, &sequence_display_backlight_force_on);
 }
 
 static void screen_changed(VariableItem* item) {
@@ -557,11 +557,10 @@ static void night_shift_changed(VariableItem* item) {
 
     variable_item_set_current_value_text(item, night_shift_text[index]);
     app->notification->settings.night_shift = night_shift_value[index];
-    app->notification->current_night_shift = night_shift_value[index];
-    app->notification->current_night_shift = night_shift_value[index];
 
     // force demo night_shift brightness to rgb backlight and stock backlight
-    notification_message(app->notification, &sequence_display_backlight_on);
+    // app->notification->current_night_shift = night_shift_value[index];
+    // notification_message(app->notification, &sequence_display_backlight_force_on); 
 
     for(int i = 4; i < 6; i++) {
         VariableItem* t_item = variable_item_list_get(app->variable_item_list, i);
