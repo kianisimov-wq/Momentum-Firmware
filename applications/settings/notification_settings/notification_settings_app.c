@@ -558,10 +558,6 @@ static void night_shift_changed(VariableItem* item) {
     variable_item_set_current_value_text(item, night_shift_text[index]);
     app->notification->settings.night_shift = night_shift_value[index];
 
-    // force demo night_shift brightness to rgb backlight and stock backlight
-    // app->notification->current_night_shift = night_shift_value[index];
-    // notification_message(app->notification, &sequence_display_backlight_force_on); 
-
     for(int i = 4; i < 6; i++) {
         VariableItem* t_item = variable_item_list_get(app->variable_item_list, i);
         if(index == 0) {
@@ -571,10 +567,22 @@ static void night_shift_changed(VariableItem* item) {
         }
     }
 
+    // force demo night_shift brightness to rgb backlight and stock backlight for 1,2 sec
+    // while 1,2 seconds are running, there is another timer "night_shift_timer" can change current_night_shift to day or night value
+    // so when night_shift_demo_timer ended backlight force ON to day or night brightness
+    app->notification->current_night_shift = night_shift_value[index];
+    notification_message(app->notification, &sequence_display_backlight_force_on);
+
     if(night_shift_value[index] != 1) {
         night_shift_timer_start(app->notification);
+        if(furi_timer_is_running(app->notification->night_shift_demo_timer)) {
+            furi_timer_stop(app->notification->night_shift_demo_timer);
+        }
+        furi_timer_start(app->notification->night_shift_demo_timer, furi_ms_to_ticks(1200));
     } else {
         night_shift_timer_stop(app->notification);
+        if(furi_timer_is_running(app->notification->night_shift_demo_timer))
+            furi_timer_stop(app->notification->night_shift_demo_timer);
     }
 
     notification_message_save_settings(app->notification);
