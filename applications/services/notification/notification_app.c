@@ -761,7 +761,7 @@ static bool notification_load_settings(NotificationApp* app) {
 
     // "kostyl" for update old setting to new without change settings version
     if(app->settings.display_off_delay_ms < 2000) app->settings.display_off_delay_ms = 2000;
-    
+
     return fs_result;
 }
 
