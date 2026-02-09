@@ -19,6 +19,7 @@
 #define SUBGHZ_LAST_SETTING_FIELD_DELETE_OLD                        "DelOldSignals"
 #define SUBGHZ_LAST_SETTING_FIELD_HOPPING_THRESHOLD                 "HoppingThreshold"
 #define SUBGHZ_LAST_SETTING_FIELD_LED_AND_POWER_AMP                 "LedAndPowerAmp"
+#define SUBGHZ_LAST_SETTING_FIELD_TX_POWER                          "TXPower"
 
 SubGhzLastSettings* subghz_last_settings_alloc(void) {
     SubGhzLastSettings* instance = malloc(sizeof(SubGhzLastSettings));
@@ -117,6 +118,10 @@ void subghz_last_settings_load(SubGhzLastSettings* instance, size_t preset_count
                    SUBGHZ_LAST_SETTING_FIELD_DELETE_OLD,
                    &instance->delete_old_signals,
                    1)) {
+                flipper_format_rewind(fff_data_file);
+            }
+            if(!flipper_format_read_uint32(
+                   fff_data_file, SUBGHZ_LAST_SETTING_FIELD_TX_POWER, &instance->tx_power, 1)) {
                 flipper_format_rewind(fff_data_file);
             }
             if(!flipper_format_read_float(
@@ -220,6 +225,10 @@ bool subghz_last_settings_save(SubGhzLastSettings* instance) {
         }
         if(!flipper_format_write_bool(
                file, SUBGHZ_LAST_SETTING_FIELD_DELETE_OLD, &instance->delete_old_signals, 1)) {
+            break;
+        }
+        if(!flipper_format_write_uint32(
+               file, SUBGHZ_LAST_SETTING_FIELD_TX_POWER, &instance->tx_power, 1)) {
             break;
         }
         if(!flipper_format_write_float(
