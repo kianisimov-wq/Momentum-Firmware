@@ -109,10 +109,10 @@ void subghz_txrx_set_preset(
 }
 
 uint8_t*
-    subghz_txrx_set_tx_power(uint8_t* preset_data, size_t preset_data_size, uint32_t tx_power) {
+    subghz_txrx_set_tx_power(uint8_t* preset_data, size_t preset_data_size, uint8_t tx_power) {
 #define TX_POWER_OFFSET       7
 #define TX_PRESET_POWER_COUNT 11
-    const uint32_t tx_power_value[TX_PRESET_POWER_COUNT] = {
+    const uint8_t tx_power_value[TX_PRESET_POWER_COUNT] = {
         0,
         0xC0,
         0xC5,
@@ -708,7 +708,7 @@ const char* subghz_txrx_set_preset_internal(
     SubGhzTxRx* instance,
     uint32_t frequency,
     uint8_t index,
-    uint32_t tx_power) {
+    uint8_t tx_power) {
     furi_assert(instance);
 
     //Grab the prset name.

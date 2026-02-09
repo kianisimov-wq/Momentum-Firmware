@@ -93,7 +93,7 @@ struct SubGhz {
 
     uint16_t idx_menu_chosen;
     SubGhzLoadTypeFile load_type_file;
-    uint32_t tx_power;
+    uint8_t tx_power;
     void* rpc_ctx;
 };
 
