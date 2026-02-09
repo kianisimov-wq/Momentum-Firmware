@@ -19,12 +19,15 @@
 * SubGHz: KeeLoq **display BFT programming mode TX** (when arrow button is held)
 * SubGHz: KeeLoq **add counter mode 7 (sends 7 signals increasing counter with 0x3333 steps)** - may bypass counter on some receivers!
 * SubGHz: Add signals button editor and real **remote simulation** (full signal transmit with just one click) (PR #956 #958 | by @Dmitry422)
+* SubGHz: TX Power setting (PR #960 | by @LeeroysHub)
 * JS: feat: add IR capabilities to the JS engine (PR #957 | by @LuisMayo)
 * NFC: Handle PPS request in ISO14443-4 layer (by @WillyJL)
 * NFC: Fixes to `READ_MULTI` and `GET_BLOCK_SECURITY` commands in ISO 15693-3 emulation (by @WillyJL & @aaronjamt)
 * Archive: Allow folders to be pinned (by @WillyJL)
 * Apps: Build tag (**3feb2026**) - **Check out more Apps updates and fixes by following** [this link](https://github.com/xMasterX/all-the-plugins/commits/dev)
 ## Other changes
+* Settings: Storage settings exit scenes properly if used via favourites (fixes issue #951)
+* LCD: Backlight settings bug fix (PR #962 | by @Dmitry422)
 * UI: Various small changes
 * Desktop: Disable winter holidays anims 
 * OFW PR 4333: NFC: Fix sending 32+ byte ISO 15693-3 commands (by @WillyJL)
