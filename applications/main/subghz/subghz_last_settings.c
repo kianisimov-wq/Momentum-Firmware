@@ -120,10 +120,12 @@ void subghz_last_settings_load(SubGhzLastSettings* instance, size_t preset_count
                    1)) {
                 flipper_format_rewind(fff_data_file);
             }
+            uint32_t tx_power = 0;
             if(!flipper_format_read_uint32(
-                   fff_data_file, SUBGHZ_LAST_SETTING_FIELD_TX_POWER, &instance->tx_power, 1)) {
+                   fff_data_file, SUBGHZ_LAST_SETTING_FIELD_TX_POWER, &tx_power, 1)) {
                 flipper_format_rewind(fff_data_file);
             }
+            instance->tx_power = (uint8_t)(tx_power & 0xFF);
             if(!flipper_format_read_float(
                    fff_data_file,
                    SUBGHZ_LAST_SETTING_FIELD_HOPPING_THRESHOLD,
@@ -227,8 +229,8 @@ bool subghz_last_settings_save(SubGhzLastSettings* instance) {
                file, SUBGHZ_LAST_SETTING_FIELD_DELETE_OLD, &instance->delete_old_signals, 1)) {
             break;
         }
-        if(!flipper_format_write_uint32(
-               file, SUBGHZ_LAST_SETTING_FIELD_TX_POWER, &instance->tx_power, 1)) {
+        uint32_t tx_power = instance->tx_power;
+        if(!flipper_format_write_uint32(file, SUBGHZ_LAST_SETTING_FIELD_TX_POWER, &tx_power, 1)) {
             break;
         }
         if(!flipper_format_write_float(
