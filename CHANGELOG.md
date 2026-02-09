@@ -1,5 +1,5 @@
 ## Main changes
-- Current API: 87.5
+- Current API: 87.6
 * SubGHz: **Cardin S449 protocol full support** (64bit keeloq) (with Add manually, and all button codes) (**use FSK12K modulation to read the remote**) (closes issues #735 #908) (by @xMasterX and @zero-mega (thanks!))
 * SubGHz: **Beninca ARC AES128 protocol full support** (128bit dynamic) (with Add manually, and 3 button codes) (resolves issue #596) (by @xMasterX and @zero-mega)
 * SubGHz: **Treadmill37 protocol support** (37bit static) (by @xMasterX)
