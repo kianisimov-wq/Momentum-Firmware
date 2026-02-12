@@ -64,8 +64,7 @@ void subghz_txrx_set_preset(
  * @param preset_data_size Size of preset data
  * @param tx_power Menu Index of TX Power Setting. (Saves iterating in Config enter)
  */
-uint8_t*
-    subghz_txrx_set_tx_power(uint8_t* preset_data, size_t preset_data_size, uint32_t tx_power);
+uint8_t* subghz_txrx_set_tx_power(uint8_t* preset_data, size_t preset_data_size, uint8_t tx_power);
 
 /**
  * Get name of preset
@@ -377,4 +376,4 @@ const char* subghz_txrx_set_preset_internal(
     SubGhzTxRx* instance,
     uint32_t frequency,
     uint8_t index,
-    uint32_t tx_power);
+    uint8_t tx_power);

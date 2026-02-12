@@ -732,7 +732,7 @@ const char* subghz_txrx_set_preset_internal(
     SubGhzTxRx* instance,
     uint32_t frequency,
     uint8_t index,
-    uint32_t tx_power) {
+    uint8_t tx_power) {
     furi_assert(instance);
 
     //Grab the prset name.
