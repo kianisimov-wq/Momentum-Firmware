@@ -110,12 +110,14 @@ void subghz_txrx_set_preset(
 
 uint8_t*
     subghz_txrx_set_tx_power(uint8_t* preset_data, size_t preset_data_size, uint32_t tx_power) {
-#define TX_POWER_OFFSET_FM    8
-#define TX_POWER_OFFSET_AM    7
-#define TX_PRESET_POWER_COUNT 9
+#define PRESET_POWER_OFFSET_FM 8
+#define PRESET_POWER_OFFSET_AM 7
+#define TX_PATABLE_OFFSET_AM   8
+#define TX_PATABLE_COUNT       17
+
     //I had to skip the +10dBM and -6dBm Values, use only ones AM/FM have in common.
     //Highest Value is 12dBm for AM, 10 for FM. So Menu needs to reflect that.
-    const uint8_t tx_power_value_AM[TX_PRESET_POWER_COUNT] = {
+    const uint8_t tx_pa_table[TX_PATABLE_COUNT] = {
         0,
         0xC0, //12dBm
         0xCD, //7dBm
@@ -124,12 +126,7 @@ uint8_t*
         0x26, // -10dBm
         0x1D, // -15dBm
         0x17, //-20dBm
-        0x03 //-30dBm
-    };
-
-    //FM PATable Values. We have 8, not 10 (missing 12dBM and -6dBm that are in AM)
-    const uint8_t tx_power_value_FM[TX_PRESET_POWER_COUNT] = {
-        0,
+        0x03, //-30dBm
         0xC0, // 10dBm
         0xC8, //7dBm
         0x84, //5dBm
@@ -142,12 +139,19 @@ uint8_t*
 
     //Set the TX Power Here in the CC1101 register...
     if(tx_power) {
-        //Are we on an AM or FM preset? The PA table is different!
-        if(preset_data[preset_data_size - TX_POWER_OFFSET_FM]) {
-            preset_data[preset_data_size - TX_POWER_OFFSET_FM] = tx_power_value_FM[tx_power];
-        } else if(preset_data[preset_data_size - TX_POWER_OFFSET_AM]) {
-            preset_data[preset_data_size - TX_POWER_OFFSET_AM] = tx_power_value_AM[tx_power];
-        } //else //Must be a custom Preset with weird PA table not in FW code, dont touch it.
+        //Grab the AM and FM byte now, so we can do proper checks.
+        uint8_t fm_byte = preset_data[preset_data_size - PRESET_POWER_OFFSET_FM];
+        uint8_t am_byte = preset_data[preset_data_size - PRESET_POWER_OFFSET_AM];
+
+        //If we have both bytes 1st bytes set or none, this isnt a preset we can deal with here.
+        if(fm_byte & !am_byte) {
+            //Use FM Table
+            preset_data[preset_data_size - PRESET_POWER_OFFSET_FM] = tx_pa_table[tx_power];
+        } else if(am_byte & !fm_byte) {
+            //Use AM Table
+            preset_data[preset_data_size - PRESET_POWER_OFFSET_AM] =
+                tx_pa_table[TX_PATABLE_OFFSET_AM + tx_power];
+        }
     }
 
     //Pass back the preset_so we can call one liners.
