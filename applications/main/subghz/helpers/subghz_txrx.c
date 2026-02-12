@@ -109,7 +109,7 @@ void subghz_txrx_set_preset(
 }
 
 uint8_t*
-    subghz_txrx_set_tx_power(uint8_t* preset_data, size_t preset_data_size, uint32_t tx_power) {
+    subghz_txrx_set_tx_power(uint8_t* preset_data, size_t preset_data_size, uint8_t tx_power) {
 #define PRESET_POWER_OFFSET_FM 8
 #define PRESET_POWER_OFFSET_AM 7
 #define TX_PATABLE_OFFSET_AM   8
@@ -137,20 +137,29 @@ uint8_t*
         0x12, //-30dBm
     };
 
-    //Set the TX Power Here in the CC1101 register...
-    if(tx_power) {
-        //Grab the AM and FM byte now, so we can do proper checks.
-        uint8_t fm_byte = preset_data[preset_data_size - PRESET_POWER_OFFSET_FM];
-        uint8_t am_byte = preset_data[preset_data_size - PRESET_POWER_OFFSET_AM];
+    //Grab the AM and FM byte now, so we can do proper checks.
+    uint8_t fm_byte = preset_data[preset_data_size - PRESET_POWER_OFFSET_FM];
+    uint8_t am_byte = preset_data[preset_data_size - PRESET_POWER_OFFSET_AM];
 
-        //If we have both bytes 1st bytes set or none, this isnt a preset we can deal with here.
-        if(fm_byte & !am_byte) {
-            //Use FM Table
-            preset_data[preset_data_size - PRESET_POWER_OFFSET_FM] = tx_pa_table[tx_power];
-        } else if(am_byte & !fm_byte) {
-            //Use AM Table
-            preset_data[preset_data_size - PRESET_POWER_OFFSET_AM] =
+    //Set the TX Power Here in the CC1101 register...
+
+    //If we have both bytes 1st bytes set or none, this isnt a preset we can deal with here.
+    if(fm_byte && !am_byte) {
+        //Use FM Table
+        if(tx_power) {
+            preset_data[preset_data_size - PRESET_POWER_OFFSET_FM] =
                 tx_pa_table[TX_PATABLE_OFFSET_AM + tx_power];
+        } else {
+            preset_data[preset_data_size - PRESET_POWER_OFFSET_FM] =
+                tx_pa_table[1]; //Max Power 0xC0 10dBm
+        }
+    } else if(am_byte && !fm_byte) {
+        //Use AM Table
+        if(tx_power) {
+            preset_data[preset_data_size - PRESET_POWER_OFFSET_AM] = tx_pa_table[tx_power];
+        } else {
+            preset_data[preset_data_size - PRESET_POWER_OFFSET_AM] =
+                tx_pa_table[1]; //Max Power 0xC0 12dBm
         }
     }
 
