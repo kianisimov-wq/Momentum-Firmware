@@ -42,10 +42,7 @@ void desktop_lock_menu_set_stealth_mode_state(DesktopLockMenuView* lock_menu, bo
 
 void desktop_lock_menu_set_bt_mode_state(DesktopLockMenuView* lock_menu, bool bt_mode) {
     with_view_model(
-        lock_menu->view,
-        DesktopLockMenuViewModel * model,
-        { model->bt_mode = bt_mode; },
-        true);
+        lock_menu->view, DesktopLockMenuViewModel * model, { model->bt_mode = bt_mode; }, true);
 }
 
 void desktop_lock_menu_set_idx(DesktopLockMenuView* lock_menu, uint8_t idx) {
@@ -68,9 +65,9 @@ void desktop_lock_menu_draw_callback(Canvas* canvas, void* model) {
         //if(i == DesktopLockMenuIndexLock) {
         if(i == DesktopLockMenuIndexBt) {
             if(m->bt_mode) {
-                str = "Bluetooth OFF";
+                str = "Bluetooth Off";
             } else {
-                str = "Bluetooth ON";
+                str = "Bluetooth On";
             }
         } else if(i == DesktopLockMenuIndexStealth) {
             if(m->stealth_mode) {
@@ -144,11 +141,11 @@ bool desktop_lock_menu_input_callback(InputEvent* event, void* context) {
             if(event->type == InputTypeShort) {
                 lock_menu->callback(DesktopLockMenuEventBt, lock_menu->context);
             }
-        // old use case
-        // } else if(idx == DesktopLockMenuIndexLock) {
-        //     if(event->type == InputTypeShort) {
-        //         lock_menu->callback(DesktopLockMenuEventLock, lock_menu->context);
-        //     }
+            // old use case
+            // } else if(idx == DesktopLockMenuIndexLock) {
+            //     if(event->type == InputTypeShort) {
+            //         lock_menu->callback(DesktopLockMenuEventLock, lock_menu->context);
+            //     }
         } else if(idx == DesktopLockMenuIndexStealth) {
             if((stealth_mode == false) && (event->type == InputTypeShort)) {
                 lock_menu->callback(DesktopLockMenuEventStealthModeOn, lock_menu->context);
