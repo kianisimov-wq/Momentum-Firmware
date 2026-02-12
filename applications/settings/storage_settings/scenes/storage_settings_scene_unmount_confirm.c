@@ -47,7 +47,7 @@ bool storage_settings_scene_unmount_confirm_on_event(void* context, SceneManager
         case DialogExResultCenter:
         case DialogExResultLeft:
             if(app->from_favorites) {
-                storage_settings_scene_unmount_confirm_on_exit(app);
+                scene_manager_stop(app->scene_manager);
                 view_dispatcher_stop(app->view_dispatcher);
                 return true;
             } else {
