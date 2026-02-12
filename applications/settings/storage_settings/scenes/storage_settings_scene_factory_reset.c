@@ -45,7 +45,7 @@ bool storage_settings_scene_factory_reset_on_event(void* context, SceneManagerEv
         case DialogExResultLeft:
             scene_manager_set_scene_state(app->scene_manager, StorageSettingsFactoryReset, 0);
             if(app->from_favorites) {
-                storage_settings_scene_factory_reset_on_exit(app);
+                scene_manager_stop(app->scene_manager);
                 view_dispatcher_stop(app->view_dispatcher);
                 return true;
             } else {

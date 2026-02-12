@@ -49,7 +49,7 @@ bool storage_settings_scene_benchmark_confirm_on_event(void* context, SceneManag
         case DialogExResultLeft:
         case DialogExResultCenter:
             if(app->from_favorites) {
-                storage_settings_scene_benchmark_confirm_on_exit(app);
+                scene_manager_stop(app->scene_manager);
                 view_dispatcher_stop(app->view_dispatcher);
                 return true;
             } else {

@@ -79,7 +79,7 @@ bool storage_settings_scene_sd_info_on_event(void* context, SceneManagerEvent ev
         case DialogExResultLeft:
         case DialogExResultCenter:
             if(app->from_favorites) {
-                storage_settings_scene_sd_info_on_exit(app);
+                scene_manager_stop(app->scene_manager);
                 view_dispatcher_stop(app->view_dispatcher);
                 return true;
             } else {

@@ -157,7 +157,7 @@ bool storage_settings_scene_benchmark_on_event(void* context, SceneManagerEvent 
         switch(event.event) {
         case DialogExResultCenter:
             if(app->from_favorites) {
-                storage_settings_scene_benchmark_on_exit(app);
+                scene_manager_stop(app->scene_manager);
                 view_dispatcher_stop(app->view_dispatcher);
                 return true;
             } else {
@@ -169,7 +169,7 @@ bool storage_settings_scene_benchmark_on_event(void* context, SceneManagerEvent 
     } else if(event.type == SceneManagerEventTypeBack) {
         if(sd_status == FSE_OK) {
             if(app->from_favorites) {
-                storage_settings_scene_benchmark_on_exit(app);
+                scene_manager_stop(app->scene_manager);
                 view_dispatcher_stop(app->view_dispatcher);
                 return true;
             } else {
