@@ -293,9 +293,11 @@ static bool subghz_protocol_alutech_at_4n_gen_data(
         instance->generic.serial = (uint32_t)(data >> 24) & 0xFFFFFFFF;
     }
 
-    if(alutech_at4n_counter_mode == 0) {
+    // if we change counter in SignalSettings menu then we must passthru counter_modes, just gen and save signal file.
+    if((alutech_at4n_counter_mode == 0) || subghz_block_generic_global.cnt_need_override) {
         // Check for OFEX (overflow experimental) mode
-        if(furi_hal_subghz_get_rolling_counter_mult() != -0x7FFFFFFF) {
+        if((furi_hal_subghz_get_rolling_counter_mult() != -0x7FFFFFFF) ||
+           subghz_block_generic_global.cnt_need_override) {
             // standart counter mode. PULL data from subghz_block_generic_global variables
             if(!subghz_block_generic_global_counter_override_get(&instance->generic.cnt)) {
                 // if counter_override_get return FALSE then counter was not changed and we increase counter by standart mult value
