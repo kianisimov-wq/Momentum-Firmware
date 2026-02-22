@@ -26,7 +26,6 @@ struct SubGhzProtocolDecoderSomfyKeytis {
 
     uint16_t header_count;
     ManchesterState manchester_saved_state;
-    uint32_t press_duration_counter;
 };
 
 struct SubGhzProtocolEncoderSomfyKeytis {
@@ -223,7 +222,7 @@ static bool
         data <<= 8;
         data |= frame[i];
     }
-    instance->generic.data_2 = data;
+    instance->generic.seed = data;
     return true;
 }
 
@@ -239,12 +238,25 @@ bool subghz_protocol_somfy_keytis_create_data(
     instance->generic.serial = serial;
     instance->generic.cnt = cnt;
     instance->generic.data_count_bit = 80;
-    bool res = subghz_protocol_somfy_keytis_gen_data(instance, btn);
-    if(res) {
-        return SubGhzProtocolStatusOk ==
-               subghz_block_generic_serialize(&instance->generic, flipper_format, preset);
+    subghz_protocol_somfy_keytis_gen_data(instance, btn);
+
+    // Encode complete, now serialize
+    SubGhzProtocolStatus res =
+        subghz_block_generic_serialize(&instance->generic, flipper_format, preset);
+
+    if(!flipper_format_rewind(flipper_format)) {
+        FURI_LOG_E(TAG, "Rewind error");
+        res = SubGhzProtocolStatusErrorParserOthers;
     }
-    return res;
+
+    if((res == SubGhzProtocolStatusOk) &&
+       !flipper_format_write_uint32(
+           flipper_format, "Duration_Counter", &instance->generic.seed, 1)) {
+        FURI_LOG_E(TAG, "Unable to add Duration_Counter");
+        res = SubGhzProtocolStatusErrorParserOthers;
+    }
+
+    return res == SubGhzProtocolStatusOk;
 }
 
 /**
@@ -310,7 +322,7 @@ static bool subghz_protocol_encoder_somfy_keytis_get_upload(
     }
 
     for(uint8_t i = 24; i > 0; i--) {
-        if(bit_read(instance->generic.data_2, i - 1)) {
+        if(bit_read(instance->generic.seed, i - 1)) {
             if(instance->encoder.upload[index - 1].level == LEVEL_DURATION_LEVEL_LOW) {
                 instance->encoder.upload[index - 1].duration *= 2; // 00
                 instance->encoder.upload[index++] = level_duration_make(
@@ -388,7 +400,7 @@ static bool subghz_protocol_encoder_somfy_keytis_get_upload(
         }
 
         for(uint8_t i = 24; i > 0; i--) {
-            if(bit_read(instance->generic.data_2, i - 1)) {
+            if(bit_read(instance->generic.seed, i - 1)) {
                 if(instance->encoder.upload[index - 1].level == LEVEL_DURATION_LEVEL_LOW) {
                     instance->encoder.upload[index - 1].duration *= 2; // 00
                     instance->encoder.upload[index++] = level_duration_make(
@@ -551,7 +563,7 @@ void subghz_protocol_decoder_somfy_keytis_feed(void* context, bool level, uint32
                 instance->decoder.parser_step = SomfyKeytisDecoderStepDecoderData;
                 instance->decoder.decode_data = 0;
                 instance->decoder.decode_count_bit = 0;
-                instance->press_duration_counter = 0;
+                instance->generic.seed = 0;
                 manchester_advance(
                     instance->manchester_saved_state,
                     ManchesterEventReset,
@@ -628,8 +640,7 @@ void subghz_protocol_decoder_somfy_keytis_feed(void* context, bool level, uint32
                 if(instance->decoder.decode_count_bit < 56) {
                     instance->decoder.decode_data = (instance->decoder.decode_data << 1) | data;
                 } else {
-                    instance->press_duration_counter = (instance->press_duration_counter << 1) |
-                                                       data;
+                    instance->generic.seed = (instance->generic.seed << 1) | data;
                 }
 
                 instance->decoder.decode_count_bit++;
@@ -797,7 +808,7 @@ SubGhzProtocolStatus subghz_protocol_decoder_somfy_keytis_serialize(
         subghz_block_generic_serialize(&instance->generic, flipper_format, preset);
     if((ret == SubGhzProtocolStatusOk) &&
        !flipper_format_write_uint32(
-           flipper_format, "Duration_Counter", &instance->press_duration_counter, 1)) {
+           flipper_format, "Duration_Counter", &instance->generic.seed, 1)) {
         FURI_LOG_E(TAG, "Unable to add Duration_Counter");
         ret = SubGhzProtocolStatusErrorParserOthers;
     }
@@ -823,10 +834,7 @@ SubGhzProtocolStatus
             break;
         }
         if(!flipper_format_read_uint32(
-               flipper_format,
-               "Duration_Counter",
-               (uint32_t*)&instance->press_duration_counter,
-               1)) {
+               flipper_format, "Duration_Counter", (uint32_t*)&instance->generic.seed, 1)) {
             FURI_LOG_E(TAG, "Missing Duration_Counter");
             ret = SubGhzProtocolStatusErrorParserOthers;
             break;
@@ -864,7 +872,7 @@ void subghz_protocol_decoder_somfy_keytis_get_string(void* context, FuriString* 
         instance->generic.data_count_bit,
         (uint32_t)(instance->generic.data >> 32),
         (uint32_t)instance->generic.data,
-        instance->press_duration_counter,
+        instance->generic.seed,
         instance->generic.serial,
         instance->generic.cnt,
         instance->generic.btn,
