@@ -49,7 +49,7 @@ That list is only for default SubGHz app, apps like *Weather Station* have their
 - V2 Phoenix (Phox) `433.92MHz` `AM650` (52 bits, Dynamic) (receivers have option to enable Static mode, making them ignore rolling part of the key)
 - Marantec `433.92MHz, 868MHz` `AM650` (49 bits, Static)
 - Marantec24 `868MHz` `AM650` (24 bits, Static)
-- Somfy Keytis `433.42MHz, 868MHz` `AM650` (80 bits, Dynamic)
+- Somfy Keytis `433.42MHz, 868MHz` `AM650` (80 bits, Dynamic) (KeyGo 4 RTS 4 / Keytis NS 2RTS)
 - ZKTeco `430.5MHz` `AM650` (24 bits, Static - Princeton based) - (Button codes (already mapped to arrow keys): `0x30 (UP)`, `0x03 (STOP)`, `0x0C (DOWN)`) 
 - Linear `300MHz` `AM650` (10 bits, Static)
 - Linear Delta3 `AM650` (8 bits, Static)
