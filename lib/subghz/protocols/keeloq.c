@@ -21,7 +21,7 @@ static bool bypass = false;
 static const SubGhzBlockConst subghz_protocol_keeloq_const = {
     .te_short = 400,
     .te_long = 800,
-    .te_delta = 140,
+    .te_delta = 180,
     .min_count_bit_for_found = 64,
 };
 
@@ -177,7 +177,8 @@ static bool subghz_protocol_keeloq_gen_data(
         } else if(
             (strcmp(instance->manufacture_name, "FAAC_RC,XT") == 0) ||
             (strcmp(instance->manufacture_name, "Monarch") == 0) ||
-            (strcmp(instance->manufacture_name, "NICE_Smilo") == 0)) {
+            (strcmp(instance->manufacture_name, "NICE_Smilo") == 0) ||
+            (strcmp(instance->manufacture_name, "Genius_Bravo") == 0)) {
             klq_last_custom_btn = 0xB;
         } else if(
             (strcmp(instance->manufacture_name, "Novoferm") == 0) ||
