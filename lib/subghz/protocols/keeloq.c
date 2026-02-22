@@ -803,6 +803,8 @@ void subghz_protocol_decoder_keeloq_reset(void* context) {
     // TODO
     instance->keystore->mfname = "";
     instance->keystore->kl_type = 0;
+    // Reset seed?
+    instance->generic.seed = 0;
 }
 
 void subghz_protocol_decoder_keeloq_feed(void* context, bool level, uint32_t duration) {
