@@ -7,6 +7,8 @@
 #include "../blocks/generic.h"
 #include "../blocks/math.h"
 
+#include "../blocks/custom_btn_i.h"
+
 #define TAG "SubGhzProtocolSomfyKeytis"
 
 static const SubGhzBlockConst subghz_protocol_somfy_keytis_const = {
@@ -122,17 +124,49 @@ void subghz_protocol_decoder_somfy_keytis_reset(void* context) {
         NULL);
 }
 
+static void subghz_protocol_somfy_keytis_check_remote_controller(SubGhzBlockGeneric* instance);
+
+static uint8_t subghz_protocol_somfy_keytis_get_btn_code(void) {
+    uint8_t custom_btn_id = subghz_custom_btn_get();
+    uint8_t original_btn_code = subghz_custom_btn_get_original();
+    uint8_t btn = original_btn_code;
+
+    // Set custom button
+    if((custom_btn_id == SUBGHZ_CUSTOM_BTN_OK) && (original_btn_code != 0)) {
+        // Restore original button code
+        btn = original_btn_code;
+    } else if(custom_btn_id == SUBGHZ_CUSTOM_BTN_UP) {
+        switch(original_btn_code) {
+        case 0x4:
+            btn = 0x3;
+            break;
+        case 0x3:
+            btn = 0x4;
+            break;
+
+        default:
+            break;
+        }
+    }
+
+    return btn;
+}
+
 static bool
     subghz_protocol_somfy_keytis_gen_data(SubGhzProtocolEncoderSomfyKeytis* instance, uint8_t btn) {
-    UNUSED(btn);
-    uint64_t data = instance->generic.data ^ (instance->generic.data >> 8);
-    instance->generic.btn = (data >> 48) & 0xF;
-    instance->generic.cnt = (data >> 24) & 0xFFFF;
-    instance->generic.serial = data & 0xFFFFFF;
+    //instance->generic.btn = (data >> 48) & 0xF;
+    //instance->generic.cnt = (data >> 24) & 0xFFFF;
+    //instance->generic.serial = data & 0xFFFFFF;
+    // Save original button for later use
+    if(subghz_custom_btn_get_original() == 0) {
+        subghz_custom_btn_set_original(btn);
+    }
+
+    btn = subghz_protocol_somfy_keytis_get_btn_code();
 
     // override button if we change it with signal settings button editor
-    if(subghz_block_generic_global_button_override_get(&instance->generic.btn))
-        FURI_LOG_D(TAG, "Button sucessfully changed to 0x%X", instance->generic.btn);
+    if(subghz_block_generic_global_button_override_get(&btn))
+        FURI_LOG_D(TAG, "Button sucessfully changed to 0x%X", btn);
 
     // Check for OFEX (overflow experimental) mode
     if(furi_hal_subghz_get_rolling_counter_mult() != -0x7FFFFFFF) {
@@ -156,7 +190,7 @@ static bool
     }
 
     uint8_t frame[10];
-    frame[0] = (0xA << 4) | instance->generic.btn;
+    frame[0] = (0xA << 4) | btn;
     frame[1] = 0xF << 4;
     frame[2] = instance->generic.cnt >> 8;
     frame[3] = instance->generic.cnt;
@@ -178,7 +212,7 @@ static bool
     for(uint8_t i = 1; i < 7; i++) {
         frame[i] ^= frame[i - 1];
     }
-    data = 0;
+    uint64_t data = 0;
     for(uint8_t i = 0; i < 7; ++i) {
         data <<= 8;
         data |= frame[i];
@@ -419,6 +453,8 @@ SubGhzProtocolStatus
         // Optional value
         flipper_format_read_uint32(
             flipper_format, "Repeat", (uint32_t*)&instance->encoder.repeat, 1);
+
+        subghz_protocol_somfy_keytis_check_remote_controller(&instance->generic);
 
         subghz_protocol_encoder_somfy_keytis_get_upload(instance, instance->generic.btn);
 
@@ -711,6 +747,12 @@ static void subghz_protocol_somfy_keytis_check_remote_controller(SubGhzBlockGene
     instance->btn = (data >> 48) & 0xF;
     instance->cnt = (data >> 24) & 0xFFFF;
     instance->serial = data & 0xFFFFFF;
+
+    // Save original button for later use
+    if(subghz_custom_btn_get_original() == 0) {
+        subghz_custom_btn_set_original(instance->btn);
+    }
+    subghz_custom_btn_set_max(1);
 }
 
 /** 
