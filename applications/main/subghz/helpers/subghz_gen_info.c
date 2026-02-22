@@ -528,7 +528,7 @@ void subghz_scene_set_type_fill_generation_infos(GenInfo* infos_dest, SetType ty
             .type = GenSomfyKeytis,
             .mod = "AM650",
             .freq = 433420000,
-            .somfy_keytis.serial = (key & 0x000FFFFF) | 0x0D500000,
+            .somfy_keytis.serial = (key & 0x0000FFFF) | 0x00D50000,
             .somfy_keytis.btn = 0x04,
             .somfy_keytis.cnt = 0x03};
         break;

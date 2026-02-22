@@ -250,7 +250,7 @@ bool subghz_protocol_somfy_keytis_create_data(
     }
 
     if((res == SubGhzProtocolStatusOk) &&
-       !flipper_format_write_uint32(
+       !flipper_format_insert_or_update_uint32(
            flipper_format, "Duration_Counter", &instance->generic.seed, 1)) {
         FURI_LOG_E(TAG, "Unable to add Duration_Counter");
         res = SubGhzProtocolStatusErrorParserOthers;
