@@ -16,6 +16,8 @@
   - UL: Add signals button editor and real remote simulation (full signal transmit with just one click) (by @Dmitry422)
   - UL: KeeLoq add counter mode 7 (sends 7 signals increasing counter with 0x3333 steps) - may bypass counter on some receivers! (by @xMasterX)
   - UL: TX Power setting (by @LeeroysHub)
+  - UL: Somfy Keytis button switch and Add Manually support (by @xMasterX)
+  - UL: Genius Echo/Bravo add 2 buttons hold simulation (0xB btn code) (by @xMasterX)
 - UL: JS: Add IR capabilities to the JS engine (by @LuisMayo)
 - UL: Docs: Add [full list of supported SubGHz protocols](https://github.com/Next-Flip/Momentum-Firmware/blob/dev/documentation/SubGHzSupportedSystems.md) and their frequencies/modulations that can be used for reading remotes (by @xMasterX)
 
@@ -43,6 +45,7 @@
   - UL: BFT KeeLoq try decoding with zero seed too (by @xMasterX)
   - UL: KeeLoq display BFT programming mode TX (when arrow button is held) (by @xMasterX)
   - UL: Signal Settings Improvements (by @Dmitry422)
+  - UL: KeeLoq change delta size (by @xMasterX)
 - Archive: Support opening and pinning ProtoPirate files from Archive (#510 by @LeeroysHub)
 - OFW: API: Make `view_port_send_to_back()` public (by @loftyinclination)
 
@@ -54,6 +57,7 @@
   - UL: Nice Flor S remove extra uint64 variable (by @xMasterX)
   - UL: Fix Alutech AT4N false positives (by @xMasterX)
   - UL: Fix documentation link for HT12A protocol (by @carlogrisetti)
+  - UL: BFT Mitto fix decode bug (seed was not resetting after one successful decode) (by @xMasterX)
 - NFC:
   - Fix sending 32+ byte ISO 15693-3 commands (by @WillyJL)
   - Fixes to `READ_MULTI` and `GET_BLOCK_SECURITY` commands in ISO 15693-3 emulation (#501 by @WillyJL & aaronjamt)
