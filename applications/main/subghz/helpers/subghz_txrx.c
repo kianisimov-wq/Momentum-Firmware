@@ -104,12 +104,39 @@ void subghz_txrx_set_preset(
     size_t preset_data_size) {
     furi_assert(instance);
     furi_string_set(instance->preset->name, preset_name);
+
     SubGhzRadioPreset* preset = instance->preset;
     preset->frequency = frequency;
     preset->latitude = latitude;
     preset->longitude = longitude;
     preset->data = preset_data;
     preset->data_size = preset_data_size;
+}
+
+uint8_t*
+    subghz_txrx_set_tx_power(uint8_t* preset_data, size_t preset_data_size, uint8_t tx_power) {
+#define TX_POWER_OFFSET       7
+#define TX_PRESET_POWER_COUNT 11
+    const uint8_t tx_power_value[TX_PRESET_POWER_COUNT] = {
+        0,
+        0xC0,
+        0xC5,
+        0xCD,
+        0x86,
+        0x50,
+        0x37,
+        0x26,
+        0x1D,
+        0x17,
+        0x03,
+    };
+
+    //Set the TX Power Here in the CC1101 register...
+    if(tx_power)
+        preset_data[preset_data_size - TX_POWER_OFFSET] = (uint8_t)tx_power_value[tx_power];
+
+    //Pass back the preset_so we can call one liners.
+    return preset_data;
 }
 
 const char* subghz_txrx_get_preset_name(SubGhzTxRx* instance, const char* preset) {
@@ -686,22 +713,29 @@ void subghz_txrx_set_default_preset(SubGhzTxRx* instance, uint32_t frequency) {
     subghz_txrx_set_preset(instance, default_modulation, frequency, NAN, NAN, NULL, 0);
 }
 
-const char*
-    subghz_txrx_set_preset_internal(SubGhzTxRx* instance, uint32_t frequency, uint8_t index) {
+const char* subghz_txrx_set_preset_internal(
+    SubGhzTxRx* instance,
+    uint32_t frequency,
+    uint8_t index,
+    uint8_t tx_power) {
     furi_assert(instance);
 
+    //Grab the prset name.
     SubGhzSetting* setting = subghz_txrx_get_setting(instance);
     const char* preset_name = subghz_setting_get_preset_name(setting, index);
     subghz_setting_set_default_frequency(setting, frequency);
 
-    subghz_txrx_set_preset(
-        instance,
-        preset_name,
-        frequency,
+    //Get the preset data now so we can set TX power.
+    uint8_t* preset_data = subghz_setting_get_preset_data(setting, index);
+    size_t preset_data_size = subghz_setting_get_preset_data_size(setting, index);
+
+    //Edit TX power, if necessary.
+    subghz_txrx_set_tx_power(preset_data, preset_data_size, tx_power);
+
+    //Set the Updated Preset.
+    subghz_txrx_set_preset(instance, preset_name, frequency,
         NAN,
-        NAN,
-        subghz_setting_get_preset_data(setting, index),
-        subghz_setting_get_preset_data_size(setting, index));
+        NAN, preset_data, preset_data_size);
 
     return preset_name;
 }

@@ -15,6 +15,7 @@
   - UL: Add 390MHz and 430.5MHz to default hopper list (6 elements like in OFW) (works well with Hopper RSSI level set for your enviroment) (by @xMasterX)
   - UL: Add signals button editor and real remote simulation (full signal transmit with just one click) (by @Dmitry422)
   - UL: KeeLoq add counter mode 7 (sends 7 signals increasing counter with 0x3333 steps) - may bypass counter on some receivers! (by @xMasterX)
+  - UL: TX Power setting (by @LeeroysHub)
 - UL: JS: Add IR capabilities to the JS engine (by @LuisMayo)
 - UL: Docs: Add [full list of supported SubGHz protocols](https://github.com/Next-Flip/Momentum-Firmware/blob/dev/documentation/SubGHzSupportedSystems.md) and their frequencies/modulations that can be used for reading remotes (by @xMasterX)
 
@@ -55,6 +56,7 @@
   - Fix sending 32+ byte ISO 15693-3 commands (by @WillyJL)
   - Fixes to `READ_MULTI` and `GET_BLOCK_SECURITY` commands in ISO 15693-3 emulation (#501 by @WillyJL & aaronjamt)
   - UL: Fix LED not blinking at SLIX unlock (by @xMasterX)
+- UL: Settings: Storage settings exit scenes properly if used via favourites (by @xMasterX)
 - UL: UI: Some small changes (by @xMasterX)
 
 ### Removed:
