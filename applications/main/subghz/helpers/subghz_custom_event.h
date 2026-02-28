@@ -82,6 +82,7 @@ typedef enum {
     SetTypeKingGatesStylo4k,
     SetTypeBenincaARC,
     SetTypeJarolift,
+    SetTypeDitecGOL4,
     SetTypeANMotorsAT4,
     SetTypeAlutechAT4N,
     SetTypePhoenix_V2_433,

@@ -247,9 +247,7 @@ static void subghz_scene_receiver_config_set_preset(VariableItem* item) {
     subghz_txrx_set_tx_power(preset_data, preset_data_size, subghz->tx_power);
 
     subghz_txrx_set_preset(
-        subghz->txrx, preset_name, preset.frequency, 
-        NAN,
-        NAN,preset_data, preset_data_size);
+        subghz->txrx, preset_name, preset.frequency, NAN, NAN, preset_data, preset_data_size);
     subghz->last_settings->preset_index = index;
 }
 

@@ -7,6 +7,7 @@
   - UL: Beninca ARC AES128 protocol full support (128bit dynamic) (with Add manually, and 2 button codes) (by @xMasterX & @zero-mega)
   - UL: Jarolift protocol full support (72bit dynamic) (with Add manually, and all button codes) (by @xMasterX & d82k & Steffen (bastelbudenbuben de))
   - UL: Treadmill37 protocol support (37bit static) (by @xMasterX)
+  - UL: Ditec GOL4 protocol (with programming mode, button switch, add manually) (by @xMasterX & @zero-mega)
   - UL: New modulation FSK with 12KHz deviation (by @xMasterX)
   - UL: KingGates Stylo 4k Add manually and button switch support and refactoring of encoder (by @xMasterX)
   - UL: Stilmatic (R-Tech) 12bit discr. fix & button 9 support (two buttons hold simulation) (mapped on arrow keys) (by @xMasterX)

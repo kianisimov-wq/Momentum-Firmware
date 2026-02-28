@@ -766,9 +766,8 @@ const char* subghz_txrx_set_preset_internal(
     subghz_txrx_set_tx_power(preset_data, preset_data_size, tx_power);
 
     //Set the Updated Preset.
-    subghz_txrx_set_preset(instance, preset_name, frequency,
-        NAN,
-        NAN, preset_data, preset_data_size);
+    subghz_txrx_set_preset(
+        instance, preset_name, frequency, NAN, NAN, preset_data, preset_data_size);
 
     return preset_name;
 }
