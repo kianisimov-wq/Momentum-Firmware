@@ -42,7 +42,9 @@
   - UL: KeeLoq display decrypted `Hop` instead of showing encrypted as is (encrypted non byte reversed hop is still displayed in `Key` field) (by @xMasterX)
   - UL: BFT KeeLoq try decoding with zero seed too (by @xMasterX)
   - UL: KeeLoq display BFT programming mode TX (when arrow button is held) (by @xMasterX)
+  - UL: Signal Settings Improvements (by @Dmitry422)
 - Archive: Support opening and pinning ProtoPirate files from Archive (#510 by @LeeroysHub)
+- OFW: API: Make `view_port_send_to_back()` public (by @loftyinclination)
 
 ### Fixed:
 - Sub-GHz:
@@ -58,6 +60,7 @@
   - UL: Fix LED not blinking at SLIX unlock (by @xMasterX)
 - UL: Settings: Storage settings exit scenes properly if used via favourites (by @xMasterX)
 - UL: UI: Some small changes (by @xMasterX)
+- OFW: USB: Fix USB HID keyboard LED state reporting (by @Caballosanex)
 
 ### Removed:
 - Sub-GHz:
