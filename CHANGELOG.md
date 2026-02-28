@@ -5,6 +5,7 @@
 - Sub-GHz:
   - UL: Cardin S449 protocol full support (64bit keeloq) (with Add manually, and all button codes) (use FSK12K modulation to read the remote) (by @xMasterX & @zero-mega)
   - UL: Beninca ARC AES128 protocol full support (128bit dynamic) (with Add manually, and 2 button codes) (by @xMasterX & @zero-mega)
+  - UL: Jarolift protocol full support (72bit dynamic) (with Add manually, and all button codes) (by @xMasterX & d82k & Steffen (bastelbudenbuben de))
   - UL: Treadmill37 protocol support (37bit static) (by @xMasterX)
   - UL: New modulation FSK with 12KHz deviation (by @xMasterX)
   - UL: KingGates Stylo 4k Add manually and button switch support and refactoring of encoder (by @xMasterX)
@@ -32,14 +33,16 @@
   - UL: Alutech AT-4N & Nice Flor S turbo speedup (by @Dmitry422)
   - UL: Sommer fm2 in Add manually now uses FM12K modulation (Sommer without fm2 tag uses FM476) (try this if regular option doesn't work for you) (by @xMasterX)
   - UL: Replaced Cars ignore option with Revers RB2 protocol ignore option (by @xMasterX)
+  - UL: Improve docs on low level code (by @Dmitry422)
 - Archive: Support opening and pinning ProtoPirate files from Archive (#510 by @LeeroysHub)
 
 ### Fixed:
 - Sub-GHz:
   - UL: Fixed button mapping for FAAC RC/XT (by @xMasterX)
   - UL: Possible Sommer timings fix (by @xMasterX)
-  - UL: Various fixes (by @xMasterX)
+  - UL: Various fixes and cleanup (by @xMasterX)
   - UL: Nice Flor S remove extra uint64 variable (by @xMasterX)
+  - UL: Fix Alutech AT4N false positives (by @xMasterX)
 - NFC:
   - Fix sending 32+ byte ISO 15693-3 commands (by @WillyJL)
   - Fixes to `READ_MULTI` and `GET_BLOCK_SECURITY` commands in ISO 15693-3 emulation (#501 by @WillyJL & aaronjamt)
@@ -50,3 +53,4 @@
 - Sub-GHz:
   - Removed Starline, ScherKhan and Kia protocols from main Sub-GHz app, they can be decoded with `Apps > Sub-GHz > ProtoPirate` external app
   - Disabled X10 and Hormann Bisecur protocols due to flash space constraints and very limited usefulness, Momentum now has same protocol list as Unleashed
+- Desktop: Removed winter holidays anims
