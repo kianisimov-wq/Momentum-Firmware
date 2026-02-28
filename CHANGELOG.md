@@ -9,8 +9,9 @@
   - UL: Treadmill37 protocol support (37bit static) (by @xMasterX)
   - UL: New modulation FSK with 12KHz deviation (by @xMasterX)
   - UL: KingGates Stylo 4k Add manually and button switch support and refactoring of encoder (by @xMasterX)
-  - UL: Stilmatic button 9 support (two buttons hold simulation) (mapped on arrow keys) (by @xMasterX)
+  - UL: Stilmatic (R-Tech) 12bit discr. fix & button 9 support (two buttons hold simulation) (mapped on arrow keys) (by @xMasterX)
   - UL: Sommer last button code 0x6 support (mapped on arrow keys) (by @xMasterX)
+  - UL: V2 Phoenix (Phox) added 2 counter modes support (docs updated) (by @xMasterX)
   - UL: Add 390MHz and 430.5MHz to default hopper list (6 elements like in OFW) (works well with Hopper RSSI level set for your enviroment) (by @xMasterX)
 - UL: Docs: Add [full list of supported SubGHz protocols](https://github.com/Next-Flip/Momentum-Firmware/blob/dev/documentation/SubGHzSupportedSystems.md) and their frequencies/modulations that can be used for reading remotes (by @xMasterX)
 
@@ -34,6 +35,9 @@
   - UL: Sommer fm2 in Add manually now uses FM12K modulation (Sommer without fm2 tag uses FM476) (try this if regular option doesn't work for you) (by @xMasterX)
   - UL: Replaced Cars ignore option with Revers RB2 protocol ignore option (by @xMasterX)
   - UL: Improve docs on low level code (by @Dmitry422)
+  - UL: KeeLoq display decrypted `Hop` instead of showing encrypted as is (encrypted non byte reversed hop is still displayed in `Key` field) (by @xMasterX)
+  - UL: BFT KeeLoq try decoding with zero seed too (by @xMasterX)
+  - UL: KeeLoq display BFT programming mode TX (when arrow button is held) (by @xMasterX)
 - Archive: Support opening and pinning ProtoPirate files from Archive (#510 by @LeeroysHub)
 
 ### Fixed:
