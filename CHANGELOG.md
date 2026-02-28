@@ -13,6 +13,9 @@
   - UL: Sommer last button code 0x6 support (mapped on arrow keys) (by @xMasterX)
   - UL: V2 Phoenix (Phox) added 2 counter modes support (docs updated) (by @xMasterX)
   - UL: Add 390MHz and 430.5MHz to default hopper list (6 elements like in OFW) (works well with Hopper RSSI level set for your enviroment) (by @xMasterX)
+  - UL: Add signals button editor and real remote simulation (full signal transmit with just one click) (by @Dmitry422)
+  - UL: KeeLoq add counter mode 7 (sends 7 signals increasing counter with 0x3333 steps) - may bypass counter on some receivers! (by @xMasterX)
+- UL: JS: Add IR capabilities to the JS engine (by @LuisMayo)
 - UL: Docs: Add [full list of supported SubGHz protocols](https://github.com/Next-Flip/Momentum-Firmware/blob/dev/documentation/SubGHzSupportedSystems.md) and their frequencies/modulations that can be used for reading remotes (by @xMasterX)
 
 ### Updated:
@@ -47,6 +50,7 @@
   - UL: Various fixes and cleanup (by @xMasterX)
   - UL: Nice Flor S remove extra uint64 variable (by @xMasterX)
   - UL: Fix Alutech AT4N false positives (by @xMasterX)
+  - UL: Fix documentation link for HT12A protocol (by @carlogrisetti)
 - NFC:
   - Fix sending 32+ byte ISO 15693-3 commands (by @WillyJL)
   - Fixes to `READ_MULTI` and `GET_BLOCK_SECURITY` commands in ISO 15693-3 emulation (#501 by @WillyJL & aaronjamt)

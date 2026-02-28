@@ -129,6 +129,12 @@ CounterMode: 1
 **Mode 6:**
 - Counter freeze - do not increment
 
+**Mode 7:**
+- Incremental mode: `+0x3333` 5 times to current counter and return original value back adding +1 - 2 times - 7 signals in pack total
+- Might work with Doorhan, seen in some "universal remotes"
+- One click of Send button on flipper may bypass receiver counter, wait for full transmission
+
+
 ---
 
 ### 5. V2 Phoenix (Phox)
