@@ -1,5 +1,6 @@
 ## Main changes
 - Current API: 87.6
+* SubGHz: Add **Ditec GOL4** protocol (with programming mode, button switch, add manually) (by @xMasterX (MMX) & @zero-mega)
 * SubGHz: **BFT Mitto fix decode bug** (seed was not resetting after one successful decode)
 * SubGHz: **Somfy Keytis** button switch and **Add Manually support**
 * SubGHz: **KeeLoq** change delta size
