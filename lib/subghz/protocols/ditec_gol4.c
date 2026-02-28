@@ -88,6 +88,14 @@ static uint8_t gol4_bit_reverse(uint8_t b) {
     return result;
 }
 
+static uint8_t gol4_bit_parity(uint8_t b) {
+    uint8_t p = 0;
+    for(uint8_t i = 0; i < 8; i++) {
+        if((b >> i) & 1u) p ^= 1u;
+    }
+    return p;
+}
+
 static uint8_t gol4_lcg_step(uint8_t seed, uint8_t steps) {
     uint8_t x = seed & 0xFF;
     steps &= 0xFF;
@@ -178,6 +186,9 @@ static void gol4_encode_bitrev_and_rotate(uint8_t* raw) {
     raw[5] = gol4_bit_reverse(raw[5]);
     raw[6] = gol4_bit_reverse(raw[6]);
 
+    uint8_t p5 = gol4_bit_parity(raw[5]);
+    uint8_t p6 = gol4_bit_parity(raw[6]);
+
     uint8_t carry = 0;
     for(uint8_t r = 0; r < 3; r++) {
         for(int8_t i = 6; i >= 2; i--) {
@@ -186,6 +197,8 @@ static void gol4_encode_bitrev_and_rotate(uint8_t* raw) {
             carry = new_carry;
         }
     }
+
+    raw[6] = (p5 == p6) ? (uint8_t)(raw[6] & 0xFBu) : (uint8_t)(raw[6] | 0x04u);
 }
 
 static bool gol4_rolling_encode(uint8_t* raw) {
