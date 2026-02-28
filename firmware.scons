@@ -67,7 +67,7 @@ env = ENV.Clone(
         },
         "flipper_application": {
             "CCFLAGS": [
-                "-Og",
+                "-Os",
             ],
             "CPPDEFINES": [
                 "NDEBUG",
