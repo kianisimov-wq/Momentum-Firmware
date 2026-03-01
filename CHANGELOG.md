@@ -6,6 +6,7 @@
 * SubGHz: **KeeLoq** change delta size
 * SubGHz: **Genius Echo/Bravo** add 2 buttons hold simulation (0xB btn code)
 * SubGHz: Signal **Settings Improvements** (PR #968 | by @Dmitry422)
+* SubGHz: KeeLoq **fix display** of **AN-Motors** and **HCS101** keys
 * OFW PR 4338: HID: Fix USB HID keyboard LED state reporting (by @Caballosanex)
 * Apps: Build tag (**22feb2026**) - **Check out more Apps updates and fixes by following** [this link](https://github.com/xMasterX/all-the-plugins/commits/dev)
 ## Other changes
