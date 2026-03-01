@@ -6,6 +6,7 @@
     - UL-C Relay (by @noproto)
     - ULCFkey (by @noproto)
   - Sub-GHz: ProtoPirate (by @RocketGod-git & @xMasterX & @zero-mega et al.)
+  - Tools: Flipper Wedge (by @dangerous-tac0s)
 - Sub-GHz:
   - UL: Cardin S449 protocol full support (64bit keeloq) (with Add manually, and all button codes) (use FSK12K modulation to read the remote) (by @xMasterX & @zero-mega)
   - UL: Beninca ARC AES128 protocol full support (128bit dynamic) (with Add manually, and 2 button codes) (by @xMasterX & @zero-mega)
