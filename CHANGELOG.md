@@ -69,6 +69,7 @@
   - UL: Fix Alutech AT4N false positives (by @xMasterX)
   - UL: Fix documentation link for HT12A protocol (by @carlogrisetti)
   - UL: BFT Mitto fix decode bug (seed was not resetting after one successful decode) (by @xMasterX)
+  - UL: KeeLoq fix display of AN-Motors and HCS101 keys (by @xMasterX)
 - NFC:
   - Fix sending 32+ byte ISO 15693-3 commands (by @WillyJL)
   - Fixes to `READ_MULTI` and `GET_BLOCK_SECURITY` commands in ISO 15693-3 emulation (#501 by @WillyJL & aaronjamt)
