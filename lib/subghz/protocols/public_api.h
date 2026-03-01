@@ -284,6 +284,14 @@ bool subghz_protocol_secplus_v1_check_fixed(uint32_t fixed);
 // TODO: Remake in proper way
 void faac_slh_reset_prog_mode(void);
 
+/**
+ * Calculate CRC8 for Marantec protocol.
+ * @param data Pointer to the data buffer
+ * @param len Length of the data buffer
+ * @return CRC8 value
+ */
+uint8_t subghz_protocol_marantec_crc8(uint8_t* data, size_t len);
+
 #ifdef __cplusplus
 }
 #endif
