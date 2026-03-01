@@ -20,6 +20,7 @@
   - UL: Somfy Keytis button switch and Add Manually support (by @xMasterX)
   - UL: Genius Echo/Bravo add 2 buttons hold simulation (0xB btn code) (by @xMasterX)
 - UL: JS: Add IR capabilities to the JS engine (by @LuisMayo)
+- FBT: Allow apps to specify custom cflags (by @WillyJL)
 - UL: Docs: Add [full list of supported SubGHz protocols](https://github.com/Next-Flip/Momentum-Firmware/blob/dev/documentation/SubGHzSupportedSystems.md) and their frequencies/modulations that can be used for reading remotes (by @xMasterX)
 
 ### Updated:
