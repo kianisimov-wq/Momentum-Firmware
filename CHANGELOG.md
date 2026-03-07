@@ -8,11 +8,13 @@
 * SubGHz: **Genius Echo/Bravo** add 2 buttons hold simulation (0xB btn code)
 * SubGHz: Signal **Settings Improvements** (PR #968 | by @Dmitry422)
 * SubGHz: KeeLoq **fix display** of **AN-Motors** and **HCS101** keys
-* OFW PR 4338: HID: Fix USB HID keyboard LED state reporting (by @Caballosanex)
+* OFW PR 4343: LFRFID: add Indala 224-bit (long format) protocol support (by @kuzaxak)
+* OFW PR 4297: LFRFID: Make FDX-B readout more descriptive (by @snowsign)
+* MFKey: Update to v4.1 (by @noproto & @dchristle)
 * Apps: Build tag (**22feb2026**) - **Check out more Apps updates and fixes by following** [this link](https://github.com/xMasterX/all-the-plugins/commits/dev)
 ## Other changes
 * OFW PR 4320: API: Make view_port_send_to_back public (by @loftyinclination)
-* MFKey: Update to v4.1 (by @noproto & @dchristle)
+* OFW PR 4338: HID: Fix USB HID keyboard LED state reporting (by @Caballosanex)
 <br><br>
 #### Known NFC post-refactor regressions list: 
 - Mifare Mini clones reading is broken (original mini working fine) (OFW)
