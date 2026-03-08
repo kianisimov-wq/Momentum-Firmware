@@ -2,6 +2,7 @@
 - Current API: 87.6
 * SubGHz: Add **Ditec GOL4** 54bit dynamic protocol (with programming mode, button switch, add manually) (by @xMasterX (MMX) & @zero-mega)
 * SubGHz: Add **KeyFinder** 24bit static protocol (thx @mishamyte for RAWs)
+* SubGHz: **Fix transmission bug on Read screen**
 * SubGHz: **BFT Mitto fix decode bug** (seed was not resetting after one successful decode)
 * SubGHz: **Somfy Keytis** button switch and **Add Manually support**
 * SubGHz: **KeeLoq** change delta size
