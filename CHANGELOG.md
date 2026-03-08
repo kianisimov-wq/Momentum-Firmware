@@ -1,6 +1,7 @@
 ### Added:
 - Apps:
   - Games: Checkers (by @H4W9)
+  - GPIO: CAN Commander (by @MatthewKuKanich)
   - NFC:
     - ISO 15693-3 NFC Writer (by @ch4istO)
     - UL-C Bruteforce (by @noproto)
