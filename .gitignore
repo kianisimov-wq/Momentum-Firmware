@@ -72,3 +72,12 @@ node_modules/
 # cli_perf script output in case of errors
 /block.bin
 /return_block.bin
+
+# macOS metadata
+.DS_Store
+.Spotlight-V100/
+.fseventsd/
+._*
+
+# Flipper device runtime/internal state
+.int/
