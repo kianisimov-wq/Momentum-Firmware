@@ -1,0 +1,9 @@
+Filetype: Flipper SubGhz Key File
+Version: 1
+Frequency: 433920000
+Preset: FuriHalSubGhzPresetOok650Async
+Lat: 0.000000
+Lon: 0.000000
+Protocol: KeyFinder
+Bit: 24
+Key: 00 00 00 00 00 C3 96 FC

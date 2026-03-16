@@ -1,0 +1,8 @@
+Filetype: Flipper Application Installation Manifest
+Version: 1
+Full Name: Simultaneous UHF RFID Reader
+Icon: iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVElEQVR4nH2QQRLAIAgDSf//5+3BVkN09MIISyZEQPmT1BqAqqqU4GkJkICm8iskrDFbQ1fx3nMCAKXXCU7T7svh7xhuFViKrpIHtXgS2P6e4y2mFwYnXecUyDcSAAAAAElFTkSuQmCC
+Version Build API: 87.1
+UID: 6658aa5a1411b82c271c66cb
+Version UID: 681858c21860a0be4b01d1c7
+Path: /ext/apps/GPIO/simultaneous_rfid_reader.fap

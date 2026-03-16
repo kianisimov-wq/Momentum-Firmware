@@ -1,0 +1,4 @@
+#portscan -a -t
+> #stopscan
+Stopping WiFi tran/recv
+> 

@@ -1,0 +1,3 @@
+Filetype: Flipper SubRem Map file
+Version: 1
+UP: /ext/subghz/SubGHz_yappy-breeky.sub

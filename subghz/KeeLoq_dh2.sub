@@ -1,0 +1,11 @@
+Filetype: Flipper SubGhz Key File
+Version: 1
+Frequency: 433920000
+Preset: FuriHalSubGhzPresetOok650Async
+Lat: 0.000000
+Lon: 0.000000
+Protocol: KeeLoq
+Bit: 64
+Key: 14 CE 93 58 61 43 40 04
+Manufacture: DoorHan
+CounterMode: 1

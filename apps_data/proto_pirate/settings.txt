@@ -1,0 +1,7 @@
+Filetype: ProtoPirate Settings
+Version: 1
+Frequency: 433889000
+PresetIndex: 1
+AutoSave: 1
+TXPower: 0
+Hopping: 0
