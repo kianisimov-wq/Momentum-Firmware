@@ -2,9 +2,10 @@ Filetype: Flipper SubGhz Key File
 Version: 1
 Frequency: 433920000
 Preset: FuriHalSubGhzPresetOok650Async
-Lat: nan
-Lon: nan
-Protocol: KeeLoq
-Bit: 64
-Key: 41 E5 62 99 D5 C6 01 04
-Manufacture: NICE_Smilo
+Lat: 0.000000
+Lon: 0.000000
+Protocol: BinRAW
+Bit: 14
+TE: 50
+Bit_RAW: 14
+Data_RAW: 00 00
