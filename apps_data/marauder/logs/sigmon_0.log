@@ -1,0 +1,6 @@
+#sigmon
+Starting Signal Strength Scan. Stop with stopscan
+Successfully set AP MAC: 78:1C:3C:B9:6D:A1
+> #stopscan
+Stopping WiFi tran/recv
+> 

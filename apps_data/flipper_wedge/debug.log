@@ -1,0 +1,131 @@
+
+=== DEBUG SESSION START ===
+[08:13.122] App: === APP STARTING ===
+[08:13.141] App: Starting HID worker in USB mode
+[08:13.148] FlipperWedgeHidWorker: Starting worker thread (mode=0)
+[08:13.155] FlipperWedgeHidWorker: Worker thread starting HID init (mode=0)
+[08:13.161] FlipperWedgeHid: Init USB HID
+[08:13.676] FlipperWedgeHidWorker: Worker thread HID init complete, entering wait loop
+[08:22.726] FlipperWedge: Tick callback executing deferred mode switch
+[08:22.748] FlipperWedge: === OUTPUT MODE SWITCH: 1 -> 1 ===
+[08:22.759] FlipperWedge: Step 1: Stopping NFC/RFID workers
+[08:22.765] FlipperWedge: Step 2: Stopping HID worker (old mode=BLE)
+[08:22.771] FlipperWedgeHidWorker: Signaling worker thread to stop
+[08:22.780] FlipperWedgeHidWorker: Worker thread stopping, deiniting HID
+[08:22.787] FlipperWedgeHid: Deinit USB HID
+[08:23.297] FlipperWedgeHidWorker: Worker thread HID deinit complete, exiting
+[08:23.305] FlipperWedgeHidWorker: Worker thread stopped and cleaned up
+[08:23.311] FlipperWedge: HID worker stopped
+[08:23.318] FlipperWedge: Step 3: Waiting 300ms before starting new mode
+[08:23.624] FlipperWedge: Step 4: Switching mode
+[08:23.629] FlipperWedge: Step 5: Starting HID worker (new mode=BLE)
+[08:23.636] FlipperWedgeHidWorker: Starting worker thread (mode=1)
+[08:23.643] FlipperWedgeHidWorker: Worker thread starting HID init (mode=1)
+[08:23.650] FlipperWedgeHid: Init BLE HID - opening BT record
+[08:23.655] FlipperWedgeHid: BT record opened
+[08:23.661] FlipperWedgeHid: Disconnecting BT...
+[08:23.668] FlipperWedgeHid: BT disconnected, waiting 200ms for NVM sync
+[08:23.744] FlipperWedge: HID worker started
+[08:23.749] FlipperWedge: Step 6: Restarting NFC/RFID workers (NFC=0, RFID=0)
+[08:23.755] FlipperWedge: Step 7: Saving settings
+[08:23.811] FlipperWedge: === OUTPUT MODE SWITCH COMPLETE ===
+[08:23.820] FlipperWedge: Deferred mode switch complete
+[08:23.876] FlipperWedgeHid: NVM sync complete
+[08:23.900] FlipperWedgeHid: Setting up BT key storage
+[08:23.909] FlipperWedgeHid: BT key storage configured
+[08:23.925] FlipperWedgeHid: Starting BLE HID profile...
+[08:23.960] FlipperWedge: Tick callback executing deferred mode switch
+[08:23.995] FlipperWedge: === OUTPUT MODE SWITCH: 0 -> 0 ===
+[08:24.006] FlipperWedge: Step 1: Stopping NFC/RFID workers
+[08:24.011] FlipperWedge: Step 2: Stopping HID worker (old mode=USB)
+[08:24.023] FlipperWedgeHidWorker: Signaling worker thread to stop
+[08:24.183] FlipperWedgeHid: bt_profile_start returned: 20003BB8
+[08:24.188] FlipperWedgeHid: Starting BT advertising
+[08:24.195] FlipperWedgeHid: Registering BT status callback
+[08:24.213] FlipperWedgeHid: BLE HID init complete!
+[08:24.226] FlipperWedgeHidWorker: Worker thread HID init complete, entering wait loop
+[08:24.237] FlipperWedgeHidWorker: Worker thread stopping, deiniting HID
+[08:24.243] FlipperWedgeHid: Deinit BLE HID
+[08:24.847] FlipperWedgeHidWorker: Worker thread HID deinit complete, exiting
+[08:24.868] FlipperWedgeHidWorker: Worker thread stopped and cleaned up
+[08:24.874] FlipperWedge: HID worker stopped
+[08:24.879] FlipperWedge: Step 3: Waiting 300ms before starting new mode
+[08:25.187] FlipperWedge: Step 4: Switching mode
+[08:25.192] FlipperWedge: Step 5: Starting HID worker (new mode=USB)
+[08:25.199] FlipperWedgeHidWorker: Starting worker thread (mode=0)
+[08:25.206] FlipperWedgeHidWorker: Worker thread starting HID init (mode=0)
+[08:25.216] FlipperWedgeHid: Init USB HID
+[08:25.307] FlipperWedge: HID worker started
+[08:25.312] FlipperWedge: Step 6: Restarting NFC/RFID workers (NFC=0, RFID=0)
+[08:25.318] FlipperWedge: Step 7: Saving settings
+[08:25.386] FlipperWedge: === OUTPUT MODE SWITCH COMPLETE ===
+[08:25.392] FlipperWedge: Deferred mode switch complete
+[08:25.736] FlipperWedgeHidWorker: Worker thread HID init complete, entering wait loop
+[08:57.249] FlipperWedge: Tick callback executing deferred mode switch
+[08:57.263] FlipperWedge: === OUTPUT MODE SWITCH: 1 -> 1 ===
+[08:57.273] FlipperWedge: Step 1: Stopping NFC/RFID workers
+[08:57.285] FlipperWedge: Step 2: Stopping HID worker (old mode=BLE)
+[08:57.291] FlipperWedgeHidWorker: Signaling worker thread to stop
+[08:57.302] FlipperWedgeHidWorker: Worker thread stopping, deiniting HID
+[08:57.309] FlipperWedgeHid: Deinit USB HID
+[08:57.822] FlipperWedgeHidWorker: Worker thread HID deinit complete, exiting
+[08:57.831] FlipperWedgeHidWorker: Worker thread stopped and cleaned up
+[08:57.836] FlipperWedge: HID worker stopped
+[08:57.842] FlipperWedge: Step 3: Waiting 300ms before starting new mode
+[08:58.148] FlipperWedge: Step 4: Switching mode
+[08:58.153] FlipperWedge: Step 5: Starting HID worker (new mode=BLE)
+[08:58.162] FlipperWedgeHidWorker: Starting worker thread (mode=1)
+[08:58.169] FlipperWedgeHidWorker: Worker thread starting HID init (mode=1)
+[08:58.176] FlipperWedgeHid: Init BLE HID - opening BT record
+[08:58.181] FlipperWedgeHid: BT record opened
+[08:58.187] FlipperWedgeHid: Disconnecting BT...
+[08:58.198] FlipperWedgeHid: BT disconnected, waiting 200ms for NVM sync
+[08:58.269] FlipperWedge: HID worker started
+[08:58.274] FlipperWedge: Step 6: Restarting NFC/RFID workers (NFC=0, RFID=0)
+[08:58.281] FlipperWedge: Step 7: Saving settings
+[08:58.340] FlipperWedge: === OUTPUT MODE SWITCH COMPLETE ===
+[08:58.350] FlipperWedge: Deferred mode switch complete
+[08:58.418] FlipperWedgeHid: NVM sync complete
+[08:58.430] FlipperWedgeHid: Setting up BT key storage
+[08:58.441] FlipperWedgeHid: BT key storage configured
+[08:58.448] FlipperWedgeHid: Starting BLE HID profile...
+[08:58.646] FlipperWedgeHid: bt_profile_start returned: 20003C10
+[08:58.652] FlipperWedgeHid: Starting BT advertising
+[08:58.660] FlipperWedgeHid: Registering BT status callback
+[08:58.676] FlipperWedgeHid: BLE HID init complete!
+[08:58.693] FlipperWedgeHidWorker: Worker thread HID init complete, entering wait loop
+[09:28.665] FlipperWedgeHidWorker: Signaling worker thread to stop
+[09:28.674] FlipperWedgeHidWorker: Worker thread stopping, deiniting HID
+[09:28.681] FlipperWedgeHid: Deinit BLE HID
+[09:29.298] FlipperWedgeHidWorker: Worker thread HID deinit complete, exiting
+[09:29.318] FlipperWedgeHidWorker: Worker thread stopped and cleaned up
+[09:29.346] App: === APP EXITING ===
+=== DEBUG SESSION END ===
+
+
+=== DEBUG SESSION START ===
+[03:27.327] App: === APP STARTING ===
+[03:27.368] App: Starting HID worker in BLE mode
+[03:27.376] FlipperWedgeHidWorker: Starting worker thread (mode=1)
+[03:27.383] FlipperWedgeHidWorker: Worker thread starting HID init (mode=1)
+[03:27.394] FlipperWedgeHid: Init BLE HID - opening BT record
+[03:27.402] FlipperWedgeHid: BT record opened
+[03:27.407] FlipperWedgeHid: Disconnecting BT...
+[03:27.423] FlipperWedgeHid: BT disconnected, waiting 200ms for NVM sync
+[03:27.639] FlipperWedgeHid: NVM sync complete
+[03:27.645] FlipperWedgeHid: Setting up BT key storage
+[03:27.656] FlipperWedgeHid: BT key storage configured
+[03:27.663] FlipperWedgeHid: Starting BLE HID profile...
+[03:27.864] FlipperWedgeHid: bt_profile_start returned: 20009D60
+[03:27.877] FlipperWedgeHid: Starting BT advertising
+[03:27.886] FlipperWedgeHid: Registering BT status callback
+[03:27.906] FlipperWedgeHid: BLE HID init complete!
+[03:27.914] FlipperWedgeHidWorker: Worker thread HID init complete, entering wait loop
+[03:33.681] FlipperWedgeHidWorker: Signaling worker thread to stop
+[03:33.688] FlipperWedgeHidWorker: Worker thread stopping, deiniting HID
+[03:33.694] FlipperWedgeHid: Deinit BLE HID
+[03:34.274] FlipperWedgeHidWorker: Worker thread HID deinit complete, exiting
+[03:34.283] FlipperWedgeHidWorker: Worker thread stopped and cleaned up
+[03:34.309] App: === APP EXITING ===
+=== DEBUG SESSION END ===
+

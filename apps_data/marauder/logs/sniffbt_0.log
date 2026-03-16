@@ -1,0 +1,5 @@
+#sniffbt -t flipper -serial
+Starting Flipper sniff. Stop with stopscan
+> #stopscan
+Stopping WiFi tran/recv
+> 

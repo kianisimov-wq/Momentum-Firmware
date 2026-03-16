@@ -1,0 +1,197 @@
+#scanall
+Scanning for APs and Stations. Stop with stopscan
+Clearing APs...0
+Successfully set AP MAC: 78:1C:3C:B9:6D:A1
+> RSSI: -31 Ch: 2 BSSID: ca:2c:4f:a2:18:96 ESSID: HiSmart-01-ca2c4fa21896 
+Beacon: 21 00 1 128856
+RSSI: -55 Ch: 2 BSSID: 10:7b:ef:60:5b:20 ESSID: Keenetic-1658 
+Beacon: 11 0C 2 128776
+RSSI: -75 Ch: 2 BSSID: d4:01:45:e9:4a:e6 ESSID: Beeline_2G_F41136 
+Beacon: 31 14 3 128396
+RSSI: -88 Ch: 2 BSSID: 38:d8:2f:f3:08:ee ESSID: MGTS_GPON_691E 
+Beacon: 11 14 4 128516
+RSSI: -58 Ch: 3 BSSID: 60:32:b1:61:f3:eb ESSID: TP-Link_F3EB 
+Beacon: 11 1C 5 128244
+RSSI: -87 Ch: 3 BSSID: 70:4f:57:18:78:70 ESSID: Ivlin 
+Beacon: 31 04 6 128236
+TP-Link_F3EB: RXd WPS Configs
+RSSI: -30 Ch: 6 BSSID: 0c:ef:15:03:94:db ESSID: Apple AirPods 
+Beacon: 31 14 7 127968
+RSSI: -30 Ch: 6 BSSID: 4e:ef:15:03:94:db ESSID: TP-Link_IoT_94DC 
+Beacon: 31 04 8 127772
+RSSI: -30 Ch: 6 BSSID: 2e:ef:15:03:94:db ESSID:  2e:ef:15:03:94:db 
+Beacon: 31 14 9 127428
+1: ap: 4e:ef:15:03:94:db -> sta: c8:02:8f:bc:ec:d8
+RSSI: -68 Ch: 8 BSSID: e0:19:54:13:ec:51 ESSID: 3xnetwork2g 
+Beacon: 11 04 10 127572
+RSSI: -80 Ch: 9 BSSID: 24:a6:5e:ab:0d:6c ESSID: network 
+Beacon: 31 1C 11 127492
+3xnetwork2g: RXd WPS Configs
+RSSI: -58 Ch: 10 BSSID: 04:71:53:48:1c:c6 ESSID: Beeline_2G_F72653 
+Beacon: 31 14 12 127148
+RSSI: -58 Ch: 10 BSSID: 06:71:53:68:1c:c6 ESSID:  06:71:53:68:1c:c6 
+Beacon: 31 14 13 127000
+RSSI: -79 Ch: 11 BSSID: c2:c9:e3:0a:68:08 ESSID:  c2:c9:e3:0a:68:08 
+Beacon: 31 04 14 126924
+RSSI: -87 Ch: 11 BSSID: a4:08:f5:c8:84:46 ESSID: AKADO-8440 
+Beacon: 11 14 15 126848
+2: ap: 04:71:53:48:1c:c6 -> sta: 01:00:5e:00:00:01
+RSSI: -78 Ch: 11 BSSID: c2:c9:e3:0a:65:90 ESSID:  c2:c9:e3:0a:65:90 
+Beacon: 31 04 16 126576
+RSSI: -86 Ch: 11 BSSID: 38:6b:1c:a0:5c:fa ESSID: RedApple 
+Beacon: 11 04 17 126496
+RSSI: -89 Ch: 11 BSSID: b4:e5:4c:56:f8:4b ESSID: RT-WiFi-F84A 
+Beacon: 11 14 18 126300
+RSSI: -88 Ch: 1 BSSID: 40:3d:ec:33:e3:fe ESSID: AKADO-E3F9 
+Beacon: 11 14 19 126260
+RSSI: -57 Ch: 1 BSSID: c8:5a:9f:a1:67:24 ESSID: MGTS_GPON_A17A 
+Beacon: 11 1C 20 126140
+3: ap: c8:5a:9f:a1:67:24 -> sta: 3a:16:c2:da:b2:b7
+RSSI: -87 Ch: 1 BSSID: f0:b4:d2:90:f8:53 ESSID: INTERDENT 
+Beacon: 11 04 21 125972
+4: sta: a2:e2:9a:f0:4a:c2 -> ap: 10:7b:ef:60:5b:20
+Keenetic-1658: RXd WPS Configs
+Ivlin: RXd WPS Configs
+RSSI: -87 Ch: 6 BSSID: 92:31:4b:37:67:b9 ESSID: DIRECT-Mi-Pantum P2500 Series 
+Beacon: 11 04 22 125636
+5: sta: a8:16:9d:03:fe:14 -> ap: 0c:ef:15:03:94:db
+RSSI: -69 Ch: 7 BSSID: 1c:ca:41:71:7d:cf ESSID: Beeline_2G_FF8225 
+Beacon: 31 04 23 125344
+RSSI: -86 Ch: 9 BSSID: bc:e0:01:6c:6a:83 ESSID: Linkline23 
+Beacon: 11 04 24 125416
+RSSI: -83 Ch: 1 BSSID: e0:60:66:33:03:e8 ESSID: Beeline_2G_F34814 
+Beacon: 11 04 25 125116
+RSSI: -89 Ch: 1 BSSID: bc:e0:01:13:99:60 ESSID: Linkline19 
+Beacon: 11 04 26 125164
+MGTS_GPON_A17A: RXd WPS Configs
+RSSI: -87 Ch: 1 BSSID: a0:ab:1b:2f:e7:c0 ESSID: C-JamClub 
+Beacon: 11 04 27 125052
+RSSI: -89 Ch: 1 BSSID: 50:ff:20:b6:68:67 ESSID: Miro_EXT 
+Beacon: 11 1C 28 124860
+6: ap: 60:32:b1:61:f3:eb -> sta: 01:00:5e:00:00:fb
+7: ap: 60:32:b1:61:f3:eb -> sta: 33:33:00:00:00:16
+RSSI: -71 Ch: 5 BSSID: 50:78:b3:84:b4:a1 ESSID: RT-WiFi-B4A1 
+Beacon: 31 04 29 124564
+RSSI: -84 Ch: 7 BSSID: 52:ff:20:f8:cc:e5 ESSID:  52:ff:20:f8:cc:e5 
+Beacon: 11 04 30 124416
+RSSI: -91 Ch: 8 BSSID: 52:ff:20:f4:88:b9 ESSID:  52:ff:20:f4:88:b9 
+Beacon: 11 04 31 124252
+RSSI: -89 Ch: 8 BSSID: 72:84:6a:58:12:b8 ESSID: smartwifi 
+Beacon: 11 15 32 124164
+8: sta: 36:18:61:06:d6:72 -> ap: bc:e0:01:6c:6a:83
+RSSI: -91 Ch: 9 BSSID: 50:ff:20:83:00:a8 ESSID: MT-MACTEP2 
+Beacon: 11 04 33 124068
+9: ap: 50:ff:20:83:00:a8 -> sta: 01:80:c2:00:00:00
+RSSI: -90 Ch: 10 BSSID: 5c:a6:e6:6c:f3:92 ESSID: TP-Link_F392 
+Beacon: 11 1C 34 123724
+RSSI: -92 Ch: 1 BSSID: a0:a3:f0:6a:fa:be ESSID: DIR-825 
+Beacon: 11 04 35 123668
+RSSI: -91 Ch: 1 BSSID: 00:e0:20:32:00:87 ESSID: WiFi-Repeater 
+Beacon: 11 04 36 123572
+AKADO-E3F9: RXd WPS Configs
+RSSI: -87 Ch: 2 BSSID: 54:c2:50:ff:6e:39 ESSID: MTS_GPON_ff6e38 
+Beacon: 11 04 37 123340
+MTS_GPON_ff6e38: RXd WPS Configs
+RSSI: -91 Ch: 2 BSSID: a4:d4:b2:e0:ea:7a ESSID: Router-3900 
+Beacon: 11 04 38 123308
+10: sta: 1a:d1:77:f1:e9:5f -> ap: 50:78:b3:84:b4:a1
+11: ap: 4e:ef:15:03:94:db -> sta: 00:ae:f7:05:65:70
+RSSI: -79 Ch: 7 BSSID: e4:18:6b:45:95:80 ESSID: DooRs-M 
+Beacon: 11 0C 39 123032
+RSSI: -81 Ch: 7 BSSID: 52:ff:20:fa:32:d8 ESSID:  52:ff:20:fa:32:d8 
+Beacon: 11 04 40 122824
+RSSI: -92 Ch: 9 BSSID: 52:ff:20:fc:7b:e0 ESSID:  52:ff:20:fc:7b:e0 
+Beacon: 11 04 41 122660
+RSSI: -86 Ch: 10 BSSID: 5c:e9:31:b2:33:ec ESSID: TP-Link_33EC 
+Beacon: 11 04 42 122560
+RSSI: -91 Ch: 10 BSSID: cc:ba:bd:76:b8:f1 ESSID: TP-Link_B8F1 
+Beacon: 11 14 43 122368
+RSSI: -91 Ch: 10 BSSID: ce:ba:bd:26:b8:f1 ESSID:  ce:ba:bd:26:b8:f1 
+Beacon: 11 04 44 122192
+TP-Link_B8F1: RXd WPS Configs
+RSSI: -92 Ch: 11 BSSID: 76:da:88:0b:47:b8 ESSID:  76:da:88:0b:47:b8 
+Beacon: 31 04 45 122076
+RSSI: -90 Ch: 11 BSSID: c8:ea:f8:79:6e:ca ESSID: MTS8341FT_796ECA 
+Beacon: 11 04 46 121664
+Miro_EXT: RXd WPS Configs
+12: sta: 9a:5f:1b:ff:e3:13 -> ap: 40:3d:ec:33:e3:fe
+RSSI: -91 Ch: 2 BSSID: 74:da:88:13:9b:ea ESSID: Tel_88 
+Beacon: 31 04 47 121780
+RSSI: -88 Ch: 5 BSSID: da:da:21:5f:bb:ea ESSID:  da:da:21:5f:bb:ea 
+Beacon: 21 04 48 121520
+13: sta: 8a:4b:a9:29:30:9f -> ap: bc:e0:01:6c:6a:83
+14: sta: 62:6f:20:7f:34:b7 -> ap: 04:71:53:48:1c:c6
+RSSI: -93 Ch: 13 BSSID: 10:bf:48:3d:06:21 ESSID: Asus_Asus 
+Beacon: 11 0C 49 121440
+15: ap: 38:d8:2f:f3:08:ee -> sta: 01:00:5e:00:00:e0
+RSSI: -84 Ch: 5 BSSID: bc:e0:01:12:fb:20 ESSID: Linkline11 
+Beacon: 11 04 50 121284
+Apple AirPods: RXd WPS Configs
+RSSI: -91 Ch: 9 BSSID: 70:4d:7b:0e:2c:08 ESSID: ASUS 
+Beacon: 11 04 51 121108
+RSSI: -92 Ch: 9 BSSID: 50:ff:20:5e:2d:60 ESSID:  50:ff:20:5e:2d:60 
+Beacon: 11 1C 52 120844
+TP-Link_F392: RXd WPS Configs
+RSSI: -92 Ch: 12 BSSID: 10:7b:ef:59:58:ec ESSID: Keenetic-6084 
+Beacon: 11 0C 53 120824
+16: sta: 8e:be:c4:7e:06:50 -> ap: a0:a3:f0:6a:fa:be
+network: RXd WPS Configs
+17: sta: 42:e7:4a:01:1c:62 -> ap: 40:3d:ec:33:e3:fe
+18: ap: 10:7b:ef:60:5b:20 -> sta: 01:00:5e:7f:ff:fa
+19: sta: e0:62:67:35:d6:5b -> ap: d4:01:45:e9:4a:e6
+20: sta: 7e:59:f1:42:db:e3 -> ap: 10:7b:ef:60:5b:20
+21: sta: 2c:d8:de:d5:f0:72 -> ap: 38:d8:2f:f3:08:ee
+22: ap: 4e:ef:15:03:94:db -> sta: 33:33:00:00:00:fb
+RSSI: -91 Ch: 9 BSSID: 50:ff:20:8c:7b:e0 ESSID: Keenetic 
+Beacon: 11 14 54 120280
+23: ap: 38:6b:1c:a0:5c:fa -> sta: 42:4a:60:55:44:57
+24: sta: 9c:28:40:70:fc:cd -> ap: 38:6b:1c:a0:5c:fa
+25: sta: 06:03:87:38:ad:a2 -> ap: a0:a3:f0:6a:fa:be
+26: ap: 4e:ef:15:03:94:db -> sta: 33:33:00:00:00:0c
+27: ap: 10:bf:48:3d:06:21 -> sta: 2a:1d:88:95:d3:27
+RSSI: -89 Ch: 11 BSSID: ce:32:e5:e0:a3:7e ESSID:  ce:32:e5:e0:a3:7e 
+Beacon: 31 04 55 119780
+RSSI: -89 Ch: 8 BSSID: 98:00:6a:7d:1b:50 ESSID: MGTS_GPON_7B08 
+Beacon: 11 1C 56 119696
+28: sta: c2:49:c1:57:56:7b -> ap: 40:3d:ec:33:e3:fe
+29: ap: 10:7b:ef:59:58:ec -> sta: 01:00:5e:00:00:fc
+Beeline_2G_FF8225: RXd WPS Configs
+30: sta: b8:4d:43:2d:91:3a -> ap: 38:6b:1c:a0:5c:fa
+RSSI: -90 Ch: 10 BSSID: c8:bf:4c:d4:c5:34 ESSID: Xiaomi_9711 
+Beacon: 11 04 57 119300
+RSSI: -92 Ch: 1 BSSID: 74:4d:28:48:e2:b1 ESSID: MT_FREE 
+Beacon: 21 04 58 119308
+RSSI: -86 Ch: 5 BSSID: 1c:74:0d:7f:ce:78 ESSID: Keenetic-4708 
+Beacon: 11 0C 59 119188
+31: sta: 28:ff:3c:a9:25:fe -> ap: 1c:74:0d:7f:ce:78
+32: sta: ac:8c:46:2d:d1:a6 -> ap: e0:19:54:13:ec:51
+RSSI: -94 Ch: 2 BSSID: 70:9f:2d:b5:62:7a ESSID: MGTS_GPON_2637 
+Beacon: 11 14 60 118976
+RSSI: -90 Ch: 3 BSSID: b4:e5:4c:5c:40:fd ESSID: RT-WiFi-40FC 
+Beacon: 11 14 61 118780
+RSSI: -92 Ch: 3 BSSID: 64:6e:ea:dd:c9:b6 ESSID: Igor 
+Beacon: 11 0C 62 118728
+RSSI: -90 Ch: 7 BSSID: a0:8e:78:02:06:ce ESSID: AKADO-06C8 
+Beacon: 11 14 63 118592
+MGTS_GPON_2637: RXd WPS Configs
+WiFi-Repeater: RXd WPS Configs
+RSSI: -90 Ch: 6 BSSID: 92:86:ba:24:40:70 ESSID: Bob's 
+Beacon: 11 15 64 118460
+RSSI: -88 Ch: 9 BSSID: c0:9f:e1:ad:84:cc ESSID: MGTS_GPON_B5F6 
+Beacon: 11 1C 65 118300
+RSSI: -89 Ch: 1 BSSID: 04:5e:a4:d4:e3:73 ESSID: Linkline 123 
+Beacon: 11 04 66 118204
+RSSI: -89 Ch: 2 BSSID: 38:d8:2f:f2:4d:68 ESSID: MGTS_GPON_49DD 
+Beacon: 11 14 67 118116
+33: sta: ac:ba:c0:8b:f3:60 -> ap: 38:d8:2f:f3:08:ee
+TP-Link_33EC: RXd WPS Configs
+34: ap: 50:78:b3:84:b4:a1 -> sta: 33:33:ff:0b:33:ca
+RSSI: -89 Ch: 1 BSSID: 44:27:f3:ef:90:aa ESSID: 70mai_A200_90aa 
+Beacon: 11 04 68 117812
+RSSI: -90 Ch: 11 BSSID: 10:a3:b8:55:b2:c9 ESSID: RT-WiFi-B2C8 
+Beacon: 11 14 69 117692
+RSSI: -90 Ch: 11 BSSID: 78:81:02:3a:79:40 ESSID: Beeline_2G_F17765 
+Beacon: 11 04 70 117424
+#stopscan
+Stopping WiFi tran/recv
+> 
